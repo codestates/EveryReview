@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Client Automated Deployment를 test 중입니다. 
         </a>
       </header>
     </div>
