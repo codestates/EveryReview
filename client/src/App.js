@@ -17,6 +17,7 @@ function App() {
         >
           Learn React
         </a>
+        <div>로그아웃</div>
       </header>
     </div>
   );
