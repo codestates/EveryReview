@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
- 
+
 const app = express();
 app.use(express.json());
 const port = 80;
@@ -13,7 +13,7 @@ app.use(
   })
 );
 
-
+console.log("테스트 용도로 추가했습니다.")
 
 app.get('/', (req, res) => {
   res.status(201).send('Hello World');
