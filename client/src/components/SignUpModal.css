@@ -1,0 +1,23 @@
+.signupModalContainer {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 50px 20px;
+    width: 360px;
+    height: 600px;
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(34, 34, 34);
+}
+
+.imgBI {
+    margin: 0 0 50px 0;
+}
+input {
+    display: block;
+    width: 100%;
+}
+
+.btnSubmit {
+    width: 100%;
+}
