@@ -2,7 +2,7 @@ import './LoginModal.css';
 import { Link } from "react-router-dom";
 import { useState } from 'react';
 
-function LoginModal() {
+function LoginModal({  }) {
   // 상태관리
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -10,15 +10,24 @@ function LoginModal() {
 
   // 이벤트핸들러 함수
   const loginRequestHandler = () => {
+    
 
   }
   const socialLoginRequestHandler = () => {
 
   }
 
-
     return (
       <div className='loginModalContainer'>
+        {/* 로그인 모달창 close btn */}
+        <div className=''>
+          <button 
+            className='btnClose'
+          >
+            &times;
+          </button>
+        </div>
+
         {/* EveryReview BI 삽입 */}
         <div className='imgBI'>
           <img alt='EveryReview BI' />
