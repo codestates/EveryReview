@@ -1,0 +1,27 @@
+.postUpload {
+    display: flex;
+    flex: 1 1 150px;
+    background-color: blue;
+    width: 100%;;
+    padding: 10px;
+}
+
+.userProfile {
+    flex: 0 1 100px;
+    height: 100px;
+    background-color: beige;
+    border-radius: 50%;
+    overflow: hidden;
+}
+  
+.uploadInputWrap {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.uploadBtnWrap {
+    display: flex;
+    justify-content: space-between;
+}
