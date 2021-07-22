@@ -1,9 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
+const controllers = require('./controllers');
+const signup = require('./controllers/users/signup');
+
 const app = express();
+const port = 3000;
+
 app.use(express.json());
-const port = 80;
 
 app.use(
   cors({
@@ -12,12 +16,14 @@ app.use(
   })
 );
 
-console.log("테스트 용도로 추가했습니다.")
 // 각종 라우팅 설정하기
 
+// app.post('/signup', controllers.signup);
 app.get('/', (req, res) => {
-  res.status(201).send('Hello World');
+  res.send("hello world");
 });
+
+app.post('/signup', signup.post);
 
 
 app.listen(port, () => {
