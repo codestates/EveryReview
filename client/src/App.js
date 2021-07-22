@@ -8,7 +8,7 @@ import SideBar from './components/SideBar';
 import './App.css';
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false); 
+  const [isLogin, setIsLogin] = useState(true); 
   /* 
     test 용 state
     true >> main/home으로 리다이렉트
@@ -16,7 +16,7 @@ function App() {
   */
 
   return (
-    <div>
+    <div className="app">
       <Switch>
 
         <Route exact path='/'>
@@ -29,17 +29,19 @@ function App() {
 
         <Route path='/main'>
           <SideBar/>
-          <Route path='/main/home'>
-            <Home />
-          </Route>
+          <div className="main">
+            <Route path='/main/home'>
+              <Home />
+            </Route>
 
-          <Route path='/main/explore'>
-            <Explore />
-          </Route>
+            <Route path='/main/explore'>
+              <Explore />
+            </Route>
 
-          <Route path='/main/mypage'>
-            <MyPage />
-          </Route>
+            <Route path='/main/mypage'>
+              <MyPage />
+            </Route>
+          </div>
         </Route>
 
       </Switch>
