@@ -10,8 +10,8 @@ module.exports = {
 		};
 
 		// email, nickname 유효성 검사 (중복여부 확인)
-		const emailCheck = false;
-		const nicknameCheck = false;
+		let emailCheck = false;
+		let nicknameCheck = false;
 
 		db.query(`SELECT * FROM users WHERE email = ${email}`, function (error, results, fields) {
 			if (results) {
