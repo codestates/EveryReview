@@ -5,12 +5,12 @@ import dummyData from '../static/DummyData'; // test용 dummy data
 
 function Reviews() {
   return (
-    <div className="reviews">
-      <div className="sortBtnWrap">
+    <div id="reviews">
+      <div id="sortBtnWrap">
         <button>시간 순</button>
         <button>추천 순</button>
       </div>
-      <div className="review-wrap">
+      <div id="reviewWrap">
         {
           dummyData.map((el) => {
             return <Review 

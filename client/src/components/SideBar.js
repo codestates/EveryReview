@@ -3,24 +3,24 @@ import './SideBar.css';
 
 function SideBar() {
   return (
-    <section className="sideBar">
-      <div className="sideBarLogoWrap">
-        <div className="sideBarLogo">
+    <section id="sideBar">
+      <div id="sideBarLogoWrap">
+        <div id="sideBarLogo">
           <img src="#" alt="BI" />
         </div>
       </div>
-      <ul className="sideBarMenu">
-        <li className="sideBarMenu-li">
+      <ul id="sideBarMenu">
+        <li>
           <Link to='/main/home'>Home</Link>
         </li>
-        <li className="sideBarMenu-li">
+        <li>
           <Link to='/main/explore'>#Explore</Link>
         </li>
-        <li className="sideBarMenu-li">
+        <li>
           <Link to='/main/mypage'>My Page</Link>
         </li>
       </ul>
-      <div className="logoutBtnWrap">
+      <div id="logoutBtnWrap">
         <button>로그아웃</button>
       </div>
     </section>
