@@ -4,7 +4,7 @@ const config = require('../config/config');
 dotenv.config();
 
 const con = mysql.createConnection(
-  config[process.env.NODE_ENV || 'development']
+  config['development']
 );
 
 con.connect((err) => {

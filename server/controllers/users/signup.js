@@ -44,7 +44,7 @@ module.exports = {
 					message: "Username already existed!"
 				})
 			} else {
-				db.query(`INSERT INTO users (email, password, nickname, username) VALUES (?, ?, ?, ?)`, [email, password, username], (error, result) => {
+				db.query(`INSERT INTO users (email, password, username) VALUES (?, ?, ?)`, [email, password, username], (error, result) => {
 					if (error) {
 						res.status(500).json({ message: "sorry"})
 					} else {

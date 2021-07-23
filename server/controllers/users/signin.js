@@ -19,8 +19,16 @@ module.exports = {
       if (rows.length === 0) {
         res.status(401).json({ message: "Userinfo not found!" })
       } else {
-        const accessToken = generateAccessToken({ email : rows[0].email });
-        const refreshToken = generateRefreshToken({ email : rows[0].email });
+        const accessToken = generateAccessToken({ 
+          email : rows[0].email,
+          username : rows[0].username,
+          img : rows[0].img
+        });
+        const refreshToken = generateRefreshToken({ 
+          email : rows[0].email,
+          username : rows[0].username,
+          img : rows[0].img
+        });
   
         sendRefreshToken(res, refreshToken);
         sendAccessToken(res, accessToken);
