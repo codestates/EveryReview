@@ -1,30 +1,64 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom'
 import './SignUpModal.css';
+
+
 
 function SignUpModal() {
 
-  // 상태관리
-  const [userInfo, setUserInfo] = useState({
-    email: '',
-    password: '',
-    passwordCheck: '',
-    username: '',
-    nickname: ''
-  })
+  const history = useHistory();
+
+  //! 상태관리
+    // 사용자 정보 
+    const [ userInfo, setUserInfo ] = useState({
+      email: '',
+      password: '',
+      passwordCheck: '',
+      username: '',
+      nickname: ''
+    })
+    // 유효하지 않은 입력값에 대한 메세지
+    const [ message, setMessage ] = useState('')
 
   // 이벤트핸들러 함수
-  // input 박스 변경 함수
-  const inputHandler = (event) => {
-    setUserInfo({ ...userInfo, [event.target.name]: event.target.value });
-  }
-  // 회원가입 요청
-  const signupRequestHandler = () => {
+    // input 박스 변경 함수
+    const inputHandler = (event) => {
+      setUserInfo({ ...userInfo, [event.target.name]: event.target.value });
+    }
+    // 회원가입 요청
+    const signupRequestHandler = async (event) => {
+      if(
+        !userInfo.email ||
+        !userInfo.password ||
+        !userInfo.passwordCheck ||  
+        !userInfo.nickname
+      ) {
+        if(!userInfo.email) {
+          setMessage('이메일을 입력해주세요')
+        }
+        if(!userInfo.password) {
+          setMessage('비밀번호를 입력해주세요')
+        }
+        if(!userInfo.passwordCheck) {
+          setMessage('비밀번호를 다시 입력해주세요')
+        }
+        if(!userInfo.nickname) {
+          setMessage('사용자이름을 입력해주세요')
+        }
+        return
+      } else if (userInfo.password !== userInfo.passwordCheck) {
+        setMessage('비밀번호가 다릅니다. 비밀번호를 다시 확인해주세요')
+        return
+      }
 
-  }
-  // 소셜 회원가입 요청
-  const socialSignupRequestHandler = () => {
+      // 회원가입이 완료되면 메이페이지로 이동
+      // history.push('/main/home')
 
-  }
+    }
+    // 소셜 회원가입 요청
+    const socialSignupRequestHandler = () => {
+
+    }
 
 
   
@@ -82,7 +116,7 @@ function SignUpModal() {
           <input
             name='nickname'
             type='text'
-            placeholder='별명'
+            placeholder='사용자 이름'
             required
             onChange={inputHandler}
           />  
