@@ -18,8 +18,8 @@ function Review({postinfo}) {
         <div>
           <div className = "hashtag-wrap">
             {
-              postinfo.hashtag.map(el => {
-                return <div className = "hashtag">{el}</div>
+              postinfo.hashtag.map((el) => {
+                return <div key={el} className = "hashtag">{el}</div>
               })  
             }
           </div>

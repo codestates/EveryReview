@@ -1,0 +1,27 @@
+#bookSearchModal {
+    position: fixed;
+    top: 10%;
+    width: 500px;
+    height: 700px;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+#searchInput {
+    display: flex;
+    flex-direction: row;
+}
+
+#searchList {
+    display: flex;
+    flex-direction: column;
+}
+
+#searchList > li {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-top: 1px solid black;
+}

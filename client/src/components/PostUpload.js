@@ -3,7 +3,7 @@ import axios from 'axios';
 import './PostUpload.css';
 
 
-function PostUpload() {
+function PostUpload({ onModal, bookInfo }) {
   const [ hashtag, setHashtag ] = useState([]);
   const [ message, setMessage ] = useState('');
   const messagInputRef = useRef(null);
@@ -66,7 +66,12 @@ function PostUpload() {
           onChange={(event) => handleChangeMsg(event)}
         />
         <div id="uploadBtnWrap">
-          <button>책 검색</button>
+          <div>
+            선택된 도서 : {
+              bookInfo !== null ? bookInfo.title : "없음"
+            }
+          </div>
+          <button onClick={() => onModal(true)}>책 검색</button>
           <button onClick={posting}>등록</button>
         </div>
       </div>

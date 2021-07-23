@@ -1,4 +1,6 @@
+import { useState } from "react";
 import PostUpload from "../components/PostUpload";
+import BookSearchModal from "../components/BookSearchModal";
 import Reviews from "../components/Reviews";
 import './Home.css'
 /*
@@ -6,9 +8,15 @@ import './Home.css'
   2) 페이지 형식? 무한 스크롤 형식?
 */
 function Home() {
+  const [ onModal, setOnModal ] = useState(false);
+  const [ bookInfo, setBookinfo ] = useState(null);
+
   return (
     <div className="home">
-      <PostUpload />
+      <PostUpload onModal={setOnModal} bookInfo={bookInfo} />
+      {
+        onModal ? <BookSearchModal onModal={setOnModal} handleBookInfo={setBookinfo} /> : null
+      }
       <Reviews />
     </div>
   );
