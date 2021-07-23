@@ -2,7 +2,7 @@
 
 module.exports = {
   auth: require('./users/auth'),
-  signup: require('./users/signup'),
-  signin: require('./users/signin'),
+  signup: require('./users/signup').post,
+  signin: require('./users/signin').post,
   signout: require('./users/signout')
 };

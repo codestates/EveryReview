@@ -1,8 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-const controllers = require('./controllers');
-const signup = require('./controllers/users/signup');
+const { signup, signin, signout, auth } = require('./controllers');
 
 const app = express();
 const port = 3000;
@@ -23,7 +22,9 @@ app.get('/', (req, res) => {
   res.send("hello world");
 });
 
-app.post('/signup', signup.post);
+app.post('/signin', signin);
+app.post('/signup', signup);
+
 
 
 app.listen(port, () => {
