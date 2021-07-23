@@ -4,7 +4,7 @@ const { sign, verify } = require("jsonwebtoken");
 // token의 functions 구현
 module.exports = {
   generateAccessToken: (data) => {
-    return sign(data, process.env.ACCESS_SECRET, { expiresIn: "15s" });
+    return sign(data, process.env.ACCESS_SECRET, { expiresIn: "1d" });
   },
   generateRefreshToken: (data) => {
     return sign(data, process.env.REFRESH_SECRET, { expiresIn: "30d" });
@@ -15,13 +15,13 @@ module.exports = {
     });
   },
   sendAccessToken: (res, accessToken) => {
-    res.json({ data: { accessToken }, message: "ok" });
+    res.json({ data: { accessToken }, message: "AccessToken published" });
   },
   resendAccessToken: (res, accessToken, data) => {
     res.json({ data: { accessToken, userInfo: data }, message: "ok" });
   },
   isAuthorized: (req) => {
-    const authorization = req.headers["authorization"];
+    const authorization = req.headers["authorization"];  // Bearer Accesstoken
     if (!authorization) {
       return null;
     }

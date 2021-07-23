@@ -24,6 +24,7 @@ app.get('/', (req, res) => {
 
 app.post('/signin', signin);
 app.post('/signup', signup);
+app.get('/auth', auth);
 
 
 
