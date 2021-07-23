@@ -4,7 +4,7 @@ CREATE TABLE users (
   username varchar(255) not null,
 	email varchar(255) not null,
 	password varchar(255) not null,
-	img varchar(255) not null,
+	img varchar(255),
 	created_at timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	updated_at timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
@@ -68,4 +68,4 @@ ALTER TABLE post_hashtag ADD FOREIGN KEY (hashtag_id) REFERENCES hashtags (id);
 /* 배포하기 전에 꼭 지울 것 */
 /*  Execute this file from the command line by typing:
  * mysql -u admin --host [RDS 주소] -P [포트번호] < server/schema.sql -p -D[데이터베이스 이름]
- * mysql -u admin --host everyreview.c4kv2nhswxrf.ap-northeast-2.rds.amazonaws.com -P 13305 < server/schema.sql -p -DEveryReview */
+ * mysql -u admin --host everyreview-database.cpbc9veoxah1.ap-northeast-2.rds.amazonaws.com -P 13306 < server/schema.sql -p -Dtest */
