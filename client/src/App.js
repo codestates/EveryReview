@@ -8,7 +8,7 @@ import SideBar from './components/SideBar';
 import './App.css';
 
 function App() {
-  const [isLogin, setIsLogin] = useState(true); 
+  const [isLogin, setIsLogin] = useState(false); 
   /* 
     test 용 state
     true >> main/home으로 리다이렉트
@@ -20,12 +20,16 @@ function App() {
       <Switch>
 
         <Route exact path='/'>
-          { isLogin ? <Redirect to='/main/home'/> : <Redirect to='/login' /> /*  test 용  */ }
+          { isLogin 
+            ? <Redirect to='/main/home'/> 
+            : <Login /> /*  test 용  */ 
+          }
         </Route>
 
+        {/* 위 코드로 수정 '/login' 경로 삭제
         <Route exact path='/login'>
           <Login />
-        </Route>
+        </Route> */}
 
         <Route path='/main'>
           <SideBar/>
