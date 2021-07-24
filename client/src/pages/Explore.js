@@ -1,8 +1,13 @@
+import { useEffect } from "react";
 import Reviews from "../components/Reviews";
 import './Explore.css';
 
 function Explore({handleTitle}) {
-  handleTitle('#Explore');
+  
+  useEffect(() => {
+    // 헤더 타이틀 설정
+    handleTitle('#Explore');
+  }, []);
   
   return (
     <div className="explore">

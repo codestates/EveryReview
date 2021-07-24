@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import './MyPage.css'
 
 function MyPage({handleTitle}) {
@@ -6,7 +7,11 @@ function MyPage({handleTitle}) {
 
   // 이벤트핸들러 함수
 
-  handleTitle("My Page");
+  useEffect(() => {
+    // 헤더 타이틀 설정
+    handleTitle("My Page");
+  }, []);
+  
   return (
     <div className='myPageContainer'>
       <div className='imgUserProfile'>

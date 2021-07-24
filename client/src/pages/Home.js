@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PostUpload from "../components/PostUpload";
 import BookSearchModal from "../components/BookSearchModal";
 import Reviews from "../components/Reviews";
@@ -11,7 +11,10 @@ function Home({handleTitle}) {
   const [ onModal, setOnModal ] = useState(false);
   const [ bookInfo, setBookinfo ] = useState(null);
 
-  handleTitle("Home");
+  useEffect(() => {
+    // 헤더 타이틀 설정
+    handleTitle("Home");
+  }, []);
 
   return (
     <div id="home">
