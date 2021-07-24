@@ -14,6 +14,10 @@ function App() {
     true >> main/home으로 리다이렉트
     false >> /login으로 리다이렉트
   */
+  const [ userInfo, setUserInfo ] = useState(null)
+  const isAuthenticated = () => {
+    
+  }
 
   return (
     <div className="app">

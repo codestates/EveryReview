@@ -18,6 +18,10 @@ function Login() {
     setIsLoginModal(false) // 모달창 두 개가 한꺼번에 열리는 것 방지
   }
 
+  const loginHandler = () => {
+    
+  }
+
 
   return (
     <div className='loginContainer'>
@@ -42,12 +46,18 @@ function Login() {
       </div>
       {
         isLoginModal
-        ? <LoginModal />
+        ? <LoginModal 
+            loginBtnHandler={loginBtnHandler}
+            signupBtnHandler={signupBtnHandler}
+          />
         : null
       }
       {
         isSignupModal
-        ? <SignUpModal />
+        ? <SignUpModal
+            loginBtnHandler={loginBtnHandler}
+            signupBtnHandler={signupBtnHandler}
+         />
         : null
       }
     </div>

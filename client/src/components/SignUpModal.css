@@ -21,3 +21,7 @@ input {
 .btnSubmit {
     width: 100%;
 }
+
+.errMessage {
+    font-size: 12px;
+}

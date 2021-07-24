@@ -1,56 +1,108 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import './SignUpModal.css';
+import { emailCheck, passwordCheck, usernameCheck, checkAll } from './ValidityCheck'
 
 
 
-function SignUpModal() {
+function SignUpModal({ loginBtnHandler, signupBtnHandler }) {
 
   const history = useHistory();
 
-  //! 상태관리
-    // 사용자 정보 
-    const [ userInfo, setUserInfo ] = useState({
+  // 상태관리
+    //* 회원가입 시 입력되는 사용자 정보 
+    const [ userInput, setUserInput ] = useState({
       email: '',
       password: '',
       passwordCheck: '',
       username: '',
-      nickname: ''
     })
-    // 유효하지 않은 입력값에 대한 메세지
-    const [ message, setMessage ] = useState('')
+    //* 유효하지 않은 입력값에 대한 메세지
+    const [ errMessage, setErrMessage ] = useState({
+      emailErr: '',
+      passwordErr: '',
+      passwordCheckErr: '',
+      usernameErr: '',
+      other: ''
+    })
 
   // 이벤트핸들러 함수
-    // input 박스 변경 함수
+    //* input 박스 변경 함수
     const inputHandler = (event) => {
-      setUserInfo({ ...userInfo, [event.target.name]: event.target.value });
+      setUserInput({ ...userInput, [event.target.name]: event.target.value });
+    }
+    //* 입력값 유효성 검사 메세지
+    const errMessageHandler = (message) => {
+      switch (message) {
+        // 이메일
+        case 'invalidEmail' :
+          setErrMessage({
+            ...errMessage,
+            emailErr: '유효한 이메일을 입력해주세요',
+          });
+          break;
+        case 'validEmail' :
+          setErrMessage({
+            ...errMessage,
+            emailErr: '',
+          });
+          break;
+
+        // 비밀번호
+        case 'empty' :
+          setErrMessage({
+            ...errMessage,
+            passwordErr: '영어 대소문자, 숫자, 기호를 포함하며 공백이 없어야 합니다',
+          });
+          break;
+        case 'shortPassword' :
+          setErrMessage({
+            ...errMessage,
+            passwordErr: '비밀번호는 8자 이상이어야 합니다',
+          });
+          break;
+        case 'invalidPassword' :
+          setErrMessage({
+            ...errMessage,
+            passwordErr: '영어, 숫자, 기호를 포함하여 8자 이상으로 설정해 주세요',
+          });
+          break
+        case 'validPassword':
+          setErrMessage({
+            ...errMessage,
+            passwordErr: "",
+          });
+          break;
+
+        // 사용자이름
+        case 'shortUsername' :
+          setErrMessage({
+            ...errMessage,
+            usernameErr: '사용자 이름은 2글자 이상이어야 합니다',
+          });
+          break;
+        case 'invalidUsername' :
+          setErrMessage({
+            ...errMessage,
+            usernameErr: '사용자 이름은 한글, 영어, 숫자로 구성되며 공백이 없어야 합니다',
+          });
+          break;
+        case 'validUsername':
+          setErrMessage({
+            ...errMessage,
+            usernameErr: "",
+          });
+          break;
+        
+        default:
+          return '';
+    }
+
     }
     // 회원가입 요청
-    const signupRequestHandler = async (event) => {
-      if(
-        !userInfo.email ||
-        !userInfo.password ||
-        !userInfo.passwordCheck ||  
-        !userInfo.nickname
-      ) {
-        if(!userInfo.email) {
-          setMessage('이메일을 입력해주세요')
-        }
-        if(!userInfo.password) {
-          setMessage('비밀번호를 입력해주세요')
-        }
-        if(!userInfo.passwordCheck) {
-          setMessage('비밀번호를 다시 입력해주세요')
-        }
-        if(!userInfo.nickname) {
-          setMessage('사용자이름을 입력해주세요')
-        }
-        return
-      } else if (userInfo.password !== userInfo.passwordCheck) {
-        setMessage('비밀번호가 다릅니다. 비밀번호를 다시 확인해주세요')
-        return
-      }
-
+    const signupRequestHandler = () => {
+      // axios.post()
+      
       // 회원가입이 완료되면 메이페이지로 이동
       // history.push('/main/home')
 
@@ -68,6 +120,7 @@ function SignUpModal() {
         <div className=''>
           <button 
             className='btnClose'
+            onClick={signupBtnHandler}
           >
             &times;
           </button>
@@ -78,48 +131,63 @@ function SignUpModal() {
         </div>
 
         <div className='inputField'>
-          <input
-            name='email'
-            type='email'
-            placeholder='이메일주소'
-            required
-            onChange={inputHandler}
-          />
-          <input
-            name='password'
-            type='password'
-            placeholder='비밀번호'
-            required
-            onChange={inputHandler}
-          />  
-          <input
-            name='passwordCheck'
-            type='password'
-            placeholder='비밀번호 확인'
-            required
-            onChange={inputHandler}
-          />
-          {/* 비밀번호 유효성 확인 구현 중
-            {
-              userInfo.password !== userInfo.passwordCheck
-              ? <p>입력한 비밀번호와 다릅니다</p>
-              : null
+          <div>
+            <input
+              name='email'
+              type='email'
+              placeholder='이메일주소'
+              required
+              onChange={inputHandler}
+              onKeyUp={() => errMessageHandler(emailCheck(userInput.email))}
+            />
+            { 
+              errMessage.emailErr && 
+              <p className='errMessage'>{errMessage.emailErr}</p> 
             }
-           */}
-          <input
-            name='username'
-            type='text'
-            placeholder='성명'
-            required
-            onChange={inputHandler}
-          />
-          <input
-            name='nickname'
-            type='text'
-            placeholder='사용자 이름'
-            required
-            onChange={inputHandler}
-          />  
+          </div>
+          <div>
+            <input
+              name='password'
+              type='password'
+              placeholder='비밀번호'
+              required
+              onChange={inputHandler}
+              onKeyUp={() => errMessageHandler(passwordCheck(userInput.password))}
+            /> 
+            {
+              errMessage.passwordErr && 
+              <p className='errMessage'>{errMessage.passwordErr}</p>
+            }
+          </div>
+          <div>
+            <input
+              name='passwordCheck'
+              type='password'
+              placeholder='비밀번호 확인'
+              required
+              onChange={inputHandler}
+            />
+            {
+              userInput.password &&
+              userInput.passwordCheck &&
+              userInput.password !== userInput.passwordCheck &&
+              (<p className='errMessage'>비밀번호가 일치하지 않습니다</p>)
+            }
+          </div>
+          <div>
+            <input
+              name='username'
+              type='text'
+              placeholder='사용자이름'
+              required
+              onChange={inputHandler}
+              onKeyUp={() => errMessageHandler(usernameCheck(userInput.username))}
+            />
+            {
+              errMessage.usernameErr && 
+              <p className='errMessage'>{errMessage.usernameErr}</p>
+            }
+          </div>
         </div>
 
         <div className='btnSubmit'>
@@ -132,7 +200,11 @@ function SignUpModal() {
         </div>
 
         <div className='loginMove'>
-          이미 계정이 있으신가요? <button>로그인</button>
+          이미 계정이 있으신가요? 
+          <span
+            className='btnModalChange'
+            onClick={loginBtnHandler}
+          >로그인</span>
         </div>
 
         <div className='btnSocial'>
