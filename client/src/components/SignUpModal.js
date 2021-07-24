@@ -1,8 +1,8 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import './SignUpModal.css';
-import { emailCheck, passwordCheck, usernameCheck, checkAll } from './ValidityCheck'
-
+import { emailCheck, passwordCheck, usernameCheck, checkAll } from '../utils/ValidityCheck'
 
 
 function SignUpModal({ loginBtnHandler, signupBtnHandler }) {
@@ -23,7 +23,7 @@ function SignUpModal({ loginBtnHandler, signupBtnHandler }) {
       passwordErr: '',
       passwordCheckErr: '',
       usernameErr: '',
-      other: ''
+      otherErr: ''
     })
 
   // 이벤트핸들러 함수
@@ -99,13 +99,55 @@ function SignUpModal({ loginBtnHandler, signupBtnHandler }) {
     }
 
     }
-    // 회원가입 요청
-    const signupRequestHandler = () => {
-      // axios.post()
-      
-      // 회원가입이 완료되면 메이페이지로 이동
-      // history.push('/main/home')
 
+    // 회원가입 요청
+    const signupRequestHandler = (event) => {
+      // 이벤트를 취소할 수 있는 경우, 이벤트의 전파를 막지않고 그 이벤트를 취소합니다.
+      event.preventDefault();
+
+      const { email, password, passwordCheck, username } = userInput;
+
+      if(!email || !password || !passwordCheck || !username) {
+        setErrMessage({
+          ...errMessage,
+          otherErr: '모든 항목을 올바르게 작성해주세요'
+        })
+        return
+      }
+
+      const endpoint = '';
+
+      axios.post(
+        `${endpoint}/signup`, 
+        {
+          email: email,
+          password: password,
+          username: username
+        },
+        { withCredentials: true }
+      )
+        .then(() => {
+          axios.post(
+            '', 
+            {
+              email: email,
+              password: password
+            },
+            { withCredentials: true }
+          )
+            .then((res) => {
+              const { email, username, accessToken, img } = res.data;
+              // 데이터를 전달해야 하는데 어떻게 전달할지?
+
+              // 회원가입 완료되면 메인페이지로 이동
+              history.push('/main/home')
+            })
+            .catch((err) => console.log(err))
+        })
+        .catch((err) => {
+          console.log(err)
+          // 상태코드에 따라 setErrMessage 구현해야함
+        })
     }
     // 소셜 회원가입 요청
     const socialSignupRequestHandler = () => {
@@ -188,6 +230,10 @@ function SignUpModal({ loginBtnHandler, signupBtnHandler }) {
               <p className='errMessage'>{errMessage.usernameErr}</p>
             }
           </div>
+          {
+            errMessage.otherErr && 
+            <p className='errMessage'>{errMessage.otherErr}</p>
+          }
         </div>
 
         <div className='btnSubmit'>
