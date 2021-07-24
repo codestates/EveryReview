@@ -23,7 +23,7 @@ CREATE TABLE posts (
   user_id INT not null,
   likes INT not null,
 	book_id INT not null,
-	created_at timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	created_at timestamp DEFAULT CURRENT_TIMESTAMP,
 	updated_at timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 );
@@ -33,12 +33,26 @@ CREATE TABLE books (
   title varchar(255) not null,
 	thumbnail varchar(255),
 	contents varchar(255),
-	isbn int not null,
+	isbn varchar(255),
 	publisher varchar(255) not null,
-	authors varchar(255) not null,
 	url varchar(255) not null,
   PRIMARY KEY (id)
 );
+
+CREATE TABLE authors (
+  id INT AUTO_INCREMENT,
+  name varchar(255) not null,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE book_author (
+  id INT auto_increment, 
+  book_id INT, 
+  author_id INT, 
+  PRIMARY KEY(id), 
+  FOREIGN KEY (book_id) REFERENCES books(id), 
+  FOREIGN KEY (author_id) REFERENCES authors(id)
+)
 
 CREATE TABLE hashtags (
   id INT AUTO_INCREMENT,
