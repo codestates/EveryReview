@@ -1,7 +1,9 @@
 import Reviews from "../components/Reviews";
 import './Explore.css';
 
-function Explore() {
+function Explore({handleTitle}) {
+  handleTitle('#Explore');
+  
   return (
     <div className="explore">
       <div>

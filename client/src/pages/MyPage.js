@@ -1,12 +1,12 @@
 import './MyPage.css'
 
-function MyPage() {
+function MyPage({handleTitle}) {
   // 상태관리
 
 
   // 이벤트핸들러 함수
 
-
+  handleTitle("My Page");
   return (
     <div className='myPageContainer'>
       <div className='imgUserProfile'>

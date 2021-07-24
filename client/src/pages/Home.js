@@ -7,12 +7,14 @@ import './Home.css'
   1) 한번에 몇 개의 게시물을 나타낼지?
   2) 페이지 형식? 무한 스크롤 형식?
 */
-function Home() {
+function Home({handleTitle}) {
   const [ onModal, setOnModal ] = useState(false);
   const [ bookInfo, setBookinfo ] = useState(null);
 
+  handleTitle("Home");
+
   return (
-    <div className="home">
+    <div id="home">
       <PostUpload onModal={setOnModal} bookInfo={bookInfo} setBookInfo={setBookinfo} />
       {
         onModal ? <BookSearchModal onModal={setOnModal} setBookInfo={setBookinfo} /> : null
