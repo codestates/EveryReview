@@ -30,19 +30,57 @@ function PostUpload({ onModal, bookInfo, setBookInfo }) {
 
   const posting = () => {
     if(bookInfo !== null && message !== ''){
-      // axios.post();
-      // 넘겨야할 정보
-      // 사용자 정보 >> props 받아와야 함 (app.js에서 토큰을 통해 사용자 정보를 받아올 듯?)
-      // 게시글 정보 (해시태그, 게시글 내용)
-      // 책 정보
+      // 게시글 등록 post 요청
+
+      /*
+      넘겨야할 정보
+        게시글 정보 (해시태그, 게시글 내용)
+        책 정보
+      */
+
+      /*
+      axios
+      .post(`${process.env.REACT_APP_END_POINT}/posts/new`, {
+        data: {
+          postInfo: {
+            content: message, // String
+            hashtag //String []
+          },
+          bookInfo: {
+            title: bookInfo.title,  // String
+            thumbnail: bookInfo.thumbnail,  // String
+            contents: bookInfo.contents,  // String
+            isbn: bookInfo.isbn,  // String
+            publisher: bookInfo.publisher,  // String
+            authors: bookInfo.authors,  // String []
+            url: bookInfo.url // String
+          }
+        }
+      },{
+        headers: {
+          Authorization: `Bearer ACCESS_TOKEN`
+        }
+      })
+      .then(() => {
+        // 게시글 리스트 갱신 함수
+      })
+      .catch(() => {
+
+      });
+      */
+
+      // State 초기화
       setHashtag([]);
       setMessage('');
       setBookInfo(null);
       setInvalidMsg('');
+
+      // Input value 초기화
       messagInputRef.current.value = '';
       hashtagInputRef.current.value = '';
     } 
 
+    // 유효 입력 메시지 설정
     if(message === ''){
       setInvalidMsg('한줄평을 입력해주세요')
     } else if(bookInfo === null){
@@ -56,6 +94,7 @@ function PostUpload({ onModal, bookInfo, setBookInfo }) {
     <div id="postUpload">
       <div id="userProfile">
         <img src="https://randomuser.me/api/portraits/men/98.jpg" alt="user profile" />
+        {/* 프로필 대체 이미지 필요 */}
       </div>
       <div id="uploadInputWrap">
         <div id="hashtagInput">

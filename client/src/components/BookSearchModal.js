@@ -53,6 +53,7 @@ function BookSearchModal({ onModal, setBookInfo }) {
               searchRes.map((res) => {
                 return <li key={res.isbn} onClick={() => handleResultClick(res)}>
                     <img src={res.thumbnail} alt="book thumbnail" className="searchThumbnail"/>
+                    {/* 검색결과에 img가 없는 경우가 있음, 대체 이미지 필요 */}
                     <div>
                         <div>제목 : {res.title}</div>
                         <div>저자 : {res.authors.join(',')}</div>
