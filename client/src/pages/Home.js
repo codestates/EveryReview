@@ -13,9 +13,9 @@ function Home() {
 
   return (
     <div className="home">
-      <PostUpload onModal={setOnModal} bookInfo={bookInfo} />
+      <PostUpload onModal={setOnModal} bookInfo={bookInfo} setBookInfo={setBookinfo} />
       {
-        onModal ? <BookSearchModal onModal={setOnModal} handleBookInfo={setBookinfo} /> : null
+        onModal ? <BookSearchModal onModal={setOnModal} setBookInfo={setBookinfo} /> : null
       }
       <Reviews />
     </div>

@@ -3,9 +3,10 @@ import axios from 'axios';
 import './PostUpload.css';
 
 
-function PostUpload({ onModal, bookInfo }) {
+function PostUpload({ onModal, bookInfo, setBookInfo }) {
   const [ hashtag, setHashtag ] = useState([]);
   const [ message, setMessage ] = useState('');
+  const [ invalidMsg, setInvalidMsg ] = useState('');
   const messagInputRef = useRef(null);
   const hashtagInputRef = useRef(null);
   
@@ -27,16 +28,28 @@ function PostUpload({ onModal, bookInfo }) {
     });
   }
 
-  const handleChangeMsg = (event) => {
-    setMessage(event.target.value);
-  }
-
   const posting = () => {
-    // axios.post();
-    setHashtag([]);
-    setMessage('');
-    messagInputRef.current.value = '';
-    hashtagInputRef.current.value = '';
+    if(bookInfo !== null && message !== ''){
+      // axios.post();
+      // 넘겨야할 정보
+      // 사용자 정보 >> props 받아와야 함 (app.js에서 토큰을 통해 사용자 정보를 받아올 듯?)
+      // 게시글 정보 (해시태그, 게시글 내용)
+      // 책 정보
+      setHashtag([]);
+      setMessage('');
+      setBookInfo(null);
+      setInvalidMsg('');
+      messagInputRef.current.value = '';
+      hashtagInputRef.current.value = '';
+    } 
+
+    if(message === ''){
+      setInvalidMsg('한줄평을 입력해주세요')
+    } else if(bookInfo === null){
+      setInvalidMsg('도서를 선택해 주세요')
+    }
+
+
   }
 
   return (
@@ -63,16 +76,19 @@ function PostUpload({ onModal, bookInfo }) {
           ref={hashtagInputRef}
           maxLength="40" 
           placeholder="text your message"
-          onChange={(event) => handleChangeMsg(event)}
+          onChange={(event) => setMessage(event.target.value)}
         />
-        <div id="uploadBtnWrap">
+        <div id="uploadBottom">
           <div>
             선택된 도서 : {
               bookInfo !== null ? bookInfo.title : "없음"
             }
           </div>
-          <button onClick={() => onModal(true)}>책 검색</button>
-          <button onClick={posting}>등록</button>
+          <div id="uploadBtnWrap">
+            <div>{invalidMsg}</div>
+            <button onClick={() => onModal(true)}>도서 검색</button>
+            <button onClick={posting}>등록</button>
+          </div>
         </div>
       </div>
     </div>

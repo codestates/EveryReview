@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import './BookSearchModal.css';
 
-function BookSearchModal({ onModal, handleBookInfo }) {
+function BookSearchModal({ onModal, setBookInfo }) {
   const [ searchMsg, setSearchMsg ] = useState('');
   const [ searchRes, setSearchRes ] = useState([]);
 
@@ -32,7 +32,7 @@ function BookSearchModal({ onModal, handleBookInfo }) {
   }
 
   const handleResultClick = (res) => {
-    handleBookInfo(res);
+    setBookInfo(res);
     onModal(false);
   }
 
