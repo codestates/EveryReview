@@ -1,12 +1,14 @@
 const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-const { signup, signin, signout, auth } = require('./controllers');
+const cookieParser = require('cookie-parser');
+const { signup, signin, mypage, auth, oauth } = require('./controllers');
 
 const app = express();
-const port = 3000;
+const port = 80;
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use(
   cors({
@@ -22,9 +24,13 @@ app.get('/', (req, res) => {
   res.send("hello world");
 });
 
-app.post('/signin', signin);
 app.post('/signup', signup);
+app.post('/signin', signin.post);
+app.get('/signin', signin.get);
 app.get('/auth', auth);
+app.post('/mypage', mypage);
+app.get('/oauth', oauth.get);
+app.post('/oauth', oauth.post)
 
 
 

@@ -5,10 +5,12 @@ module.exports = {
 	post: (req, res) => {
 		const { username, email, password } = req.body;
 
+		// 전달받은 정보가 불충분한 경우
 		if (!username || !email || !password) {
-			res.status(422).json({ message: "insufficient parameters supplied"})
+			res.status(422).json({ message: "Insufficient parameters supplied"})
 		};
 
+		// 중복 항목을 위한 유효성 검증
 		db.promise().query(`SELECT * FROM users WHERE email = "${email}" OR username = "${username}"`)
 		.then( ([ rows, fields ]) => {
 			let emailCheck = false;
@@ -16,40 +18,41 @@ module.exports = {
 
 			rows.map((el) => {
 				if (el.email === email) emailCheck = true;
-				if (el.username) usernameCheck = true;
+				if (el.username === username) usernameCheck = true;
 			})
-
-			if (emailCheck && usernameCheck) {
+			
+			if (emailCheck && usernameCheck) {  // 둘 다 중복인 경우
 				res.status(409).json({
 					data: {
 						email: true,
 						username: true
 					},
-					message: "Both already existed!"
+					message: "Both already existed"
 				})
-			} else if (emailCheck) {
+			} else if (emailCheck) {  // 이메일이 중복인 경우
 				res.status(409).json({
 					data: {
 						email: true,
 						username: false
 					},
-					message: "Email already existed!"
+					message: "Email already existed"
 				})
-			} else if (usernameCheck) {
+			} else if (usernameCheck) {  // username 이 중복인 경우
 				res.status(409).json({
 					data: {
 						email: false,
 						username: true
 					},
-					message: "Username already existed!"
+					message: "Username already existed"
 				})
-			} else {
-				db.query(`INSERT INTO users (email, password, username) VALUES (?, ?, ?)`, [email, password, username], (error, result) => {
-					if (error) {
-						res.status(500).json({ message: "sorry"})
-					} else {
-						res.status(200).json({ message: "Signup success!"})
-					}
+			} else {  // 중복이 없을 경우 유저데이터 생성, 회원가입 성공
+				db.promise().query(`INSERT INTO users (email, password, username) VALUES (?, ?, ?)`, [email, password, username])
+				.then(([ rows, fields ]) => {
+					res.status(200).json({ message: "Signup success"});
+				})				
+				.catch((err) => {
+					console.log(err);
+					res.status(500).json({ message: "Sorry" });
 				})
 			}
 		})

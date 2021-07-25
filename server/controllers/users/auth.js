@@ -2,35 +2,39 @@
 // Access token payload로 응답 제공
 
 const db = require('../../db');
-const { isAuthorized } = require('../tokenFunctions');
+const { isAuthorized, generateAccessToken, resendAccessToken, checkRefeshToken } = require('../tokenFunctions');
 
 module.exports = {
   get: (req, res) => {
-    const accessTokenData = isAuthorized(req);
-    if (!accessTokenData) {
-      return res.json({ data: null, message: 'invalid access token' });
+    console.log("show me the money", req.cookies)
+    const refreshToken = req.cookies.refreshToken;
+    if (!refreshToken) {
+      return res.status(404).json({ message: 'invalid refresh token, please sign in again' });
     }
-    const { email, username } = accessTokenData;
-
-    db.promise().query(`SELECT * from users WHERE email = "${email}" AND username = "${username}"`)
+    // refreshToken 검증
+    const refreshTokenData = checkRefeshToken(refreshToken);
+    if (!refreshTokenData) {  // refreshToken 이 만료된 경우
+      return res.status(404).json({ message: 'invalid refresh token, please sign in again' });
+    }    
+    const { id } = refreshTokenData;
+    db.promise().query(`SELECT * from users WHERE id = "${id}"`)
     .then(([ rows, fields ]) => {
       if (rows.length === 0) {
-        res.status(401).json({ message: "No information!"})
+        res.status(401).json({ message: "Userinfo not found" })
       } else {
-        res.status(200).json({
-          data : {
-            email: rows[0].email,
-            username: rows[0].username,
-            img: rows[0].img
-          },
-          message: "Userinfo found"
-        })
+        const { username, email, profile } = rows[0];
+        const data = {
+          username: username,
+          email: email,
+          profile: profile
+        }
+        const newAccessToken = generateAccessToken(data);
+        resendAccessToken(res, newAccessToken, data);
       }
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ message: "Sorry, we have an issue!" });
+      res.status(500).json({ message: "Sorry" });
     })
-
   }
 }

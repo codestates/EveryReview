@@ -3,6 +3,14 @@
 module.exports = {
   auth: require('./users/auth').get,
   signup: require('./users/signup').post,
-  signin: require('./users/signin').post,
-  signout: require('./users/signout')
+  signin: {
+    post: require('./users/signin').post,
+    get: require('./users/signin').get,
+  },
+  auth: require('./users/auth').get,
+  mypage: require('./users/mypage').post,
+  oauth: {
+    get: require('./OAuth').get,
+    post: require('./Oauth').post
+  }
 };
