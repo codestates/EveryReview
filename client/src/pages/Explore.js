@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import Reviews from "../components/Reviews";
 import './Explore.css';
 
-function Explore({handleTitle}) {
+function Explore({ handleTitle, sortByLikes, setSort }) {
   
   useEffect(() => {
     // 헤더 타이틀 설정
@@ -18,7 +18,7 @@ function Explore({handleTitle}) {
          */}
         <div>#Hashtag</div>
       </div>
-      <Reviews />
+      <Reviews sortByLikes={sortByLikes} setSort={setSort} />
     </div>
   );
 }

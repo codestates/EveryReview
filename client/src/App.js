@@ -11,6 +11,7 @@ import './App.css';
 function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [pageTitle, setPageTitle] = useState('');
+  const [sortByLikes, setSort] = useState(false);
   /* 
     test 용 state
     true >> main/home으로 리다이렉트
@@ -39,11 +40,11 @@ function App() {
             <MainHeader pageTitle={pageTitle} />
             <div id="pageWrap">
               <Route path='/main/home'>
-                <Home handleTitle={setPageTitle} />
+                <Home handleTitle={setPageTitle} sortByLikes={sortByLikes} setSort={setSort}/>
               </Route>
 
               <Route path='/main/explore'>
-                <Explore handleTitle={setPageTitle} />
+                <Explore handleTitle={setPageTitle} sortByLikes={sortByLikes} setSort={setSort}/>
               </Route>
 
               <Route path='/main/mypage'>

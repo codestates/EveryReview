@@ -38,7 +38,6 @@ function PostUpload({ onModal, bookInfo, setBookInfo }) {
         책 정보
       */
 
-      /*
       axios
       .post(`${process.env.REACT_APP_END_POINT}/posts/new`, {
         data: {
@@ -67,7 +66,7 @@ function PostUpload({ onModal, bookInfo, setBookInfo }) {
       .catch(() => {
 
       });
-      */
+      
 
       // State 초기화
       setHashtag([]);
