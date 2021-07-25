@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom'
-import './SignUpModal.css';
 import { emailCheck, passwordCheck, usernameCheck, checkAll } from '../utils/ValidityCheck'
+import './SignUp.css';
+import Logo from '../components/Logo';
+import kakao from '../static/kakao_signup.png'
 
 
-function SignUpModal({ loginBtnHandler, signupBtnHandler }) {
+function SignUp({ setUserInfo, setIsLogin }) {
 
   const history = useHistory();
 
@@ -41,7 +43,7 @@ function SignUpModal({ loginBtnHandler, signupBtnHandler }) {
             emailErr: '유효한 이메일을 입력해주세요',
           });
           break;
-        case 'validEmail' :
+        case 'validEmail', 'emptyEmail' :
           setErrMessage({
             ...errMessage,
             emailErr: '',
@@ -52,7 +54,7 @@ function SignUpModal({ loginBtnHandler, signupBtnHandler }) {
         case 'empty' :
           setErrMessage({
             ...errMessage,
-            passwordErr: '영어 대소문자, 숫자, 기호를 포함하며 공백이 없어야 합니다',
+            passwordErr: '영문, 숫자, 기호를 포함하며 공백이 없어야 합니다',
           });
           break;
         case 'shortPassword' :
@@ -115,7 +117,7 @@ function SignUpModal({ loginBtnHandler, signupBtnHandler }) {
         return
       }
 
-      const endpoint = '';
+      const endpoint = 'http://ec2-3-35-205-114.ap-northeast-2.compute.amazonaws.com';
 
       axios.post(
         `${endpoint}/signup`, 
@@ -136,10 +138,14 @@ function SignUpModal({ loginBtnHandler, signupBtnHandler }) {
             { withCredentials: true }
           )
             .then((res) => {
-              const { email, username, accessToken, img } = res.data;
-              // 데이터를 전달해야 하는데 어떻게 전달할지?
-
+              const { email, username, img, accessToken } = res.data;
+              setUserInfo({
+                email: email,
+                username: username,
+                img: img
+              })
               // 회원가입 완료되면 메인페이지로 이동
+              setIsLogin(true);
               history.push('/main/home')
             })
             .catch((err) => console.log(err))
@@ -157,24 +163,12 @@ function SignUpModal({ loginBtnHandler, signupBtnHandler }) {
 
   
     return (
-      <div className='signupModalContainer'>
-        {/* 회원가입 모달창 close btn */}
-        <div className=''>
-          <button 
-            className='btnClose'
-            onClick={signupBtnHandler}
-          >
-            &times;
-          </button>
-        </div>
-
-        <div className='imgBI'>
-          <img alt='EveryReview BI' />
-        </div>
-
+      <div className='signupContainer'>
+        <Logo />
         <div className='inputField'>
           <div>
             <input
+              className='inputSignup'
               name='email'
               type='email'
               placeholder='이메일주소'
@@ -189,6 +183,7 @@ function SignUpModal({ loginBtnHandler, signupBtnHandler }) {
           </div>
           <div>
             <input
+              className='inputSignup'
               name='password'
               type='password'
               placeholder='비밀번호'
@@ -203,6 +198,7 @@ function SignUpModal({ loginBtnHandler, signupBtnHandler }) {
           </div>
           <div>
             <input
+              className='inputSignup'
               name='passwordCheck'
               type='password'
               placeholder='비밀번호 확인'
@@ -218,6 +214,7 @@ function SignUpModal({ loginBtnHandler, signupBtnHandler }) {
           </div>
           <div>
             <input
+              className='inputSignup'
               name='username'
               type='text'
               placeholder='사용자이름'
@@ -248,8 +245,8 @@ function SignUpModal({ loginBtnHandler, signupBtnHandler }) {
         <div className='loginMove'>
           이미 계정이 있으신가요? 
           <span
-            className='btnModalChange'
-            onClick={loginBtnHandler}
+            className='btnPageChange'
+            onClick={() => history.push('/login')}
           >로그인</span>
         </div>
 
@@ -259,16 +256,12 @@ function SignUpModal({ loginBtnHandler, signupBtnHandler }) {
             onClick={socialSignupRequestHandler}
           >
           </button> */}
-          {/* 
-            이미지 소스 처리방법 고민 필요
-            카카오싱크(간편회원가압)은 실명을 제공하지 않음. 확인 필요
-          */}
-          <img src='https://developers.kakao.com/tool/resource/static/img/button/kakaosync/complete/ko/kakao_login_medium_wide.png'/>
+          <img src={kakao}/>
         </div>
       </div>
     );
 }
     
-export default SignUpModal;    
+export default SignUp;    
 
-// 회원가입 모달창입니다.
+// 회원가입 페이지입니다.

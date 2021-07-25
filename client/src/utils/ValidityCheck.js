@@ -41,6 +41,8 @@ const emailCheck = (email) => {
         } else {
             return 'validEmail'
         }
+    } else {
+        return 'emptyEmail'
     }
 }
 

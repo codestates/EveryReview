@@ -15,7 +15,6 @@ function MyPage() {
       <div>
         <p>반가워요, username님!</p>
         <div>이메일: email</div>
-        <div>별명: nickname</div>
       </div>
 
       <div className='inputField'>

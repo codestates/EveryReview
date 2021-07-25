@@ -1,12 +1,14 @@
 import axios from 'axios'
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
-import './LoginModal.css';
+import Logo from '../components/Logo';
+import './Login.css';
+import kakao from '../static/kakao_signin.png'
 
-function LoginModal({ loginBtnHandler, signupBtnHandler }) {
+
+function Login ({ setUserInfo, setIsLogin }) {
 
   const history = useHistory();
-
   // 상태관리
   const [ loginInfo, setLoginInfo] = useState({
     email: '',
@@ -22,17 +24,23 @@ function LoginModal({ loginBtnHandler, signupBtnHandler }) {
 
   //* 로그인 핸들러
   const loginRequestHandler = () => {
-    const endpoint = '';
+    const endpoint = 'http://ec2-3-35-205-114.ap-northeast-2.compute.amazonaws.com';
     const { email, password } = loginInfo;
 
     axios.post(
-      endpoint,
+      `${endpoint}/signin`,
       { email, password },
       { withCredentials: true }
     )
       .then((res) => {
+        console.log(res)
         const { email, username, img, accessToken } = res.data;
-        // 데이터를 전달해야하는데, redux를 써야할지 아닐지 고민해보자
+        setUserInfo({
+          email: email,
+          username: username,
+          img: img
+        })
+        setIsLogin(true);
         history.push('/main/home')
       })
       .catch((err)=> {
@@ -49,24 +57,12 @@ function LoginModal({ loginBtnHandler, signupBtnHandler }) {
   }
 
     return (
-      <div className='loginModalContainer'>
-        {/* 로그인 모달창 close btn */}
-        <div className=''>
-          <button 
-            className='btnClose'
-            onClick={loginBtnHandler}
-          >
-            &times;
-          </button>
-        </div>
+      <div className='loginContainer'>
 
-        {/* EveryReview BI 삽입 */}
-        <div className='imgBI'>
-          <img alt='EveryReview BI' />
-        </div>
-
+        <Logo />
         <div className='inputField'>
           <input
+            className='inputSignin'
             name='email'
             type='email'
             placeholder='이메일주소'
@@ -74,6 +70,7 @@ function LoginModal({ loginBtnHandler, signupBtnHandler }) {
             onChange={loginInfoHandler}
           />   
           <input
+            className='inputSignin'
             name='password'
             type='password'
             placeholder='비밀번호'
@@ -93,26 +90,25 @@ function LoginModal({ loginBtnHandler, signupBtnHandler }) {
         <div className='signupMove'>
           계정이 없으신가요? 
           <span
-            className='btnModalChange'
-            onClick={signupBtnHandler}
+            className='btnPageChange'
+            onClick={()=> history.push('/signup')}
           >가입하기</span>
         </div>
 
         <div className='btnSocial'>
           {/* 카카오로그인 API안내서에 따라서 구현 */}
-          {/* <button 
+          {/* <button s
             className='btnSubmit'
             onClick={socialLoginRequestHandler}
           >
             카카오 계정으로 로그인
           </button> */}
-          {/* //! 일단 카카오로그인 이미지를 주소로 넣었는데, 이미지소스 처리방식 논의필요 */}
-          <img src='https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_medium_wide.png' />
+          <img src={kakao} />
         </div>
       </div>
     );
   }
     
-export default LoginModal;  
+export default Login ;  
 
-// 로그인 모달창입니다.
+// 로그인 페이지입니다.
