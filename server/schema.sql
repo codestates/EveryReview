@@ -47,11 +47,12 @@ CREATE TABLE authors (
 
 CREATE TABLE book_author (
   id INT auto_increment, 
-  book_id INT, 
-  author_id INT, 
+  book_id INT not null, 
+  author_id INT not null, 
   PRIMARY KEY(id), 
   FOREIGN KEY (book_id) REFERENCES books(id), 
-  FOREIGN KEY (author_id) REFERENCES authors(id)
+  FOREIGN KEY (author_id) REFERENCES authors(id),
+  CONSTRAINT AUTHOR_BOOK UNIQUE (book_id, author_id)
 )
 
 CREATE TABLE hashtags (
@@ -64,7 +65,8 @@ CREATE TABLE post_hashtag (
   id INT AUTO_INCREMENT,
   post_id INT not null,
 	hashtag_id INT not null,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  CONSTRAINT HASH_POST UNIQUE (post_id, hashtag_id)
 );
 
 ALTER TABLE follow ADD FOREIGN KEY (user_id) REFERENCES users (id);
