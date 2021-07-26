@@ -11,7 +11,7 @@ import './App.css';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Landing from './Landing';
-import Social from './pages/social';
+import Social from './pages/Social';
 import axios from 'axios';
 
 function App() {
@@ -24,6 +24,7 @@ function App() {
     profile: ''
   }) // 사용자 정보 상태 관리
   const [ accessToken, setAccessToken ] = useState(null) // Access Token 관리
+  const [ refreshToken, setRefreshToken ] = useState(null)  // Refresh Token 관리
 
   const isAuthenticated = () => {
     axios.get(
@@ -37,27 +38,25 @@ function App() {
         withCredentials: true,
       })
       .then((res) => {
+        console.log('응답을 받아오시오', res.data)
         if (res.data.message !== "Userinfo found") {
           alert('로그인을 다시 시도해주세요')
         }
-
-        console.log(res.data)
         const { email, username, profile } = res.data.data;
         setUserInfo({
           email: email,
           username: username, 
           profile: profile
         })
-
-        console.log(userInfo)
       })
       .catch((err)=> {
+        console.log(err)
       });
   }
 
   useEffect(() => {
     isAuthenticated();
-  }, [])
+  }, [accessToken])
 
   return (
     <div id="app">

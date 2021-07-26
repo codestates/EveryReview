@@ -34,6 +34,12 @@ function SignUp({ setIsLogin, setAccessToken }) {
     //* input 박스 변경 함수
     const inputHandler = (event) => {
       setUserInput({ ...userInput, [event.target.name]: event.target.value });
+
+      let timer = setTimeout(() => {
+        setErrMessage('')
+      }, 3000)
+      // 버그 방지용 
+      return () => { clearTimeout(timer)}
     }
     //* 입력값 유효성 검사 메세지
     const errMessageHandler = (message) => {
@@ -119,9 +125,8 @@ function SignUp({ setIsLogin, setAccessToken }) {
         return
       }
 
-      const endpoint = 'http://ec2-3-35-205-114.ap-northeast-2.compute.amazonaws.com';
       axios.post(
-        `${endpoint}/signup`, 
+        `$${process.env.REACT_APP_END_POINT}/signup`, 
         {
           email: email,
           password: password,
@@ -131,7 +136,7 @@ function SignUp({ setIsLogin, setAccessToken }) {
       )
         .then(() => {
           axios.post(
-            `${endpoint}/signin`, 
+            `${process.env.REACT_APP_END_POINT}/signin`, 
             {
               email: email,
               password: password
@@ -246,11 +251,6 @@ function SignUp({ setIsLogin, setAccessToken }) {
         </div>
 
         <div className='btnSocial'>
-          {/* <button 
-            className='btnSubmit'
-            onClick={socialSignupRequestHandler}
-          >
-          </button> */}
           <img src={kakao}/>
         </div>
       </div>
