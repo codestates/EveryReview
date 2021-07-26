@@ -21,6 +21,7 @@ button {
 /* a 태그 초기화 */
 a {
   text-decoration: none;
+  color: #333333;
 }
 
 /* MAIN WRAP */

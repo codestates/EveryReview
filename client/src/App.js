@@ -12,7 +12,7 @@ import Landing from './Landing';
 import axios from 'axios';
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false); // 로그인 상태관리 (true: main, false: landing page redirect)
+  const [isLogin, setIsLogin] = useState(true); // 로그인 상태관리 (true: main, false: landing page redirect)
   const [pageTitle, setPageTitle] = useState(''); // Header title 관리
   const [sortByLikes, setSort] = useState(false); // 정렬 상태 관리
   const [ userInfo, setUserInfo ] = useState({ 
