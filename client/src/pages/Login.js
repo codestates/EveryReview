@@ -6,7 +6,7 @@ import './Login.css';
 import kakao from '../static/kakao_signin.png'
 
 
-function Login ({ setUserInfo, setIsLogin }) {
+function Login ({ setIsLogin, setAccessToken }) {
 
   const history = useHistory();
   // 상태관리
@@ -34,12 +34,14 @@ function Login ({ setUserInfo, setIsLogin }) {
     )
       .then((res) => {
         console.log(res)
-        const { email, username, img, accessToken } = res.data;
-        setUserInfo({
-          email: email,
-          username: username,
-          img: img
-        })
+        const { accessToken } = res.data.data;
+        // setUserInfo({
+        //   email: email,
+        //   username: username,
+        //   img: img
+        // })
+        console.log(accessToken)
+        setAccessToken(accessToken)
         setIsLogin(true);
         history.push('/main/home')
       })
