@@ -10,7 +10,7 @@ module.exports = {
   mypage: require('./users/mypage').post,
   oauth: {
     get: require('./OAuth').get,
-    post: require('./Oauth').post
+    post: require('./OAuth').post
   },
   post: require('./features/post').post,
   selectbook: require('./features/selectbook').post,
