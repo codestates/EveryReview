@@ -1,3 +1,5 @@
+/*eslint-disable*/
+
 import axios from 'axios';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom'
@@ -7,7 +9,7 @@ import Logo from '../components/Logo';
 import kakao from '../static/kakao_signup.png'
 
 
-function SignUp({ setUserInfo, setIsLogin }) {
+function SignUp({ setIsLogin, setAccessToken }) {
 
   const history = useHistory();
 
@@ -43,7 +45,7 @@ function SignUp({ setUserInfo, setIsLogin }) {
             emailErr: '유효한 이메일을 입력해주세요',
           });
           break;
-        case 'validEmail', 'emptyEmail' :
+        case 'validEmail' :
           setErrMessage({
             ...errMessage,
             emailErr: '',
@@ -118,7 +120,6 @@ function SignUp({ setUserInfo, setIsLogin }) {
       }
 
       const endpoint = 'http://ec2-3-35-205-114.ap-northeast-2.compute.amazonaws.com';
-
       axios.post(
         `${endpoint}/signup`, 
         {
@@ -130,7 +131,7 @@ function SignUp({ setUserInfo, setIsLogin }) {
       )
         .then(() => {
           axios.post(
-            '', 
+            `${endpoint}/signin`, 
             {
               email: email,
               password: password
@@ -138,13 +139,7 @@ function SignUp({ setUserInfo, setIsLogin }) {
             { withCredentials: true }
           )
             .then((res) => {
-              const { email, username, img, accessToken } = res.data;
-              setUserInfo({
-                email: email,
-                username: username,
-                img: img
-              })
-              // 회원가입 완료되면 메인페이지로 이동
+              const { accessToken } = res.data.data;
               setIsLogin(true);
               history.push('/main/home')
             })
