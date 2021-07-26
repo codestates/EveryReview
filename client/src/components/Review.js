@@ -13,7 +13,7 @@ function Review({postinfo}) {
           <button>메뉴</button>
         </div>
         <div>
-          <div className = "review-contents">{postinfo.contents}</div>
+          <div className = "review-contents"><a href={postinfo.url}>{postinfo.contents}</a></div>
         </div>
         <div>
           <div className = "hashtag-wrap">
