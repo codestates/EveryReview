@@ -5,10 +5,13 @@ import Explore from './pages/Explore';
 import MyPage from './pages/MyPage';
 import Login from './Login';
 import SideBar from './components/SideBar';
+import MainHeader from './components/MainHeader';
 import './App.css';
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false); 
+  const [isLogin, setIsLogin] = useState(false);
+  const [pageTitle, setPageTitle] = useState('');
+  const [sortByLikes, setSort] = useState(false);
   /* 
     test 용 state
     true >> main/home으로 리다이렉트
@@ -16,7 +19,7 @@ function App() {
   */
 
   return (
-    <div className="app">
+    <div id="app">
       <Switch>
 
         <Route exact path='/'>
@@ -33,19 +36,22 @@ function App() {
 
         <Route path='/main'>
           <SideBar/>
-          <div className="main">
-            <Route path='/main/home'>
-              <Home />
-            </Route>
+          <section id="main">
+            <MainHeader pageTitle={pageTitle} />
+            <div id="pageWrap">
+              <Route path='/main/home'>
+                <Home handleTitle={setPageTitle} sortByLikes={sortByLikes} setSort={setSort}/>
+              </Route>
 
-            <Route path='/main/explore'>
-              <Explore />
-            </Route>
+              <Route path='/main/explore'>
+                <Explore handleTitle={setPageTitle} sortByLikes={sortByLikes} setSort={setSort}/>
+              </Route>
 
-            <Route path='/main/mypage'>
-              <MyPage />
-            </Route>
-          </div>
+              <Route path='/main/mypage'>
+                <MyPage handleTitle={setPageTitle} />
+              </Route>
+            </div>
+          </section>
         </Route>
 
       </Switch>
