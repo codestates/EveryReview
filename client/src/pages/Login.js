@@ -1,3 +1,5 @@
+/*eslint-disable*/
+
 import axios from 'axios'
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
@@ -5,6 +7,7 @@ import Logo from '../components/Logo';
 import './Login.css';
 import kakao from '../static/kakao_signin.png'
 
+const endpoint = 'http://ec2-3-35-205-114.ap-northeast-2.compute.amazonaws.com';
 
 function Login ({ setIsLogin, setAccessToken }) {
 
@@ -24,7 +27,7 @@ function Login ({ setIsLogin, setAccessToken }) {
 
   //* 로그인 핸들러
   const loginRequestHandler = () => {
-    const endpoint = 'http://ec2-3-35-205-114.ap-northeast-2.compute.amazonaws.com';
+    
     const { email, password } = loginInfo;
 
     axios.post(
@@ -33,14 +36,7 @@ function Login ({ setIsLogin, setAccessToken }) {
       { withCredentials: true }
     )
       .then((res) => {
-        console.log(res)
         const { accessToken } = res.data.data;
-        // setUserInfo({
-        //   email: email,
-        //   username: username,
-        //   img: img
-        // })
-        console.log(accessToken)
         setAccessToken(accessToken)
         setIsLogin(true);
         history.push('/main/home')
@@ -53,8 +49,9 @@ function Login ({ setIsLogin, setAccessToken }) {
 
   //* 카카오 로그인 핸들러
   const socialLoginRequestHandler = () => {
-    window.location.assign(
-      // url이 들어가야 함. 
+    
+    window.location.assign( 
+      `https://kauth.kakao.com/oauth/authorize?client_id=750325bb6d6f5b4a028d5064c28496c8&redirect_uri=http://localhost:3000/social&response_type=code`
     )
   }
 
@@ -105,7 +102,10 @@ function Login ({ setIsLogin, setAccessToken }) {
           >
             카카오 계정으로 로그인
           </button> */}
-          <img src={kakao} />
+          <img 
+            src={kakao}
+            onClick={socialLoginRequestHandler}
+          />
         </div>
       </div>
     );

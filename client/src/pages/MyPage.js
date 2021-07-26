@@ -1,7 +1,9 @@
+/*eslint-disable*/
+
 import { useEffect } from 'react';
 import './MyPage.css'
 
-function MyPage({handleTitle}) {
+function MyPage({handleTitle, userInfo}) {
   // 상태관리
 
 
@@ -15,11 +17,14 @@ function MyPage({handleTitle}) {
   return (
     <div className='myPageContainer'>
       <div className='imgUserProfile'>
-        <img alt='user profile' />
+        <img 
+          src={userInfo.profile}
+          alt='user profile'
+        />
       </div>
       <div>
-        <p>반가워요, username님!</p>
-        <div>이메일: email</div>
+        <p>반가워요, {userInfo.username}님!</p>
+        <div>이메일: {userInfo.email}</div>
       </div>
 
       <div className='inputField'>

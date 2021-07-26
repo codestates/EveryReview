@@ -1,9 +1,10 @@
 import { useHistory } from 'react-router-dom';
+
 import './Landing.css';
 import Logo from './components/Logo'
 
 
-function Landing () {
+function Landing ({ setIsLogin, setAccessToken }) {
 
   const history = useHistory();
 

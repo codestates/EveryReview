@@ -1,3 +1,5 @@
+/*eslint-disable*/
+
 import React, { useState, useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from './pages/Home';
@@ -9,6 +11,7 @@ import './App.css';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Landing from './Landing';
+import Social from './pages/social';
 import axios from 'axios';
 
 function App() {
@@ -25,7 +28,7 @@ function App() {
   const [ userInfo, setUserInfo ] = useState({
     email: '',
     username: '',
-    img: '',
+    profile: '',
   })
   // accessToken 상태관리
   const [ accessToken, setAccessToken ] = useState(null)
@@ -43,12 +46,17 @@ function App() {
       .then((res) => {
         if (res.data.message !== "Userinfo found") {
           alert('로그인을 다시 시도해주세요')
-
         }
-        const { email, username, profile } = res.data.data.userInfo;
+
+        console.log(res.data)
+        const { email, username, profile } = res.data.data;
         setUserInfo({
-          email, username, profile
+          email: email,
+          username: username, 
+          profile: profile
         })
+
+        console.log(userInfo)
       });
   }
   useEffect(() => {
@@ -58,47 +66,70 @@ function App() {
   return (
     <div id="app">
       <Switch>
+        { 
+            isLogin ? 
+            <Route path='/main'>
+              <SideBar/>
+              <section id="main">
+                <MainHeader pageTitle={pageTitle} />
+                <div id="pageWrap">
 
-        <Route exact path='/'>
-          { isLogin 
-            ? <Redirect to='/main/home'/> 
-            : <Landing />
+                  <Route exact path='/main/home'>
+                    <Home 
+                      handleTitle={setPageTitle} 
+                      sortByLikes={sortByLikes} 
+                      setSort={setSort}
+                      accessToken={accessToken}
+                      />
+                  </Route>
+
+                  <Route exact path='/main/explore'>
+                    <Explore 
+                      handleTitle={setPageTitle} 
+                      sortByLikes={sortByLikes} 
+                      setSort={setSort}
+                    />
+                  </Route>
+
+                  <Route exact path='/main/mypage'>
+                    <MyPage 
+                      handleTitle={setPageTitle}
+                      userInfo={userInfo}
+                      accessToken={accessToken}
+                    />
+                  </Route>     
+
+                </div>
+              </section>
+            </Route> :
+            <>
+              {/* <Redirect to = '/'/> */}
+              <Route exact path='/'>
+                <Landing />
+              </Route>
+                  
+              <Route exact path='/signup'>
+                <SignUp 
+                  setUserInfo={setUserInfo}
+                  setIsLogin={setIsLogin}
+                />
+              </Route>
+
+              <Route exact path='/login'>
+                <Login
+                  setIsLogin={setIsLogin}
+                  setAccessToken={setAccessToken}
+                />
+              </Route> 
+          </>
           }
-        </Route>
-
-        <Route path='/signup'>
-          <SignUp 
-            setUserInfo={setUserInfo}
-            setIsLogin={setIsLogin}
-          />
-        </Route>
-        <Route path='/login'>
-          <Login
-            setIsLogin={setIsLogin}
-            setAccessToken={setAccessToken}
-          />
-        </Route>
-
-        <Route path='/main'>
-          <SideBar/>
-          <section id="main">
-            <MainHeader pageTitle={pageTitle} />
-            <div id="pageWrap">
-              <Route path='/main/home'>
-                <Home handleTitle={setPageTitle} sortByLikes={sortByLikes} setSort={setSort}/>
-              </Route>
-
-              <Route path='/main/explore'>
-                <Explore handleTitle={setPageTitle} sortByLikes={sortByLikes} setSort={setSort}/>
-              </Route>
-
-              <Route path='/main/mypage'>
-                <MyPage handleTitle={setPageTitle} />
-              </Route>
-            </div>
-          </section>
-        </Route>
-
+          {/* social login을 위한 페이지 test 중입니다*/}
+          <Route to ='/social'>
+            <Social 
+              setIsLogin={setIsLogin} 
+              setAccessToken={setIsLogin}
+            />
+          </Route>
       </Switch>
     </div>
   );
