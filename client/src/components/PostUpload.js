@@ -3,9 +3,10 @@ import axios from 'axios';
 import './PostUpload.css';
 
 
-function PostUpload() {
+function PostUpload({ onModal, bookInfo, setBookInfo }) {
   const [ hashtag, setHashtag ] = useState([]);
   const [ message, setMessage ] = useState('');
+  const [ invalidMsg, setInvalidMsg ] = useState('');
   const messagInputRef = useRef(null);
   const hashtagInputRef = useRef(null);
   
@@ -27,22 +28,72 @@ function PostUpload() {
     });
   }
 
-  const handleChangeMsg = (event) => {
-    setMessage(event.target.value);
-  }
-
   const posting = () => {
-    // axios.post();
-    setHashtag([]);
-    setMessage('');
-    messagInputRef.current.value = '';
-    hashtagInputRef.current.value = '';
+    if(bookInfo !== null && message !== ''){
+      // 게시글 등록 post 요청
+
+      /*
+      넘겨야할 정보
+        게시글 정보 (해시태그, 게시글 내용)
+        책 정보
+      */
+
+      axios
+      .post(`${process.env.REACT_APP_END_POINT}/posts/new`, {
+        data: {
+          postInfo: {
+            content: message, // String
+            hashtag //String []
+          },
+          bookInfo: {
+            title: bookInfo.title,  // String
+            thumbnail: bookInfo.thumbnail,  // String
+            contents: bookInfo.contents,  // String
+            isbn: bookInfo.isbn,  // String
+            publisher: bookInfo.publisher,  // String
+            authors: bookInfo.authors,  // String []
+            url: bookInfo.url // String
+          }
+        }
+      },{
+        headers: {
+          Authorization: `Bearer ACCESS_TOKEN`
+        }
+      })
+      .then(() => {
+        // 게시글 리스트 갱신 함수
+      })
+      .catch(() => {
+
+      });
+      
+
+      // State 초기화
+      setHashtag([]);
+      setMessage('');
+      setBookInfo(null);
+      setInvalidMsg('');
+
+      // Input value 초기화
+      messagInputRef.current.value = '';
+      hashtagInputRef.current.value = '';
+    } 
+
+    // 유효 입력 메시지 설정
+    if(message === ''){
+      setInvalidMsg('한줄평을 입력해주세요')
+    } else if(bookInfo === null){
+      setInvalidMsg('도서를 선택해 주세요')
+    }
+
+
   }
 
   return (
     <div id="postUpload">
       <div id="userProfile">
         <img src="https://randomuser.me/api/portraits/men/98.jpg" alt="user profile" />
+        {/* 프로필 대체 이미지 필요 */}
       </div>
       <div id="uploadInputWrap">
         <div id="hashtagInput">
@@ -63,11 +114,19 @@ function PostUpload() {
           ref={hashtagInputRef}
           maxLength="40" 
           placeholder="text your message"
-          onChange={(event) => handleChangeMsg(event)}
+          onChange={(event) => setMessage(event.target.value)}
         />
-        <div id="uploadBtnWrap">
-          <button>책 검색</button>
-          <button onClick={posting}>등록</button>
+        <div id="uploadBottom">
+          <div>
+            선택된 도서 : {
+              bookInfo !== null ? bookInfo.title : "없음"
+            }
+          </div>
+          <div id="uploadBtnWrap">
+            <div>{invalidMsg}</div>
+            <button onClick={() => onModal(true)}>도서 검색</button>
+            <button onClick={posting}>등록</button>
+          </div>
         </div>
       </div>
     </div>

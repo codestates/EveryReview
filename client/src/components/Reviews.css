@@ -2,6 +2,7 @@
     background-color: aqua;
     width: 100%;
     padding: 10px;
+    overflow-y: scroll;
 }
   
 #sortBtnWrap{
@@ -12,4 +13,13 @@
 #reviewWrap{
     display: flex;
     flex-direction: column;
+}
+
+.sortBtn {
+    margin-left: 10px;
+}
+
+.sortBtn.selected {
+    background-color: greenyellow;
+    border: 1px solid green;
 }

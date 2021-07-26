@@ -1,0 +1,11 @@
+#mainHeader {
+    display: flex;
+    background-color: blueviolet;
+    width: 100%;
+    flex: 0 0 70px;
+    padding: 10px;
+}
+
+#mainHeader > div {
+    font-size: 2em;
+}

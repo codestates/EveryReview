@@ -1,6 +1,6 @@
 #postUpload {
     display: flex;
-    flex: 1 1 150px;
+    height: 150px;
     background-color: blue;
     width: 100%;;
     padding: 10px;
@@ -13,17 +13,12 @@
     border-radius: 50%;
     overflow: hidden;
 }
-  
+
 #uploadInputWrap {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-}
-
-#uploadBtnWrap {
-    display: flex;
-    justify-content: space-between;
 }
 
 #hashtagInput {
@@ -49,4 +44,22 @@
 #hashtagInput > input {
     border: none;
     flex: 1;
+}
+  
+#uploadBottom {
+    display: flex;
+    justify-content: space-between;
+}
+
+#uploadBtnWrap {
+    display: flex;
+}
+
+#uploadBtnWrap > button {
+    margin-left: 5px;
+}
+
+#uploadBtnWrap > div {
+    color: red;
+    font-weight: 700;
 }
