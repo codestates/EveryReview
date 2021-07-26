@@ -1,12 +1,17 @@
+import { useEffect } from 'react';
 import './MyPage.css'
 
-function MyPage() {
+function MyPage({handleTitle}) {
   // 상태관리
 
 
   // 이벤트핸들러 함수
 
-
+  useEffect(() => {
+    // 헤더 타이틀 설정
+    handleTitle("My Page");
+  }, []);
+  
   return (
     <div className='myPageContainer'>
       <div className='imgUserProfile'>
@@ -15,7 +20,6 @@ function MyPage() {
       <div>
         <p>반가워요, username님!</p>
         <div>이메일: email</div>
-        <div>별명: nickname</div>
       </div>
 
       <div className='inputField'>

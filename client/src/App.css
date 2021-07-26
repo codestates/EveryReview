@@ -1,48 +1,48 @@
 /* INIT */
 * {
   box-sizing: border-box;
-}
-
-.App {
-  text-align: center;
-}
-
-/* 여백 초기화 */
-*,body,div,ul,li,dl,dd,dt,ol,input,p,select,table,th,td,tr,textarea,button,form,figure,figcaption {
   margin: 0; 
   padding: 0; 
   word-break: keep-all;
 }
 
 /* 리스트 블릿기호 초기화 */
-ul,li,ol {
+ul, li, ol {
   list-style: none;
 }
+
 /* 버튼 초기화 */
 button {
   border: 0; 
   cursor: pointer; 
   background-color: rgb(0,0,0,0.1);
 }
-ul, li {
-  list-style: none;
-}
 
+/* a 태그 초기화 */
 a {
   text-decoration: none;
 }
 
-.app {
+/* MAIN WRAP */
+#app {
   display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
-/* MAIN WRAP */
-.main {
+#main {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 75%;
-  height: 100%;
+  flex: 3;
   background-color: red;
-  padding: 20px;
+}
+
+#pageWrap {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 70%;
+  height: 600px;
+  flex: 1 0 auto;
 }

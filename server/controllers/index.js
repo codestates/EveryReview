@@ -7,10 +7,13 @@ module.exports = {
     post: require('./users/signin').post,
     get: require('./users/signin').get,
   },
-  auth: require('./users/auth').get,
   mypage: require('./users/mypage').post,
   oauth: {
     get: require('./OAuth').get,
     post: require('./Oauth').post
-  }
+  },
+  post: require('./features/post').post,
+  selectbook: require('./features/selectbook').post,
+  postlist: require('./features/postlist').get,
+  like: require('./features/like')
 };
