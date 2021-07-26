@@ -5,6 +5,9 @@ import './index.css'
 import { BrowserRouter } from 'react-router-dom';
 require("dotenv").config();
 
+// import { Provider } from 'react-redux'
+// import store from './store/store'
+
 ReactDOM.render(
   <BrowserRouter>
     <App />
