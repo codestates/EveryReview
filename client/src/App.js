@@ -15,23 +15,16 @@ import Social from './pages/social';
 import axios from 'axios';
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
-
-  const [pageTitle, setPageTitle] = useState('');
-  const [sortByLikes, setSort] = useState(false);
-
-  /* 
-    test 용 state
-    true >> main/home으로 리다이렉트
-    false >> /login으로 리다이렉트
-  */
-  const [ userInfo, setUserInfo ] = useState({
+  const [isLogin, setIsLogin] = useState(true); // 로그인 상태관리 (true: main, false: landing page redirect)
+  const [pageTitle, setPageTitle] = useState(''); // Header title 관리
+  const [sortByLikes, setSort] = useState(false); // 정렬 상태 관리
+  const [ userInfo, setUserInfo ] = useState({ 
     email: '',
     username: '',
-    profile: '',
-  })
-  // accessToken 상태관리
-  const [ accessToken, setAccessToken ] = useState(null)
+    profile: ''
+  }) // 사용자 정보 상태 관리
+  const [ accessToken, setAccessToken ] = useState(null) // Access Token 관리
+
   const isAuthenticated = () => {
     axios.get(
       // test용 endpoint
@@ -59,6 +52,7 @@ function App() {
         console.log(userInfo)
       });
   }
+
   useEffect(() => {
     isAuthenticated();
   }, [])

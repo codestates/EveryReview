@@ -3,7 +3,7 @@ import axios from 'axios';
 import './PostUpload.css';
 
 
-function PostUpload({ onModal, bookInfo, setBookInfo }) {
+function PostUpload({ onModal, bookInfo, setBookInfo, accessToken }) {
   const [ hashtag, setHashtag ] = useState([]);
   const [ message, setMessage ] = useState('');
   const [ invalidMsg, setInvalidMsg ] = useState('');
@@ -39,7 +39,7 @@ function PostUpload({ onModal, bookInfo, setBookInfo }) {
       */
 
       axios
-      .post(`${process.env.REACT_APP_END_POINT}/posts/new`, {
+      .post(`${process.env.REACT_APP_END_POINT}/post`, {
         data: {
           postInfo: {
             content: message, // String
@@ -57,7 +57,7 @@ function PostUpload({ onModal, bookInfo, setBookInfo }) {
         }
       },{
         headers: {
-          Authorization: `Bearer ACCESS_TOKEN`
+          Authorization: `Bearer ${accessToken}`
         }
       })
       .then(() => {

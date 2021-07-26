@@ -29,7 +29,6 @@ app.post('/signin', signin.post);
 app.get('/signin', signin.get);
 app.get('/auth', auth);
 app.post('/mypage', mypage);
-app.get('/oauth', oauth.get);
 app.post('/oauth', oauth.post)
 app.post('/post', post);
 app.post('/selectbook', selectbook);
