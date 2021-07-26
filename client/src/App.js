@@ -15,7 +15,7 @@ import Social from './pages/social';
 import axios from 'axios';
 
 function App() {
-  const [isLogin, setIsLogin] = useState(true); // 로그인 상태관리 (true: main, false: landing page redirect)
+  const [isLogin, setIsLogin] = useState(false); // 로그인 상태관리 (true: main, false: landing page redirect)
   const [pageTitle, setPageTitle] = useState(''); // Header title 관리
   const [sortByLikes, setSort] = useState(false); // 정렬 상태 관리
   const [ userInfo, setUserInfo ] = useState({ 
@@ -50,6 +50,8 @@ function App() {
         })
 
         console.log(userInfo)
+      })
+      .catch((err)=> {
       });
   }
 
@@ -118,12 +120,12 @@ function App() {
           </>
           }
           {/* social login을 위한 페이지 test 중입니다*/}
-          <Route to ='/social'>
+          {/* <Route to ='/social'>
             <Social 
               setIsLogin={setIsLogin} 
               setAccessToken={setIsLogin}
             />
-          </Route>
+          </Route> */}
       </Switch>
     </div>
   );
