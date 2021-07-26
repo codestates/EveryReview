@@ -4,7 +4,7 @@ CREATE TABLE users (
   username varchar(255) not null,
 	email varchar(255) not null,
 	password varchar(255) not null,
-	img varchar(255),
+	profile varchar(255),
 	created_at timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	updated_at timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
