@@ -12,23 +12,16 @@ import Landing from './Landing';
 import axios from 'axios';
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
-
-  const [pageTitle, setPageTitle] = useState('');
-  const [sortByLikes, setSort] = useState(false);
-
-  /* 
-    test 용 state
-    true >> main/home으로 리다이렉트
-    false >> /login으로 리다이렉트
-  */
-  const [ userInfo, setUserInfo ] = useState({
+  const [isLogin, setIsLogin] = useState(false); // 로그인 상태관리 (true: main, false: landing page redirect)
+  const [pageTitle, setPageTitle] = useState(''); // Header title 관리
+  const [sortByLikes, setSort] = useState(false); // 정렬 상태 관리
+  const [ userInfo, setUserInfo ] = useState({ 
     email: '',
     username: '',
     img: '',
-  })
-  // accessToken 상태관리
-  const [ accessToken, setAccessToken ] = useState(null)
+  }) // 사용자 정보 상태 관리
+  const [ accessToken, setAccessToken ] = useState(null) // Access Token 관리
+
   const isAuthenticated = () => {
     axios.get(
       // test용 endpoint
@@ -42,15 +35,18 @@ function App() {
       })
       .then((res) => {
         if (res.data.message !== "Userinfo found") {
-          alert('로그인을 다시 시도해주세요')
-
+          alert('로그인을 다시 시도해주세요');
         }
+
         const { email, username, profile } = res.data.data.userInfo;
         setUserInfo({
-          email, username, profile
-        })
+          email, 
+          username, 
+          profile
+        });
       });
   }
+
   useEffect(() => {
     isAuthenticated();
   }, [])
@@ -58,47 +54,59 @@ function App() {
   return (
     <div id="app">
       <Switch>
+        { 
+          isLogin ? 
+          <Route path='/main'>
+            <SideBar/>
+            <section id="main">
+              <MainHeader pageTitle={pageTitle} />
+              <div id="pageWrap">
 
-        <Route exact path='/'>
-          { isLogin 
-            ? <Redirect to='/main/home'/> 
-            : <Landing />
-          }
-        </Route>
+                <Route exact path='/main/home'>
+                  <Home 
+                    handleTitle={setPageTitle} 
+                    sortByLikes={sortByLikes} 
+                    setSort={setSort}
+                    accessToken={accessToken}
+                    />
+                </Route>
 
-        <Route path='/signup'>
-          <SignUp 
-            setUserInfo={setUserInfo}
-            setIsLogin={setIsLogin}
-          />
-        </Route>
-        <Route path='/login'>
-          <Login
-            setIsLogin={setIsLogin}
-            setAccessToken={setAccessToken}
-          />
-        </Route>
+                 <Route exact path='/main/explore'>
+                  <Explore 
+                    handleTitle={setPageTitle} 
+                    sortByLikes={sortByLikes} 
+                    setSort={setSort}
+                  />
+                </Route>
 
-        <Route path='/main'>
-          <SideBar/>
-          <section id="main">
-            <MainHeader pageTitle={pageTitle} />
-            <div id="pageWrap">
-              <Route path='/main/home'>
-                <Home handleTitle={setPageTitle} sortByLikes={sortByLikes} setSort={setSort}/>
-              </Route>
+                 <Route exact path='/main/mypage'>
+                  <MyPage handleTitle={setPageTitle} />
+                </Route>     
 
-              <Route path='/main/explore'>
-                <Explore handleTitle={setPageTitle} sortByLikes={sortByLikes} setSort={setSort}/>
-              </Route>
+              </div>
+            </section>
+          </Route> :
+          <>
+            <Redirect to = '/'/>
+            <Route exact path='/'>
+              <Landing />
+            </Route>
+                
+            <Route exact path='/signup'>
+              <SignUp 
+                setUserInfo={setUserInfo}
+                setIsLogin={setIsLogin}
+              />
+            </Route>
 
-              <Route path='/main/mypage'>
-                <MyPage handleTitle={setPageTitle} />
-              </Route>
-            </div>
-          </section>
-        </Route>
-
+            <Route exact path='/login'>
+              <Login
+                setIsLogin={setIsLogin}
+                setAccessToken={setAccessToken}
+              />
+            </Route> 
+        </>
+        }
       </Switch>
     </div>
   );
