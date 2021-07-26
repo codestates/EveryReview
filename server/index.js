@@ -32,7 +32,7 @@ app.post('/mypage', mypage);
 app.post('/oauth', oauth.post)
 app.post('/post', post);
 app.post('/selectbook', selectbook);
-app.get('/postlist', postlist);
+app.post('/postlist', postlist);
 
 
 app.listen(port, () => {

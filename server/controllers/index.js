@@ -14,6 +14,6 @@ module.exports = {
   },
   post: require('./features/post').post,
   selectbook: require('./features/selectbook').post,
-  postlist: require('./features/postlist').get,
+  postlist: require('./features/postlist').post,
   like: require('./features/like')
 };
