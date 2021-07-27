@@ -20,7 +20,8 @@ function BookSearchModal({ onModal, setBookInfo }) {
           query: searchMsg,
           sort: "accuracy",
           target: "title"
-        }          
+        }, 
+        withCredentials: false 
       })
       .then((res)=>{
         setSearchRes(res.data.documents);

@@ -1,9 +1,10 @@
 #postUpload {
     display: flex;
     height: 150px;
-    background-color: blue;
+    /* background-color: blue; */
     width: 100%;;
     padding: 10px;
+    border: 1px solid black;
 }
 
 #userProfile {
@@ -56,7 +57,17 @@
 }
 
 #uploadBtnWrap > button {
+    width: 80px;
     margin-left: 5px;
+    border: 1px solid #7f0000;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#uploadBtnWrap > button:hover {
+    background-color: #7f0000;
+    color: white;
 }
 
 #uploadBtnWrap > div {
