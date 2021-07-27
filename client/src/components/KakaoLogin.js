@@ -1,13 +1,11 @@
 import axios from 'axios'
 import { useHistory } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 
 function KakaoLogin ({ setIsLogin, setAccessToken }) {
 
     let history = useHistory()
-
-    const [code, setCode] = useState(null)
 
     // Kakao 로그인 구현
   useEffect(async () => {
@@ -32,20 +30,17 @@ function KakaoLogin ({ setIsLogin, setAccessToken }) {
     }
     const url = new URL(window.location.href)
     const authorizationCode = url.searchParams.get('code')
-    setCode(authorizationCode)
     // console.log('인증 코드', authorizationCode);
     if (authorizationCode) {
-    await getAccessToken(authorizationCode)
-    // history.replace('/')
+      await getAccessToken(authorizationCode)
     }
   },[])
 
   //console.log('인증 코드?????????', code);
 
     return (
-        <div>
-
-        </div>
+      <div>
+      </div>
     )
 }
 
