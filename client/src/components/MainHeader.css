@@ -1,6 +1,7 @@
 #mainHeader {
     display: flex;
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
+    border: 1px solid black;
     width: 100%;
     flex: 0 0 70px;
     padding: 10px;

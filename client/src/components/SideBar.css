@@ -1,11 +1,19 @@
+@font-face {
+    font-family: 'Eulyoo1945-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2102-01@1.0/Eulyoo1945-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 #sideBar {
     display: flex;
     flex: 1;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background-color: green;
+    /* background-color: green; */
     padding: 20px;
+    border: 1px solid black;
 }
 
 #sideBarLogoWrap {
@@ -26,19 +34,39 @@
     align-items: center;
     width: 100%;
     padding: 0;
-    background-color: darkcyan;
+    /* background-color: darkcyan; */
 }
 
 #sideBarMenu > li {
     width: 100%;
     margin: 20px 0;
     text-align: center;
-    background-color: chartreuse;
+    font-size: 20px;
+    font-family: 'Eulyoo1945-Regular' !important;
+    /* background-color: chartreuse; */
 }
+
+#sideBarMenu > li:hover{
+    border-bottom:3px solid #b71c1c;
+}
+
+
+
 
 #logoutBtnWrap {
     width: 100%;
     display: flex;
     justify-content: flex-end;
     /* background-color: darkviolet; */
+}
+
+#logoutBtnWrap > button {
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #DE413A;
+}
+
+#logoutBtnWrap > button:hover {
+    background-color: #DE413A;
+    color: white;
 }

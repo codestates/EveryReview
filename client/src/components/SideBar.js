@@ -1,17 +1,16 @@
 import { Link } from 'react-router-dom';
+import Logo from './Logo';
 import './SideBar.css';
 
 function SideBar() {
   return (
     <section id="sideBar">
       <div id="sideBarLogoWrap">
-        <div id="sideBarLogo">
-          <img src="#" alt="BI" />
-        </div>
+        <Logo id="sideBarLogo"/>
       </div>
       <ul id="sideBarMenu">
         <li>
-          <Link to='/main/home'>Home</Link>
+          <Link to='/main/home'>HOME</Link>
         </li>
         <li>
           <Link to='/main/explore'>#Explore</Link>

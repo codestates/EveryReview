@@ -3,7 +3,7 @@ import axios from 'axios';
 import './PostUpload.css';
 
 
-function PostUpload({ onModal, bookInfo, setBookInfo, accessToken }) {
+function PostUpload({ onModal, bookInfo, setBookInfo, accessToken, getReviewList }) {
   const [ hashtag, setHashtag ] = useState([]);
   const [ message, setMessage ] = useState('');
   const [ invalidMsg, setInvalidMsg ] = useState('');
@@ -62,6 +62,7 @@ function PostUpload({ onModal, bookInfo, setBookInfo, accessToken }) {
       })
       .then(() => {
         // 게시글 리스트 갱신 함수
+        getReviewList();
       })
       .catch(() => {
 
