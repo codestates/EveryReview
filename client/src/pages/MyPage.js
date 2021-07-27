@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import './MyPage.css'
 
-function MyPage({handleTitle, userInfo}) {
+function MyPage({handleTitle, userInfo, accessToken }) {
 
   // 상태관리
 

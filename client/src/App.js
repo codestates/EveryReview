@@ -11,6 +11,7 @@ import './App.css';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Landing from './Landing';
+import KakaoLogin from './components/KakaoLogin';
 import axios from 'axios';
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
         withCredentials: true,
       })
       .then((res) => {
-        console.log('응답을 받아오시오', res.data)
+        console.log('응답을 받아오시오', res.body)
         if (res.data.message !== "Userinfo found") {
           alert('로그인을 다시 시도해주세요')
         }
@@ -50,7 +51,7 @@ function App() {
         })
       })
       .catch((err)=> {
-        console.log(err)
+        console.log('사용자정보를 받아오지 못하면????',err)
       });
   }
 
@@ -137,7 +138,7 @@ function App() {
                   setIsLogin={setIsLogin}
                   setAccessToken={setAccessToken}
                 />
-              </Route> 
+              </Route>
           </>
           }
 
