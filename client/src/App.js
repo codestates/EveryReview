@@ -11,7 +11,6 @@ import './App.css';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Landing from './Landing';
-import Social from './pages/Social';
 import axios from 'axios';
 
 function App() {
@@ -118,13 +117,7 @@ function App() {
               </Route> 
           </>
           }
-          {/* social login을 위한 페이지 test 중입니다*/}
-          {/* <Route to ='/social'>
-            <Social 
-              setIsLogin={setIsLogin} 
-              setAccessToken={setIsLogin}
-            />
-          </Route> */}
+
       </Switch>
     </div>
   );
