@@ -67,7 +67,7 @@ function Login ({ setIsLogin, setAccessToken }) {
       .then((res) => {
         console.log('refreshToken은 어디에 있나요???', res.data.data)
         const { accessToken } = res.data.data;
-        localStorage.setItem('accessToken', accessToken)
+        console.log('왜 되지????', accessToken)
         setAccessToken(accessToken)
         setIsLogin(true);
         history.push('/main/home')
