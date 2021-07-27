@@ -10,6 +10,7 @@ module.exports = {
   sendRefreshToken: (res, refreshToken) => {
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 30
     });
   },
   // AccessToken 생성
@@ -18,7 +19,11 @@ module.exports = {
   },
   // AccessToken 전달
   sendAccessToken: (res, accessToken) => {
-    res.json({ data: { accessToken }, message: "AccessToken published" });
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 1
+    });
+    res.json({ message: "AccessToken published" });
   },
   // AccessToken 만료시 재생성된 토큰 전달, 이 때, 유저 정보를 같이 전송
   resendAccessToken: (res, accessToken, data) => {
@@ -26,11 +31,11 @@ module.exports = {
   },
   // AccessToken 검증
   isAuthorized: (req) => {
-    const authorization = req.headers["authorization"];  // Bearer Accesstoken
+    const authorization = req.cookies.accessToken;
     if (!authorization) {
       return null;
     }
-    const token = authorization.split(" ")[1];
+    const token = authorization;
     try {
       return verify(token, process.env.ACCESS_SECRET);
     } catch (err) {
