@@ -113,14 +113,20 @@ module.exports = {
     for(let i = 0; i < hashtag.length; i++) {
       try{
         let connection = await db.getConnection(async conn => conn)
+        let connection1 = await db.getConnection(async conn => conn)
+        
         await connection.query(`INSERT IGNORE INTO hashtags (hashtag_name) VALUES ("${hashtag[i]}")`)
         connection.commit()
         connection.release()
+        await connection.query(`UPDATE hashtags SET hashcount=hashcount+1 WHERE hashtag_name = "${hashtag[i]}"`)
+        connection1.commit()
+        connection1.release()
       }
       catch(error){
         console.log("error: ", error)
       }
     }
+
 
     // post_hashtag 정보 DB에 입력
     // postInfo와 hashInfo 가져오기
