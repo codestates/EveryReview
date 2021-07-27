@@ -36,15 +36,18 @@ function Login ({ setIsLogin, setAccessToken }) {
         setIsLogin(true)
         history.push('/main/home')
         })
+        .catch((err)=> {
+          console.log('카카오로그인에러', err)
+        })
     }
     const url = new URL(window.location.href)
     const authorizationCode = url.searchParams.get('code')
-    setCode(authorizationCode)
+    // setCode(authorizationCode)
     console.log('인증 코드', authorizationCode);
     if (authorizationCode) {
     await getAccessToken(authorizationCode)
     }
-  }, [code])
+  },[])
 
   
 
