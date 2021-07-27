@@ -39,7 +39,7 @@ module.exports = {
     }
   },
   // RefreshToken 검증
-  checkRefeshToken: (refreshToken) => {
+  checkRefreshToken: (refreshToken) => {
     try {
       return verify(refreshToken, process.env.REFRESH_SECRET);
     } catch (err) {
