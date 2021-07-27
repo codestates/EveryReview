@@ -1,4 +1,5 @@
-// 게시된 한 줄평들을 보여주는 기능
+// 첫 화면은 해시태그 개수 상위 3개 - 시간순? 추천순?
+
 const { isAuthorized } = require('../tokenFunctions')
 const mysql = require('mysql2/promise');
 
@@ -48,16 +49,37 @@ module.exports = {
     connection7.beginTransaction()
     connection8.beginTransaction()
 
-    // user정보 가져오기
-    let queryString = `SELECT * FROM users WHERE email = "${email}"`
-    let [userInfo] = await connection0.query(queryString)
+    // hashtags table 값을 정렬시켜서 가장 count가 높은 순서대로 값을 가져오기
+
+    // ORDER BY () DESC LIMIT 3
+    // select posts.id, posts.content, posts.likes, posts.created_at, users.username, users.profile, books.url from ( ( posts inner join users on posts.user_id = users.id ) inner join books on books.id = posts.book_id ) WHERE hashtags.hashtag_name = OR
+
+    // select hashtags.hashtag_name from ( ( posts inner join post_hashtag on post_hashtag.post_id = posts.id ) inner join hashtags on hashtags.id = post_hashtag.hashtag_id) ORDER BY hashtags.hashcount DESC LIMIT 3;
+
+    let queryString = `select hashtag_name from hashtags order by hashcount desc limit 3`
+    let [bestHashtags] = await connection0.query(queryString)
     connection0.commit()
     connection0.release()
 
-    let dataQueryString = `select posts.id, posts.content, posts.likes, posts.created_at, users.username, users.profile, books.url from ( ( posts inner join users on posts.user_id = users.id ) inner join books on books.id = posts.book_id ) ORDER BY created_at DESC`
-    let [postList] = await connection1.query(dataQueryString)
+    
+    let bestHashdataQueryString = `select posts.id, posts.content, posts.user_id, posts.likes, posts.created_at, users.username, users.profile, hashtags.hashtag_name, books.url from ( ( ( ( posts inner join users on posts.user_id = users.id ) inner join post_hashtag on posts.id = post_hashtag.post_id ) inner join hashtags on hashtags.id = post_hashtag.hashtag_id ) inner join books on books.id = posts.book_id ) WHERE hashtags.hashtag_name = "${bestHashtags[0].hashtag_name}" OR  hashtags.hashtag_name = "${bestHashtags[1].hashtag_name}" OR hashtags.hashtag_name = "${bestHashtags[2].hashtag_name}" ORDER BY created_at DESC`
+    let [postList] = await connection1.query(bestHashdataQueryString)
     connection1.commit()
     connection1.release()
+    
+    console.log("BH: ", postList)
+
+    //! 복붙시작
+    // // user정보 가져오기
+    // queryString = `SELECT * FROM users WHERE email = "${email}"`
+    // let [userInfo] = await connection0.query(queryString)
+    // connection0.commit()
+    // connection0.release()
+
+    // let dataQueryString = `select posts.id, posts.content, posts.likes, posts.created_at, users.username, users.profile, books.url from ( ( posts inner join users on posts.user_id = users.id ) inner join books on books.id = posts.book_id ) ORDER BY created_at DESC`
+    // let [postList] = await connection1.query(dataQueryString)
+    // connection1.commit()
+    // connection1.release()
     
     // console.log("postList: ", postList)
     // console.log("postList id: ", postList[0].id)
@@ -86,65 +108,11 @@ for(let i = 0; i < postList.length; i++) {
         return obj;
   }
   let b = a();
-  // console.log("b: ", b)
 
   result.push(b)
 }
-// console.log("@@@@@@@@@@@@@@@", result);
-
     
-    // for(let i = 0; i < postList.length-1; i++) {
-    //   for(let j = 1; j < postList.length; j++) {
-    //     if(postList[i].id !== postList[j].id) {
-          
-    //     }
-    //   }
-    // }
-    
-    
-    // console.log("hash: ", hash)
-
-    // select COUNT(hashtags.hashtag_name) from ( ( posts inner join post_hashtag on post_hashtag.post_id = posts.id ) inner join hashtags on hashtags.id = post_hashtag.hashtag_id) WHERE posts.id = 93;
-
-    // let AllList = postList.map((data, idx) => {
-    //     let obj = {};
-    //     obj.id = data.id;
-    //     obj.content = data.content;
-    //     obj.likes = data.likes;
-    //     obj.creatd_at = data.created_at;
-    //     obj.username = data.username;
-    //     obj.profile = data.profile;
-    //     obj.url = data.url;
-    //     obj.hashtag_name = [data.hashtag_name];
-
-    //     return obj;
-    //   })
-    
-    // console.log("AllList: ", AllList)
-
-
-    
-
-    // 필요한 데이터들을 적어보자
-    // list 구현에 필요한 것
-    // 1. userInfo : username, profile(default: null)
-    // 2. postInfo : content, user_id, likes, created_at
-    // 3. hashInfo : hashtag_name
-    // 4. bookInfo : url
-
-    // posts + users
-    // `select posts.id, posts.content, posts.user_id, posts.likes, posts.created_at, users.username, users.profile from posts inner join users on posts.user_id = users.id;`
-
-    // posts + users + hashtags
-    // `select posts.id, posts.content, posts.user_id, posts.likes, posts.created_at, users.username, users.profile, hashtags.hashtag_name from ( ( ( posts inner join users on posts.user_id = users.id ) inner join post_hashtag on posts.id = post_hashtag.post_id ) inner join hashtags on hashtags.id = post_hashtag.hashtag_id);`
-
-    // posts + users + hashtags + books
-    // select posts.id, posts.content, posts.user_id, posts.likes, posts.created_at, users.username, users.profile, hashtags.hashtag_name, books.url from ( ( ( ( posts inner join users on posts.user_id = users.id ) inner join post_hashtag on posts.id = post_hashtag.post_id ) inner join hashtags on hashtags.id = post_hashtag.hashtag_id ) inner join books on books.id = posts.book_id )
-
-    
-
-
     res.status(200).json({ 
-      data: result, message: "postList Rendering success!"})
+      data: "", message: "Explore Rendering success!"})
   }
 };

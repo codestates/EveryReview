@@ -14,7 +14,7 @@ module.exports = {
     post: require('./OAuth').post
   },
   post: require('./features/post').post,
-  selectbook: require('./features/selectbook').post,
+  explore: require('./features/explore').post,
   postlist: require('./features/postlist').post,
   like: require('./features/like')
 };
