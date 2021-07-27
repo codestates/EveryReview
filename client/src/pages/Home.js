@@ -14,7 +14,6 @@ function Home({ handleTitle, sortByLikes, setSort, getReviewList, reviewList, au
 
   useEffect(() => {
     // 헤더 타이틀 설정
-    console.log("HOME");
     handleTitle("Home");
     auth();
   }, []);

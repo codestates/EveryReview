@@ -13,7 +13,6 @@ function MyPage({handleTitle, userInfo, auth, isLogin }) {
 
   useEffect(() => {
     // 헤더 타이틀 설정
-    console.log("MYPAGE");
     handleTitle("My Page");
     auth();
   }, []);

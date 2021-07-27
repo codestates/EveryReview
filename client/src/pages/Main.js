@@ -12,9 +12,6 @@ function Main({ isLogin, setIsLogin, userInfo, setUserInfo, auth }) {
   const [ sortByLikes, setSort ] = useState(false); // 정렬 상태 관리
   const [ reviewList, setReviewList ] = useState([]); // 게시글 list 관리
 
-
-  
-
   const getReviewList = () => {
     axios
     .post(`${process.env.REACT_APP_END_POINT}/postlist`,{

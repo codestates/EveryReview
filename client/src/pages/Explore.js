@@ -7,7 +7,6 @@ function Explore({ handleTitle, sortByLikes, setSort, getReviewList, reviewList,
   
   useEffect(() => {
     // 헤더 타이틀 설정
-    console.log("EXP");
     handleTitle('#Explore');
     auth();
   }, []);

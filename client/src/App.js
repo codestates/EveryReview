@@ -1,12 +1,11 @@
 /*eslint-disable*/
 
 import React, { useState, useEffect } from 'react';
-import { Switch, Route, useHistory, Redirect } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import './App.css';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Landing from './Landing';
-import KakaoLogin from './components/KakaoLogin';
 import Main from './pages/Main';
 import axios from 'axios';
 
@@ -29,15 +28,14 @@ function App() {
       setIsLogin(true);
     })
     .catch((err)=> {
-      if(err) {
-        setIsLogin(false);
-      }
+      console.log("액세스 토큰 만료, 다시 로그인하세요");
+      setIsLogin(false);
     });
   }
 
   useEffect(()=>{
     if(isLogin) history.push("/main/home");
-    // else history.push("/");
+    else history.push("/");
   }, [isLogin])
 
   return (
@@ -70,10 +68,7 @@ function App() {
             auth={isAuthenticated}
           />
         </Route>    
-              
-        <Route path='/social'>
-          <KakaoLogin />
-        </Route>
+        
       </Switch>
     </div>
   );
