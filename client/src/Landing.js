@@ -2,11 +2,14 @@ import { useHistory } from 'react-router-dom';
 
 import './Landing.css';
 import Logo from './components/Logo'
+import { useEffect } from 'react';
 
 
-function Landing ({ setIsLogin, setAccessToken }) {
-
+function Landing ({ setIsLogin, auth }) {
   const history = useHistory();
+  useEffect(()=>{
+    auth();
+  },[])
 
   return (
     <div className='landingContainer'>

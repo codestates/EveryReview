@@ -10,7 +10,7 @@ import KakaoLogin from '../components/KakaoLogin';
 import kakao from '../static/kakao_signup.png'
 
 
-function SignUp({ setIsLogin, setAccessToken }) {
+function SignUp({ setIsLogin }) {
 
   const history = useHistory();
 
@@ -145,10 +145,7 @@ function SignUp({ setIsLogin, setAccessToken }) {
             { withCredentials: true }
           )
             .then((res) => {
-              const { accessToken } = res.data.data;
               setIsLogin(true);
-              setAccessToken(accessToken)
-              history.push('/main/home')
             })
             .catch((err) => console.log(err))
         })
@@ -159,7 +156,7 @@ function SignUp({ setIsLogin, setAccessToken }) {
     // 소셜 회원가입 요청
     const socialSignupRequestHandler = () => {
       window.location.assign( 
-        `https://kauth.kakao.com/oauth/authorize?client_id=750325bb6d6f5b4a028d5064c28496c8&redirect_uri=http://localhost:3000/login&response_type=code`
+        `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=http://localhost:3000/signup&response_type=code`
       )
     }
 

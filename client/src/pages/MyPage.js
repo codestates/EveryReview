@@ -1,9 +1,10 @@
 
 
 import { useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import './MyPage.css'
 
-function MyPage({handleTitle, userInfo, accessToken }) {
+function MyPage({handleTitle, userInfo, auth, isLogin }) {
 
   // 상태관리
 
@@ -12,54 +13,63 @@ function MyPage({handleTitle, userInfo, accessToken }) {
 
   useEffect(() => {
     // 헤더 타이틀 설정
+    console.log("MYPAGE");
     handleTitle("My Page");
+    auth();
   }, []);
   
   return (
-    <div className='myPageContainer'>
-      <div className='imgUserProfile'>
-        <img 
-          src={userInfo.profile}
-          alt='user profile'
-        />
-      </div>
-      <div>
-        <p>반가워요, {userInfo.username}님!</p>
-        <div>이메일: {userInfo.email}</div>
-      </div>
+    <>
+      {
+        isLogin ?
+          <div className='myPageContainer'>
+            <div className='imgUserProfile'>
+              <img 
+                src={userInfo.profile}
+                alt='user profile'
+              />
+            </div>
+            <div>
+              <p>반가워요, {userInfo.username}님!</p>
+              <div>이메일: {userInfo.email}</div>
+            </div>
 
-      <div className='inputField'>
-          <input
-            name='password'
-            type='password'
-            placeholder='비밀번호 입력'
-          />
-          <input
-            name='password'
-            type='password'
-            placeholder='새로운 비밀번호 입력'
-          />  
-          <input
-            name='password check'
-            type='password'
-            placeholder='새로운 비밀번호 확인'
-          />  
-      </div>
+            <div className='inputField'>
+                <input
+                  name='password'
+                  type='password'
+                  placeholder='비밀번호 입력'
+                />
+                <input
+                  name='password'
+                  type='password'
+                  placeholder='새로운 비밀번호 입력'
+                />  
+                <input
+                  name='password check'
+                  type='password'
+                  placeholder='새로운 비밀번호 확인'
+                />  
+            </div>
 
-      <div className=''>
-        <button 
-          className=''
-        >
-          취소
-        </button>
-        <button 
-          className=''
-        >
-          확인
-        </button>
-      </div>
+            <div className=''>
+              <button 
+                className=''
+              >
+                취소
+              </button>
+              <button 
+                className=''
+              >
+                확인
+              </button>
+            </div>
 
-    </div>
+          </div> :
+          <Redirect to = "/" />
+
+      }
+    </>
   );
 }
 

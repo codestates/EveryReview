@@ -9,7 +9,7 @@ import kakao from '../static/kakao_signin.png'
 axios.defaults.withCredentials = true;
 
 
-function Login ({ setIsLogin, setAccessToken }) {
+function Login ({ setIsLogin }) {
   const history = useHistory();
 
   // 상태관리
@@ -59,35 +59,37 @@ function Login ({ setIsLogin, setAccessToken }) {
     
     const { email, password } = loginInfo;
 
-    axios.post(
-      `${process.env.REACT_APP_END_POINT}/signin`,
-      { email, password },
-      { withCredentials: true }
+    axios
+    .post(`${process.env.REACT_APP_END_POINT}/signin`, {
+        //payload 
+        email,
+        password 
+      },
+      { 
+        //header
+        withCredentials: true 
+      }
     )
-      .then((res) => {
-        console.log('refreshToken은 어디에 있나요???', res.data.data)
-        const { accessToken } = res.data.data;
-        console.log('왜 되지????', accessToken)
-        setAccessToken(accessToken)
-        setIsLogin(true);
-        history.push('/main/home')
-      })
-      .catch((err)=> {
-        // err의 status에 따라서 setErrMessage를 보여줘야하는 것 구현완료
-        console.log(err)
-        if(err.request.status === 401) {
-          // 에러코드가 401로 생기면 이메일과 비밀번호 를 다시 확인하라는 메세지가 뜨고
-          setErrMessage('이메일과 비밀번호를 다시 확인해주세요')
+    .then((res) => {
+      setIsLogin(true);
+      history.push('/main/home')
+    })
+    .catch((err)=> {
+      // err의 status에 따라서 setErrMessage를 보여줘야하는 것 구현완료
+      console.log(err)
+      if(err.request.status === 401) {
+        // 에러코드가 401로 생기면 이메일과 비밀번호 를 다시 확인하라는 메세지가 뜨고
+        setErrMessage('이메일과 비밀번호를 다시 확인해주세요')
 
-          // 3초 후에 메세지가 사리지도록 코드구현
-          let timer = setTimeout(() => {
-            setErrMessage('')
-          }, 3000)
+        // 3초 후에 메세지가 사리지도록 코드구현
+        let timer = setTimeout(() => {
+          setErrMessage('')
+        }, 3000)
 
-          // 버그 방지용 
-          return () => { clearTimeout(timer)}
-        }
-      })
+        // 버그 방지용 
+        return () => { clearTimeout(timer)}
+      }
+    })
   }
 
   //* 카카오 로그인 핸들러
@@ -154,7 +156,6 @@ function Login ({ setIsLogin, setAccessToken }) {
           />
           <KakaoLogin 
             setIsLogin={setIsLogin}
-            setAccessToken={setAccessToken}
           />
         </div>
       </div>
