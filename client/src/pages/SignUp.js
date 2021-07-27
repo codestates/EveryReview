@@ -18,7 +18,7 @@ function SignUp({ setIsLogin, setAccessToken }) {
     const [ userInput, setUserInput ] = useState({
       email: '',
       password: '',
-      passwordCheck: '',
+      passwordCheck: '',   
       username: '',
     })
     //* 유효하지 않은 입력값에 대한 메세지
