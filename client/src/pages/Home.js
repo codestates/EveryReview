@@ -7,7 +7,7 @@ import './Home.css'
   1) 한번에 몇 개의 게시물을 나타낼지?
   2) 페이지 형식? 무한 스크롤 형식?
 */
-function Home({ handleTitle, sortByLikes, setSort, accessToken }) {
+function Home({ handleTitle, sortByLikes, setSort, accessToken, getReviewList, reviewList }) {
   const [ onModal, setOnModal ] = useState(false);
   const [ bookInfo, setBookinfo ] = useState(null);
 
@@ -23,11 +23,17 @@ function Home({ handleTitle, sortByLikes, setSort, accessToken }) {
         bookInfo={bookInfo} 
         setBookInfo={setBookinfo} 
         accessToken={accessToken} 
+        getReviewList={getReviewList} 
       />
       {
-        onModal ? <BookSearchModal onModal={setOnModal} setBookInfo={setBookinfo} /> : null
+        onModal ? <BookSearchModal onModal={setOnModal} setBookInfo={setBookinfo}/> : null
       }
-      <Reviews sortByLikes={sortByLikes} setSort={setSort} />
+      <Reviews
+        sortByLikes={sortByLikes} 
+        setSort={setSort} 
+        getReviewList={getReviewList} 
+        reviewList={reviewList}
+      />
     </div>
   );
 }

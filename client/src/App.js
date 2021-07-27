@@ -24,6 +24,7 @@ function App() {
   }) // 사용자 정보 상태 관리
   const [ accessToken, setAccessToken ] = useState(null) // Access Token 관리
   const [ refreshToken, setRefreshToken ] = useState(null)  // Refresh Token 관리
+  const [ reviewList, setReviewList ] = useState([]); // 게시글 list 관리
 
   const isAuthenticated = () => {
     axios.get(
@@ -53,6 +54,23 @@ function App() {
       });
   }
 
+  const getReviewList = () => {
+    axios
+    .post(`${process.env.REACT_APP_END_POINT}/postlist`,{
+      data: {
+        like: sortByLikes
+      }
+    },{
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    })
+    .then((res) => {
+      setReviewList(res.data.data);
+      // console.log(reviewList);
+    })
+  }
+
   useEffect(() => {
     isAuthenticated();
   }, [accessToken])
@@ -74,6 +92,8 @@ function App() {
                       sortByLikes={sortByLikes} 
                       setSort={setSort}
                       accessToken={accessToken}
+                      getReviewList={getReviewList}
+                      reviewList={reviewList}
                       />
                   </Route>
 
@@ -82,6 +102,9 @@ function App() {
                       handleTitle={setPageTitle} 
                       sortByLikes={sortByLikes} 
                       setSort={setSort}
+                      accessToken={accessToken}
+                      getReviewList={getReviewList}
+                      reviewList={reviewList}
                     />
                   </Route>
 

@@ -1,29 +1,40 @@
 import './Review.css';
-//postinfo.{변수명}은 서버에서 반환해주는 데이터의 key로 수정해야할 듯합니다
+import profile from '../static/profile.png'
+
 function Review({postinfo}) {
   return (
     <div className="review">
-      <div className="bookImg">
-        <img src={postinfo.bookImg} alt="book cover" />
+      <div className="userImg">
+        {
+          postinfo.profile === null ?
+          <img src={profile} alt="profile alt" /> :
+          <img src={postinfo.profile} alt="profile" />
+        }
       </div>
       <div className="reviewInWrap">
         <div className="reviewTop">
           <div>{postinfo.username}</div>
-          <div>{postinfo.createdAt}</div>
-          <button>메뉴</button>
+          <div>{postinfo.created_at}</div>
+          <button id="postMenu">
+          &#183;&#183;&#183;
+          </button>
         </div>
         <div>
-          <div className = "review-contents"><a href={postinfo.url}>{postinfo.contents}</a></div>
+          <div className = "review-contents">
+            <a href={postinfo.url}>
+              {postinfo.content}
+            </a>
+          </div>
         </div>
         <div>
           <div className = "hashtag-wrap">
             {
-              postinfo.hashtag.map((el) => {
+              postinfo.hashtag_name.map((el) => {
                 return <div key={el} className = "hashtag">{el}</div>
               })  
             }
           </div>
-          <button>{postinfo.like}</button>
+          <button>{postinfo.likes}</button>
         </div>
       </div>
     </div>
