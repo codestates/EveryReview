@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom'
 import { emailCheck, passwordCheck, usernameCheck, checkAll } from '../utils/ValidityCheck'
 import './SignUp.css';
 import Logo from '../components/Logo';
+import KakaoLogin from '../components/KakaoLogin';
 import kakao from '../static/kakao_signup.png'
 
 
@@ -35,11 +36,11 @@ function SignUp({ setIsLogin, setAccessToken }) {
     const inputHandler = (event) => {
       setUserInput({ ...userInput, [event.target.name]: event.target.value });
 
-      let timer = setTimeout(() => {
-        setErrMessage('')
-      }, 3000)
-      // 버그 방지용 
-      return () => { clearTimeout(timer)}
+      // let timer = setTimeout(() => {
+      //   setErrMessage('')
+      // }, 3000)
+      // // 버그 방지용 
+      // return () => { clearTimeout(timer)}
     }
     //* 입력값 유효성 검사 메세지
     const errMessageHandler = (message) => {
@@ -106,7 +107,7 @@ function SignUp({ setIsLogin, setAccessToken }) {
         
         default:
           return '';
-    }
+      }
 
     }
 
@@ -126,7 +127,7 @@ function SignUp({ setIsLogin, setAccessToken }) {
       }
 
       axios.post(
-        `$${process.env.REACT_APP_END_POINT}/signup`, 
+        `${process.env.REACT_APP_END_POINT}/signup`, 
         {
           email: email,
           password: password,
@@ -146,18 +147,20 @@ function SignUp({ setIsLogin, setAccessToken }) {
             .then((res) => {
               const { accessToken } = res.data.data;
               setIsLogin(true);
+              setAccessToken(accessToken)
               history.push('/main/home')
             })
             .catch((err) => console.log(err))
         })
         .catch((err) => {
           console.log(err)
-          // 상태코드에 따라 setErrMessage 구현해야함
         })
     }
     // 소셜 회원가입 요청
     const socialSignupRequestHandler = () => {
-
+      window.location.assign( 
+        `https://kauth.kakao.com/oauth/authorize?client_id=750325bb6d6f5b4a028d5064c28496c8&redirect_uri=http://localhost:3000/login&response_type=code`
+      )
     }
 
 
@@ -251,7 +254,11 @@ function SignUp({ setIsLogin, setAccessToken }) {
         </div>
 
         <div className='btnSocial'>
-          <img src={kakao}/>
+          <img 
+            src={kakao}
+            onClick={socialSignupRequestHandler}
+          />
+          <KakaoLogin />
         </div>
       </div>
     );
