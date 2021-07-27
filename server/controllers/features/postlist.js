@@ -55,11 +55,88 @@ module.exports = {
     connection0.commit()
     connection0.release()
 
-    let dataQueryString = `select posts.id, posts.content, posts.user_id, posts.likes, posts.created_at, users.username, users.profile, hashtags.hashtag_name, books.url from ( ( ( ( posts inner join users on posts.user_id = users.id ) inner join post_hashtag on posts.id = post_hashtag.post_id ) inner join hashtags on hashtags.id = post_hashtag.hashtag_id ) inner join books on books.id = posts.book_id )`
+    let dataQueryString = `select posts.id, posts.content, posts.likes, posts.created_at, users.username, users.profile, hashtags.hashtag_name, books.url from ( ( ( ( posts inner join users on posts.user_id = users.id ) inner join post_hashtag on posts.id = post_hashtag.post_id ) inner join hashtags on hashtags.id = post_hashtag.hashtag_id ) inner join books on books.id = posts.book_id ) ORDER BY created_at DESC`
     let [postList] = await connection1.query(dataQueryString)
-    console.log("postList: ", postList)
     connection1.commit()
     connection1.release()
+    
+    // console.log("postList: ", postList)
+    // console.log("postList id: ", postList[0].id)
+
+    // id가 서로 다른 경우에만 hash를 입력한다.
+    for(let i = 0; i < postList.length; i++) {
+      for(let j = i+1; j < i+2; j++) {
+        console.log("i: ", i, "j: ", j)
+        if(j === postList.length) {
+          // res.status(200).json({data: result})
+          break;
+        }
+        if(postList[i].id !== postList[j].id) {
+          let hashQueryString = `select hashtags.hashtag_name from ( ( posts inner join post_hashtag on post_hashtag.post_id = posts.id ) inner join hashtags on hashtags.id = post_hashtag.hashtag_id) WHERE posts.id = ${postList[i].id};`
+          let [hash] = await connection2.query(hashQueryString)
+          connection2.commit()
+          connection2.release()
+          let hashtag = hash.map((tag) => tag.hashtag_name)
+          
+          function a() {
+            function a2() {
+              if(postList[i].id !== postList[j].id) {
+                let obj = {};
+                obj.id = postList[i].id;
+                obj.content = postList[i].content;
+                obj.likes = postList[i].likes;
+                obj.creatd_at = postList[i].created_at;
+                obj.username = postList[i].username;
+                obj.profile = postList[i].profile;
+                obj.url = postList[i].url;
+                obj.hashtag_name = hashtag;
+  
+                return obj;
+              }
+            }
+            let b = a();
+
+          }
+          let result = []
+          console.log("b: ", b)
+          // result.push(b)
+          // console.log(result);
+
+        }
+      }
+    }
+
+    
+    // for(let i = 0; i < postList.length-1; i++) {
+    //   for(let j = 1; j < postList.length; j++) {
+    //     if(postList[i].id !== postList[j].id) {
+          
+    //     }
+    //   }
+    // }
+    
+    
+    // console.log("hash: ", hash)
+
+    // select COUNT(hashtags.hashtag_name) from ( ( posts inner join post_hashtag on post_hashtag.post_id = posts.id ) inner join hashtags on hashtags.id = post_hashtag.hashtag_id) WHERE posts.id = 93;
+
+    // let AllList = postList.map((data, idx) => {
+    //     let obj = {};
+    //     obj.id = data.id;
+    //     obj.content = data.content;
+    //     obj.likes = data.likes;
+    //     obj.creatd_at = data.created_at;
+    //     obj.username = data.username;
+    //     obj.profile = data.profile;
+    //     obj.url = data.url;
+    //     obj.hashtag_name = [data.hashtag_name];
+
+    //     return obj;
+    //   })
+    
+    // console.log("AllList: ", AllList)
+
+
     
 
     // 필요한 데이터들을 적어보자
@@ -81,6 +158,8 @@ module.exports = {
     
 
 
-    res.status(200).json({ message: "post success!"})
+    res.status(200).json({ 
+      data: [ { id: postList[0].id }, 
+      { id: postList[1].id } ], message: "postList Rendering success!"})
   }
 };
