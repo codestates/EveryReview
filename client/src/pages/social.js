@@ -28,7 +28,7 @@ function Social ({ setIsLogin, setAccessToken }) {
         const authorizationCode = url.searchParams.get('code')
         console.log('인증 코드', authorizationCode);
         if (authorizationCode) {
-        await getAccessToken(authorizationCode)
+        await getAccessToken(authorizationCode)   
         }
     }, [])
 
