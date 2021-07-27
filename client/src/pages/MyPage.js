@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import './MyPage.css'
 
 function MyPage({handleTitle, userInfo}) {
+
   // 상태관리
 
 
@@ -12,7 +13,7 @@ function MyPage({handleTitle, userInfo}) {
   useEffect(() => {
     // 헤더 타이틀 설정
     handleTitle("My Page");
-  });
+  }, []);
   
   return (
     <div className='myPageContainer'>

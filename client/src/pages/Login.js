@@ -2,22 +2,51 @@
 
 import axios from 'axios'
 import { useHistory } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Logo from '../components/Logo';
 import './Login.css';
 import kakao from '../static/kakao_signin.png'
 
-const endpoint = 'http://ec2-3-35-205-114.ap-northeast-2.compute.amazonaws.com';
+axios.defaults.withCredentials = true;
+
 
 function Login ({ setIsLogin, setAccessToken }) {
-
   const history = useHistory();
+
   // 상태관리
   const [ loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
   })
-  const [ errMessage, setErrMessage ] = useState('')
+  const [ errMessage, setErrMessage ] = useState('');
+  const [ code, setCode ] = useState(null)
+
+  // Kakao 로그인 구현
+  useEffect(async () => {
+    const getAccessToken = async authorizationCode => {
+    let tokenData = await axios
+        .post('http://ec2-3-35-205-114.ap-northeast-2.compute.amazonaws.com/oauth', {
+        authorizationCode,
+        })
+        .then(res => {
+        // console.log(res.data);
+        let accessToken = res.data.accessToken
+        // let refreshToken =  // 아마도 refreshToken도 body에 담겨서 올 예정이므로 수정 필요
+        setAccessToken(accessToken)
+        setIsLogin(true)
+        history.push('/main/home')
+        })
+    }
+    const url = new URL(window.location.href)
+    const authorizationCode = url.searchParams.get('code')
+    setCode(authorizationCode)
+    console.log('인증 코드', authorizationCode);
+    if (authorizationCode) {
+    await getAccessToken(authorizationCode)
+    }
+  }, [code])
+
+  
 
   // 이벤트핸들러 함수
   //* input 입력
@@ -31,19 +60,32 @@ function Login ({ setIsLogin, setAccessToken }) {
     const { email, password } = loginInfo;
 
     axios.post(
-      `${endpoint}/signin`,
+      `http://ec2-3-35-205-114.ap-northeast-2.compute.amazonaws.com/signin`,
       { email, password },
       { withCredentials: true }
     )
       .then((res) => {
+        console.log('refreshToken은 어디에 있나요???', res.data.data)
         const { accessToken } = res.data.data;
         setAccessToken(accessToken)
         setIsLogin(true);
         history.push('/main/home')
       })
       .catch((err)=> {
+        // err의 status에 따라서 setErrMessage를 보여줘야하는 것 구현완료
         console.log(err)
-        // err의 status에 따라서 setErrMessage를 보여줘야하는 것 구현필요
+        if(err.request.status === 401) {
+          // 에러코드가 401로 생기면 이메일과 비밀번호 를 다시 확인하라는 메세지가 뜨고
+          setErrMessage('이메일과 비밀번호를 다시 확인해주세요')
+
+          // 3초 후에 메세지가 사리지도록 코드구현
+          let timer = setTimeout(() => {
+            setErrMessage('')
+          }, 3000)
+
+          // 버그 방지용 
+          return () => { clearTimeout(timer)}
+        }
       })
   }
 
@@ -51,7 +93,7 @@ function Login ({ setIsLogin, setAccessToken }) {
   const socialLoginRequestHandler = () => {
     
     window.location.assign( 
-      `https://kauth.kakao.com/oauth/authorize?client_id=750325bb6d6f5b4a028d5064c28496c8&redirect_uri=http://localhost:3000/social&response_type=code`
+      `https://kauth.kakao.com/oauth/authorize?client_id=750325bb6d6f5b4a028d5064c28496c8&redirect_uri=http://localhost:3000/login&response_type=code`
     )
   }
 
@@ -77,6 +119,13 @@ function Login ({ setIsLogin, setAccessToken }) {
             onChange={loginInfoHandler}
           />
         </div>
+        <div>
+        {/* 401에러가 발생했을 때 유저에게 보여지는 메세지 */}
+          {
+            errMessage &&
+            <p className='errMessage'>{errMessage}</p>
+          }
+        </div>
         <div className='btnSubmit'>
           <button 
             className='btnSubmit'
@@ -93,16 +142,10 @@ function Login ({ setIsLogin, setAccessToken }) {
             onClick={()=> history.push('/signup')}
           >가입하기</span>
         </div>
-
+        {/* 카카오 로그인하기 구현 중 */}
         <div className='btnSocial'>
-          {/* 카카오로그인 API안내서에 따라서 구현 */}
-          {/* <button s
-            className='btnSubmit'
-            onClick={socialLoginRequestHandler}
-          >
-            카카오 계정으로 로그인
-          </button> */}
           <img 
+            className='btnSocial'
             src={kakao}
             onClick={socialLoginRequestHandler}
           />
