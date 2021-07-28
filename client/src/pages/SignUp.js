@@ -1,5 +1,3 @@
-/*eslint-disable*/
-
 import axios from 'axios';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom'
@@ -8,6 +6,9 @@ import './SignUp.css';
 import Logo from '../components/Logo';
 import KakaoLogin from '../components/KakaoLogin';
 import kakao from '../static/kakao_signup.png'
+// React icon 사용
+import { RiLockPasswordLine, RiLockPasswordFill, RiUserSmileLine } from 'react-icons/ri'
+import { HiOutlineMail } from 'react-icons/hi'
 
 
 function SignUp({ setIsLogin, setAccessToken }) {
@@ -117,7 +118,6 @@ function SignUp({ setIsLogin, setAccessToken }) {
       event.preventDefault();
 
       const { email, password, passwordCheck, username } = userInput;
-
       if(!email || !password || !passwordCheck || !username) {
         setErrMessage({
           ...errMessage,
@@ -163,104 +163,107 @@ function SignUp({ setIsLogin, setAccessToken }) {
       )
     }
 
-
   
     return (
-      <div className='signupContainer'>
-        <Logo />
-        <div className='inputField'>
-          <div>
-            <input
-              className='inputSignup'
-              name='email'
-              type='email'
-              placeholder='이메일주소'
-              required
-              onChange={inputHandler}
-              onKeyUp={() => errMessageHandler(emailCheck(userInput.email))}
-            />
-            { 
-              errMessage.emailErr && 
-              <p className='errMessage'>{errMessage.emailErr}</p> 
-            }
-          </div>
-          <div>
-            <input
-              className='inputSignup'
-              name='password'
-              type='password'
-              placeholder='비밀번호'
-              required
-              onChange={inputHandler}
-              onKeyUp={() => errMessageHandler(passwordCheck(userInput.password))}
-            /> 
-            {
-              errMessage.passwordErr && 
-              <p className='errMessage'>{errMessage.passwordErr}</p>
-            }
-          </div>
-          <div>
-            <input
-              className='inputSignup'
-              name='passwordCheck'
-              type='password'
-              placeholder='비밀번호 확인'
-              required
-              onChange={inputHandler}
-            />
-            {
-              userInput.password &&
-              userInput.passwordCheck &&
-              userInput.password !== userInput.passwordCheck &&
-              (<p className='errMessage'>비밀번호가 일치하지 않습니다</p>)
-            }
-          </div>
-          <div>
-            <input
-              className='inputSignup'
-              name='username'
-              type='text'
-              placeholder='사용자이름'
-              required
-              onChange={inputHandler}
-              onKeyUp={() => errMessageHandler(usernameCheck(userInput.username))}
-            />
-            {
-              errMessage.usernameErr && 
-              <p className='errMessage'>{errMessage.usernameErr}</p>
-            }
-          </div>
-          {
-            errMessage.otherErr && 
-            <p className='errMessage'>{errMessage.otherErr}</p>
-          }
-        </div>
-
-        <div className='btnSubmit'>
-          <button 
-            className='btnSubmit'
-            onClick={signupRequestHandler}
-          >
-            가입하기
-          </button>
-        </div>
-
-        <div className='loginMove'>
-          이미 계정이 있으신가요? 
-          <span
-            className='btnPageChange'
-            onClick={() => history.push('/login')}
-          >로그인</span>
-        </div>
-
-        <div className='btnSocial'>
-          <img 
-            src={kakao}
-            onClick={socialSignupRequestHandler}
+    <div className='signupContainer'>
+      <Logo />
+      <form className='inputField'>
+        <div className='inputWrap'>
+          <HiOutlineMail className='memberIcon' />
+          <input
+            className='inputSignup'
+            name='email'
+            type='email'
+            placeholder='이메일주소'
+            required
+            onChange={inputHandler}
+            onKeyUp={() => errMessageHandler(emailCheck(userInput.email))}
           />
-          <KakaoLogin />
         </div>
+        { 
+          errMessage.emailErr && 
+          <p className='errMessage'>{errMessage.emailErr}</p> 
+        }
+        <div className='inputWrap'>
+          <RiLockPasswordLine className='memberIcon' />
+          <input
+            className='inputSignup'
+            name='password'
+            type='password'
+            placeholder='비밀번호'
+            required
+            onChange={inputHandler}
+            onKeyUp={() => errMessageHandler(passwordCheck(userInput.password))}
+          /> 
+        </div>
+        {
+          errMessage.passwordErr && 
+          <p className='errMessage'>{errMessage.passwordErr}</p>
+        }
+        <div className='inputWrap'>
+          <RiLockPasswordFill className='memberIcon' />
+          <input
+            className='inputSignup'
+            name='passwordCheck'
+            type='password'
+            placeholder='비밀번호 확인'
+            required
+            onChange={inputHandler}
+          />
+        </div>
+        {
+          userInput.password &&
+          userInput.passwordCheck &&
+          userInput.password !== userInput.passwordCheck &&
+          (<p className='errMessage'>비밀번호가 일치하지 않습니다</p>)
+        }
+        <div className='inputWrap'>
+          <RiUserSmileLine className='memberIcon' />
+          <input
+            className='inputSignup'
+            name='username'
+            type='text'
+            placeholder='사용자이름'
+            required
+            onChange={inputHandler}
+            onKeyUp={() => errMessageHandler(usernameCheck(userInput.username))}
+          />
+        </div>
+        {
+          errMessage.usernameErr && 
+          <p className='errMessage'>{errMessage.usernameErr}</p>
+        }
+        {
+          errMessage.otherErr && 
+          <p className='errMessage'>{errMessage.otherErr}</p>
+        }
+      </form>
+
+      <div>
+        <button 
+          className='btnSubmit'
+          onClick={signupRequestHandler}
+        >
+          가입하기
+        </button>
       </div>
+
+      <div className='btnSocial'>
+        <img 
+          src={kakao}
+          onClick={socialSignupRequestHandler}
+        />
+        <KakaoLogin />
+      </div>
+
+      <div className='loginMove'>
+        이미 계정이 있으신가요? &nbsp;&nbsp;
+        <span
+          className='btnPageChange'
+          onClick={() => history.push('/login')}
+        >로그인</span>
+      </div>
+    </div>
     );
 }
     

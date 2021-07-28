@@ -59,7 +59,7 @@
     justify-content: flex-end;
     /* background-color: darkviolet; */
 }
-
+/* 
 #logoutBtnWrap > button {
     padding: 10px;
     background-color: white;
@@ -69,4 +69,16 @@
 #logoutBtnWrap > button:hover {
     background-color: #DE413A;
     color: white;
+} */
+
+
+#btnLogout {
+    font-weight: 500;
+    font-size: 15px;
+    width: 150px;
+    line-height: 45px;
+    margin: 10px 0px;
+    color: rgb(255, 255, 255);
+    background-color: #c62828;
+    border-radius: 7px;
 }

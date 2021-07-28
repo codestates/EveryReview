@@ -2,31 +2,44 @@ import { useHistory } from 'react-router-dom';
 
 import './Landing.css';
 import Logo from './components/Logo'
+import mainImg from './static/readingPeople.png'
 
 
-function Landing ({ setIsLogin, setAccessToken }) {
+function Landing () {
 
   const history = useHistory();
 
   return (
-    <div className='landingContainer'>
-      <Logo />
-      <div className=''>
-        <button 
-          className=''
-          onClick={()=> history.push('/login')}
-        >
-          로그인
-        </button>
+    <div id='landingContainerWrap'>
+      {/* <div id='upperImg'>
+        <p id='mainBI'>
+          에브리뷰
+        </p>
+        <p className='mainCopy'>
+          인생책을&nbsp; 찾는&nbsp; 가장&nbsp; 빠른&nbsp; 방법
+        </p>
+      </div> */}
+      <div className='landingContainer'>
+        <Logo />
+        <div className='btnMainWrap'>
+          <button 
+            className='btnMain'
+            onClick={()=> history.push('/login')}
+          >
+            로그인
+          </button>
+          <button 
+            className='btnMain'
+            onClick={()=> history.push('/signup')}
+          >
+            회원가입
+          </button>
+        </div>
       </div>
-      <div className=''>
-        <button 
-          className=''
-          onClick={()=> history.push('/signup')}
-        >
-          회원가입
-        </button>
-      </div>
+      <img 
+        className='mainBottomImg'
+        src={mainImg} 
+        />
     </div>
   );
 }
