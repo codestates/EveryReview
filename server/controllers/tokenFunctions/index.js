@@ -23,7 +23,7 @@ module.exports = {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 1
     });
-    res.json({ message: "AccessToken published" });
+    res.status(200).json({ message: "AccessToken published" });
   },
   // AccessToken 만료시 재생성된 토큰 전달, 이 때, 유저 정보를 같이 전송
   resendAccessToken: (res, accessToken, data) => {

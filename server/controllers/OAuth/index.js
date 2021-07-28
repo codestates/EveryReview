@@ -29,7 +29,7 @@ module.exports = {
       params: {
         grant_type: 'authorization_code',
         client_id: '750325bb6d6f5b4a028d5064c28496c8',
-        redirect_uri: 'http://everyreview-team6-deploy.s3-website.ap-northeast-2.amazonaws.com/login',
+        redirect_uri: process.env.KAKAO_REDIRECT_URI,
         code: kakaoAuthorizationCode
       }
     })
