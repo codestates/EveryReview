@@ -102,7 +102,6 @@ function Login({ setIsLogin }) {
     )
   }
 
-<<<<<<< HEAD
   return (
     <div className='loginContainer'>
 
@@ -140,45 +139,6 @@ function Login({ setIsLogin }) {
         </form>
       </div>
       <div>
-=======
-    return (
-      <div className='loginContainer'>
-
-        <Logo />
-        <div className='inputField'>
-          <form>
-            <div className='inputWrap'>
-              <HiOutlineMail className='memberIcon' />
-              <input
-                className='inputSignin'
-                name='email'
-                type='email'
-                placeholder='이메일주소'
-                value={loginInfo.email}
-                onChange={loginInfoHandler}
-              />   
-            </div>
-            <div className='inputWrap'>
-              <RiLockPasswordLine className='memberIcon' />
-              <input
-                className='inputSignin'
-                name='password'
-                type='password'
-                placeholder='비밀번호'
-                value={loginInfo.password}
-                onChange={loginInfoHandler}
-                // enter로 정보를 submit
-                onKeyUp={(event) => (
-                  event.key === 'Enter'
-                  ? loginRequestHandler(event)
-                  :null
-                )}
-              />
-            </div>
-          </form>
-        </div>
-        <div>
->>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
         {/* 401에러가 발생했을 때 유저에게 보여지는 메세지 */}
         {
           errMessage &&
