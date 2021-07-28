@@ -179,7 +179,7 @@ function SignUp({ setIsLogin }) {
   // 소셜 회원가입 요청
   const socialSignupRequestHandler = () => {
     window.location.assign(
-      `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=http://localhost:3000/signup&response_type=code`
+      `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=http://localhost:3000/login&response_type=code`
     )
   }
 
