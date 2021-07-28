@@ -59,14 +59,14 @@
 #uploadBtnWrap > button {
     width: 80px;
     margin-left: 5px;
-    border: 1px solid #7f0000;
+    border: 1px solid #0F4C81;
     background-color: white;
     padding: 10px;
     border-radius: 5px;
 }
 
 #uploadBtnWrap > button:hover {
-    background-color: #7f0000;
+    background-color: #0F4C81;
     color: white;
 }
 

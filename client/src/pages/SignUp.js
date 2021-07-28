@@ -118,7 +118,7 @@ function SignUp({ setIsLogin }) {
     event.preventDefault();
 
     const { email, password, passwordCheck, username } = userInput;
-    if (!email || !password || !passwordCheck || !username) {
+    if (!checkAll(email, password, username) && !passwordCheck) {
       setErrMessage({
         ...errMessage,
         otherErr: '모든 항목을 올바르게 작성해주세요'
@@ -127,53 +127,55 @@ function SignUp({ setIsLogin }) {
       let timer = setTimeout(() => {
         setErrMessage('')
       }, 2000)
+    } else if(checkAll(email, password, username)) {
+      // 입력값이 모두 올바로 들어가야 서버에 가입요청 시작
+      axios.post(
+        `${process.env.REACT_APP_END_POINT}/signup`,
+        {
+          email: email,
+          password: password,
+          username: username
+        },
+        { withCredentials: true }
+      )
+        .then(() => {
+          axios.post(
+            `${process.env.REACT_APP_END_POINT}/signin`,
+            {
+              email: email,
+              password: password
+            },
+            { withCredentials: true }
+          )
+            .then((res) => {
+              alert(`반갑습니다`)
+              setIsLogin(true);
+            })
+            .catch((err) => console.log(err))
+        })
+        .catch((err) => {
+          console.log(err.response)
+          console.log(err.response.data)
+          if (err.response.data === 'Email already existed') {
+            setErrMessage({
+              ...errMessage,
+              otherErr: '이미 존재하는 이메일입니다'
+            })
+          }
+          if (err.response.data === 'Username already existed') {
+            setErrMessage({
+              ...errMessage,
+              otherErr: '이미 존재하는 사용자이름 입니다'
+            })
+          }
+          if (err.response.data === 'Both already existed') {
+            setErrMessage({
+              ...errMessage,
+              otherErr: '이미 존재하는 이메일과 사용자이름 입니다'
+            })
+          }
+        })
     }
-    axios.post(
-      `${process.env.REACT_APP_END_POINT}/signup`,
-      {
-        email: email,
-        password: password,
-        username: username
-      },
-      { withCredentials: true }
-    )
-      .then(() => {
-        axios.post(
-          `${process.env.REACT_APP_END_POINT}/signin`,
-          {
-            email: email,
-            password: password
-          },
-          { withCredentials: true }
-        )
-          .then((res) => {
-            alert(`반갑습니다`)
-            setIsLogin(true);
-          })
-          .catch((err) => console.log(err))
-      })
-      .catch((err) => {
-        console.log(err.response)
-        console.log(err.response.data)
-        if (err.response.data === 'Email already existed') {
-          setErrMessage({
-            ...errMessage,
-            otherErr: '이미 존재하는 이메일입니다'
-          })
-        }
-        if (err.response.data === 'Username already existed') {
-          setErrMessage({
-            ...errMessage,
-            otherErr: '이미 존재하는 사용자이름 입니다'
-          })
-        }
-        if (err.response.data === 'Both already existed') {
-          setErrMessage({
-            ...errMessage,
-            otherErr: '이미 존재하는 이메일과 사용자이름 입니다'
-          })
-        }
-      })
 
   }
   // 소셜 회원가입 요청
@@ -245,6 +247,7 @@ function SignUp({ setIsLogin }) {
             type='text'
             placeholder='사용자이름'
             required
+            maxLength='10'
             onChange={inputHandler}
             onKeyUp={() => errMessageHandler(usernameCheck(userInput.username))}
             // enter로 정보를 submit
