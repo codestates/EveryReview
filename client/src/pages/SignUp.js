@@ -123,35 +123,58 @@ function SignUp({ setIsLogin }) {
           ...errMessage,
           otherErr: '모든 항목을 올바르게 작성해주세요'
         })
-        return
-      }
-
-      axios.post(
-        `${process.env.REACT_APP_END_POINT}/signup`, 
-        {
-          email: email,
-          password: password,
-          username: username
-        },
-        { withCredentials: true }
-      )
-        .then(() => {
-          axios.post(
-            `${process.env.REACT_APP_END_POINT}/signin`, 
-            {
-              email: email,
-              password: password
-            },
-            { withCredentials: true }
-          )
-            .then((res) => {
-              setIsLogin(true);
-            })
-            .catch((err) => console.log(err))
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+        // 2초 후에 메세지가 사리지도록 코드구현
+        let timer = setTimeout(() => {
+          setErrMessage('')
+        }, 2000)
+      } 
+        axios.post(
+          `${process.env.REACT_APP_END_POINT}/signup`, 
+          {
+            email: email,
+            password: password,
+            username: username
+          },
+          { withCredentials: true }
+        )
+          .then(() => {
+            axios.post(
+              `${process.env.REACT_APP_END_POINT}/signin`, 
+              {
+                email: email,
+                password: password
+              },
+              { withCredentials: true }
+            )
+              .then((res) => {
+                alert(`반갑습니다`)
+                setIsLogin(true);
+              })
+              .catch((err) => console.log(err))
+          })
+          .catch((err) => {
+            console.log(err.response)
+            console.log(err.response.data)
+            if(err.response.data === 'Email already existed') {
+              setErrMessage({
+                ...errMessage,
+                otherErr: '이미 존재하는 이메일입니다'
+              })
+            }
+            if(err.response.data === 'Username already existed') {
+              setErrMessage({
+                ...errMessage,
+                otherErr: '이미 존재하는 사용자이름 입니다'
+              })
+            }
+            if(err.response.data === 'Both already existed') {
+              setErrMessage({
+                ...errMessage,
+                otherErr: '이미 존재하는 이메일과 사용자이름 입니다'
+              })
+            }
+          })
+      
     }
     // 소셜 회원가입 요청
     const socialSignupRequestHandler = () => {
@@ -224,6 +247,12 @@ function SignUp({ setIsLogin }) {
             required
             onChange={inputHandler}
             onKeyUp={() => errMessageHandler(usernameCheck(userInput.username))}
+            // enter로 정보를 submit
+            onKeyUp={(event) => (
+              event.key === 'Enter'
+              ? signupRequestHandler(event)
+              :null
+            )}
           />
         </div>
         {
@@ -263,7 +292,7 @@ function SignUp({ setIsLogin }) {
     </div>
     );
 }
-    
+
 export default SignUp;    
 
 // 회원가입 페이지입니다.

@@ -128,11 +128,12 @@ function Login ({ setIsLogin }) {
                 placeholder='비밀번호'
                 value={loginInfo.password}
                 onChange={loginInfoHandler}
-                // onKeyUp={(event) => (
-                //   event.key === 'Enter'
-                //   ? loginRequestHandler(event)
-                //   :null
-                // )}
+                // enter로 정보를 submit
+                onKeyUp={(event) => (
+                  event.key === 'Enter'
+                  ? loginRequestHandler(event)
+                  :null
+                )}
               />
             </div>
           </form>
