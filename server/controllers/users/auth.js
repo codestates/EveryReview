@@ -6,7 +6,6 @@ const { isAuthorized, generateAccessToken, resendAccessToken, checkRefeshToken }
 
 module.exports = {
   get: (req, res) => {
-    console.log("show me the money", req.cookies)
     const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) {
       return res.status(404).json({ message: 'invalid refresh token, please sign in again' });
@@ -15,26 +14,26 @@ module.exports = {
     const refreshTokenData = checkRefeshToken(refreshToken);
     if (!refreshTokenData) {  // refreshToken 이 만료된 경우
       return res.status(404).json({ message: 'invalid refresh token, please sign in again' });
-    }    
+    }
     const { id } = refreshTokenData;
     db.promise().query(`SELECT * from users WHERE id = "${id}"`)
-    .then(([ rows, fields ]) => {
-      if (rows.length === 0) {
-        res.status(401).json({ message: "Userinfo not found" })
-      } else {
-        const { username, email, profile } = rows[0];
-        const data = {
-          username: username,
-          email: email,
-          profile: profile
+      .then(([rows, fields]) => {
+        if (rows.length === 0) {
+          res.status(401).json({ message: "Userinfo not found" })
+        } else {
+          const { username, email, profile } = rows[0];
+          const data = {
+            username: username,
+            email: email,
+            profile: profile
+          }
+          const newAccessToken = generateAccessToken(data);
+          resendAccessToken(res, newAccessToken, data);
         }
-        const newAccessToken = generateAccessToken(data);
-        resendAccessToken(res, newAccessToken, data);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ message: "Sorry" });
-    })
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ message: "Sorry" });
+      })
   }
 }
