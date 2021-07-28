@@ -1,5 +1,6 @@
 import './Review.css';
 import profile from '../static/profile.png'
+import { Link } from 'react-router-dom';
 
 function Review({postinfo}) {
   return (
@@ -14,10 +15,7 @@ function Review({postinfo}) {
       <div className="reviewInWrap">
         <div className="reviewTop">
           <div>{postinfo.username}</div>
-          <div>{postinfo.created_at}</div>
-          <button id="postMenu">
-          &#183;&#183;&#183;
-          </button>
+          <div>{postinfo.created_at }</div>
         </div>
         <div>
           <div className = "review-contents">
@@ -30,11 +28,10 @@ function Review({postinfo}) {
           <div className = "hashtag-wrap">
             {
               postinfo.hashtag_name.map((el) => {
-                return <div key={el} className = "hashtag">{el}</div>
+                return <Link key={el} className = "hashtag" to={`/main/explore?hashtag=${el}`}>{el}</Link>
               })  
             }
           </div>
-          <button>{postinfo.likes}</button>
         </div>
       </div>
     </div>

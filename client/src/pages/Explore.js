@@ -1,14 +1,24 @@
-import { useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, Redirect } from "react-router-dom";
 import Reviews from "../components/Reviews";
 import './Explore.css';
 
 function Explore({ handleTitle, sortByLikes, setSort, getReviewList, reviewList, auth, isLogin }) {
-  
+  const [hashInfo, setHashInfo] = useState(null);
+  const [hashRank, setRank] = useState(["해시", "태그", "랭킹"]);
+
+  const queryCheck = () => {
+    const url = new URL(window.location.href);
+    setHashInfo(url.searchParams.get('hashtag'));
+    console.log(hashInfo);
+  }
+
   useEffect(() => {
     // 헤더 타이틀 설정
-    handleTitle('#Explore');
     auth();
+    handleTitle('#Explore');
+    queryCheck();
+    getReviewList(hashInfo);
   }, []);
   
   return (
@@ -16,19 +26,26 @@ function Explore({ handleTitle, sortByLikes, setSort, getReviewList, reviewList,
       {
         isLogin ?
         <div className="explore">
-          <div>
-            {/* 
-            해당 Hashtag를 렌더링해야한다 
-            해당 Hashtag가 선택되지 않은 상태에선 뭘 렌더링해야하나..?
-            */}
-            <div>#Hashtag</div>
-          </div>
-          <Reviews 
-            sortByLikes={sortByLikes} 
-            setSort={setSort} 
-            getReviewList={getReviewList} 
-            reviewList={reviewList} 
-          />
+          {
+            hashInfo === null ?
+            <ul>
+              {
+                hashRank.map((el,idx) => {
+                  return <li onClick={queryCheck}>
+                    <Link to ={`/main/explore?hashtag=${el}`}>{idx+1}. {el}</Link>
+                  </li>
+                })
+              }
+            </ul> :
+            <Reviews 
+              sortByLikes={sortByLikes} 
+              setSort={setSort} 
+              getReviewList={getReviewList} 
+              reviewList={reviewList} 
+            />
+          }
+            
+          
         </div> :
         <Redirect to = "/" />
       }
