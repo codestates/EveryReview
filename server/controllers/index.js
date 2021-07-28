@@ -18,5 +18,4 @@ module.exports = {
     get: require('./features/explore').get
   },
   postlist: require('./features/postlist').post,
-  like: require('./features/like')
 };
