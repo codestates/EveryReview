@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-const { signup, signin, signout, mypage, auth, oauth, post, postlist, selectbook, like, explore } = require('./controllers');
+const { signup, signin, signout, mypage, auth, oauth, post, postlist, explore } = require('./controllers');
 
 const app = express();
 const port = 80;

@@ -22,11 +22,11 @@ module.exports = {
 				})
 
 				if (emailCheck && usernameCheck) {  // 둘 다 중복인 경우
-					res.status(409).json("Both already existed")
+					res.status(409).send("Both already existed")
 				} else if (emailCheck) {  // 이메일이 중복인 경우
-					res.status(409).json("Email already existed")
+					res.status(409).send("Email already existed")
 				} else if (usernameCheck) {  // username 이 중복인 경우
-					res.status(409).json("Username already existed")
+					res.status(409).send("Username already existed")
 				} else {  // 중복이 없을 경우 유저데이터 생성, 회원가입 성공
 					db.promise().query(`INSERT INTO users (email, password, username) VALUES (?, ?, ?)`, [email, password, username])
 						.then(([rows, fields]) => {
