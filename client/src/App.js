@@ -10,8 +10,8 @@ import Main from './pages/Main';
 import axios from 'axios';
 
 function App() {
-  const [ isLogin, setIsLogin ] = useState(false); // 로그인 상태관리 (true: main, false: landing page redirect)
-  const [ userInfo, setUserInfo ] = useState({ 
+  const [isLogin, setIsLogin] = useState(false); // 로그인 상태관리 (true: main, false: landing page redirect)
+  const [userInfo, setUserInfo] = useState({
     email: '',
     username: '',
     profile: ''
@@ -20,34 +20,34 @@ function App() {
 
   const isAuthenticated = () => {
     axios
-    .get(`${process.env.REACT_APP_END_POINT}/signin`, {
-      withCredentials: true,
-    })
-    .then((res) => {
-      setUserInfo(res.data.data);
-      setIsLogin(true);
-    })
-    .catch((err)=> {
-      console.log("액세스 토큰 만료, 다시 로그인하세요");
-      setIsLogin(false);
-    });
+      .get(`${process.env.REACT_APP_END_POINT}/signin`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setUserInfo(res.data.data);
+        setIsLogin(true);
+      })
+      .catch((err) => {
+        console.log("액세스 토큰 만료, 다시 로그인하세요");
+        setIsLogin(false);
+      });
   }
 
-  useEffect(()=>{
-    if(isLogin) history.push("/main/home");
+  useEffect(() => {
+    if (isLogin) history.push("/main/mypage");
     else history.push("/");
   }, [isLogin])
 
   return (
     <div id="app">
-      <Switch>  
+      <Switch>
 
         <Route exact path='/'>
           <Landing auth={isAuthenticated} />
         </Route>
 
         <Route exact path='/signup'>
-          <SignUp 
+          <SignUp
             setUserInfo={setUserInfo}
             setIsLogin={setIsLogin}
           />
@@ -57,18 +57,18 @@ function App() {
           <Login
             setIsLogin={setIsLogin}
           />
-        </Route>      
+        </Route>
 
         <Route path='/main'>
-          <Main 
+          <Main
             userInfo={userInfo}
             setUserInfo={setUserInfo}
             isLogin={isLogin}
             setIsLogin={setIsLogin}
             auth={isAuthenticated}
           />
-        </Route>    
-        
+        </Route>
+
       </Switch>
     </div>
   );
