@@ -28,7 +28,6 @@ function KakaoLogin ({ setIsLogin }) {
     }
     const url = new URL(window.location.href)
     const authorizationCode = url.searchParams.get('code')
-    setCode(authorizationCode);
     // console.log('인증 코드', authorizationCode);
     if (authorizationCode) {
       getAccessToken(authorizationCode)
