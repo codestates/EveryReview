@@ -1,9 +1,10 @@
 import { useState, useRef } from 'react';
 import axios from 'axios';
+import profile from '../static/profile.png'
 import './PostUpload.css';
 
 
-function PostUpload({ onModal, bookInfo, setBookInfo, accessToken, getReviewList }) {
+function PostUpload({ onModal, bookInfo, setBookInfo, getReviewList, userInfo }) {
   const [ hashtag, setHashtag ] = useState([]);
   const [ message, setMessage ] = useState('');
   const [ invalidMsg, setInvalidMsg ] = useState('');
@@ -56,16 +57,14 @@ function PostUpload({ onModal, bookInfo, setBookInfo, accessToken, getReviewList
           }
         }
       },{
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
+        withCredentials: true
       })
       .then(() => {
         // 게시글 리스트 갱신 함수
         getReviewList();
       })
       .catch(() => {
-
+        alert("ERROR, Please retry");
       });
       
 
@@ -93,8 +92,11 @@ function PostUpload({ onModal, bookInfo, setBookInfo, accessToken, getReviewList
   return (
     <div id="postUpload">
       <div id="userProfile">
-        <img src="https://randomuser.me/api/portraits/men/98.jpg" alt="user profile" />
-        {/* 프로필 대체 이미지 필요 */}
+        {
+          userInfo.profile === null ?
+          <img src={profile} alt="profile alt"/> :
+          <img src={userInfo.profile} alt="profile"/>
+        }
       </div>
       <div id="uploadInputWrap">
         <div id="hashtagInput">

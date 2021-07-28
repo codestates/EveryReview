@@ -1,13 +1,17 @@
 import { useHistory } from 'react-router-dom';
-
+import mainImg from './static/readingPeople.png'
 import './Landing.css';
 import Logo from './components/Logo'
-import mainImg from './static/readingPeople.png'
+import { useEffect } from 'react';
 
 
-function Landing () {
 
+
+function Landing ({ auth }) {
   const history = useHistory();
+  useEffect(()=>{
+    auth();
+  },[])
 
   return (
     <div id='landingContainerWrap'>

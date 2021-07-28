@@ -1,11 +1,25 @@
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { Link, useHistory } from 'react-router-dom';
 import Logo from './Logo';
 import './SideBar.css';
 import { FaRegCompass } from 'react-icons/fa'
 import { FiHome } from 'react-icons/fi'
 import { CgUserlane } from 'react-icons/cg'
 
-function SideBar() {
+function SideBar({ setUserInfo, setIsLogin }) {
+  const history = useHistory();
+
+  const handleLogout = () => {
+    axios
+    .get(`${process.env.REACT_APP_END_POINT}/signout`,{
+      withCredentials: true
+    })
+    .then((res) => {
+      history.push("/login");
+      setUserInfo({});
+      setIsLogin(false);
+    })
+  }
   return (
     <section id="sideBar">
       <div id="sideBarLogoWrap">
@@ -26,7 +40,8 @@ function SideBar() {
         </li>
       </ul>
       <div id="logoutBtnWrap">
-        <button id='btnLogout'>로그아웃</button>
+        <button id='btnLogout' onClick={handleLogout} >로그아웃</button>
+
       </div>
     </section>
   );
