@@ -63,17 +63,12 @@ module.exports = {
     connection1.commit()
     connection1.release()
 
-    // authors 정보 DB에 입력
+    // authors 정보 DB에 입력(connection을 덜 보내도록 수정해보기)
     for(let i = 0; i < authors.length; i++) {
-      try{
-        let connection = await db.getConnection(async conn => conn)
-        await connection.query(`INSERT IGNORE INTO authors (name) VALUES ("${authors[i]}")`)
-        connection.commit()
-        connection.release()
-      }
-      catch(error){
-        console.log("error: ", error)
-      }
+      let connection = await db.getConnection(async conn => conn)
+      await connection.query(`INSERT IGNORE INTO authors (name) VALUES ("${authors[i]}")`)
+      connection.commit()
+      connection.release()
     }
     
     //  book_author 정보 DB에 입력
@@ -82,12 +77,12 @@ module.exports = {
     let authorsQueryString = `SELECT * FROM authors WHERE name IN (?)`
     let [bookInfo] = await connection2.query(booksQueryString)
     let [authorInfo] = await connection3.query(authorsQueryString, [authors])
-    // console.log("------", bookInfo[0].id, authorInfo)
     connection2.commit()
     connection2.release()
     connection3.commit()
     connection3.release()
-      // book_author 정보 DB에 입력하기
+    
+    // book_author 정보 DB에 입력하기(connection을 덜 보내도록 수정해보기)
     for(let i = 0; i < authors.length; i++) {
       try{
         let connection = await db.getConnection(async conn => conn)
@@ -109,7 +104,7 @@ module.exports = {
     connection4.commit()
     connection4.release()
     
-    // hashtags 정보 DB에 입력
+    // hashtags 정보 DB에 입력(connection을 덜 보내도록 수정해보기)
     for(let i = 0; i < hashtag.length; i++) {
       try{
         let connection = await db.getConnection(async conn => conn)
@@ -127,10 +122,9 @@ module.exports = {
       }
     }
 
-
     // post_hashtag 정보 DB에 입력
     // postInfo와 hashInfo 가져오기
-  let postsQueryString = `select * from posts where content = ? and user_id = ? and book_id = ? order by created_at desc limit 1`
+  let postsQueryString = `SELECT * FROM posts WHERE content = ? AND user_id = ? AND book_id = ? ORDER BY created_at DESC LIMIT 1`
   let postsQueryValue = [content, userInfo[0].id, bookInfo[0].id]
   let hashsInfoQueryString = `SELECT * FROM hashtags WHERE hashtag_name IN (?)`
   let [postInfo] = await connection5.query(postsQueryString, postsQueryValue)
@@ -152,7 +146,6 @@ module.exports = {
       console.log("error: ", error)
     }
   }
-
     res.status(200).json({ message: "post success!"})
   }
 };

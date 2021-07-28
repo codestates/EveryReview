@@ -5,6 +5,8 @@ import KakaoLogin from '../components/KakaoLogin';
 import Logo from '../components/Logo';
 import './Login.css';
 import kakao from '../static/kakao_signin.png'
+import { RiLockPasswordLine } from 'react-icons/ri'
+import { HiOutlineMail } from 'react-icons/hi'
 
 axios.defaults.withCredentials = true;
 
@@ -55,7 +57,7 @@ function Login ({ setIsLogin }) {
   }
 
   //* 로그인 핸들러
-  const loginRequestHandler = () => {
+  const loginRequestHandler = (event) => {
     
     const { email, password } = loginInfo;
 
@@ -94,7 +96,7 @@ function Login ({ setIsLogin }) {
 
   //* 카카오 로그인 핸들러
   const socialLoginRequestHandler = () => {
-    
+    // process.env.REACT_APP_KAKAO_REDIRECT
     window.location.assign( 
       `https://kauth.kakao.com/oauth/authorize?client_id=750325bb6d6f5b4a028d5064c28496c8&redirect_uri=http://localhost:3000/login&response_type=code`
     )
@@ -106,22 +108,33 @@ function Login ({ setIsLogin }) {
         <Logo />
         <div className='inputField'>
           <form>
-            <input
-              className='inputSignin'
-              name='email'
-              type='email'
-              placeholder='이메일주소'
-              value={loginInfo.email}
-              onChange={loginInfoHandler}
-            />   
-            <input
-              className='inputSignin'
-              name='password'
-              type='password'
-              placeholder='비밀번호'
-              value={loginInfo.password}
-              onChange={loginInfoHandler}
-            />
+            <div className='inputWrap'>
+              <HiOutlineMail className='memberIcon' />
+              <input
+                className='inputSignin'
+                name='email'
+                type='email'
+                placeholder='이메일주소'
+                value={loginInfo.email}
+                onChange={loginInfoHandler}
+              />   
+            </div>
+            <div className='inputWrap'>
+              <RiLockPasswordLine className='memberIcon' />
+              <input
+                className='inputSignin'
+                name='password'
+                type='password'
+                placeholder='비밀번호'
+                value={loginInfo.password}
+                onChange={loginInfoHandler}
+                // onKeyUp={(event) => (
+                //   event.key === 'Enter'
+                //   ? loginRequestHandler(event)
+                //   :null
+                // )}
+              />
+            </div>
           </form>
         </div>
         <div>
@@ -140,23 +153,25 @@ function Login ({ setIsLogin }) {
           </button>
         </div>
 
-        <div className='signupMove'>
-          계정이 없으신가요? 
-          <span
-            className='btnPageChange'
-            onClick={()=> history.push('/signup')}
-          >가입하기</span>
-        </div>
         {/* 카카오 로그인하기 구현 중 */}
         <div className='btnSocial'>
           <img 
             className='btnSocial'
             src={kakao}
+            alt='카카오로 로그인'
             onClick={socialLoginRequestHandler}
           />
           <KakaoLogin 
             setIsLogin={setIsLogin}
           />
+        </div>
+
+        <div className='signupMove'>
+          계정이 없으신가요? &nbsp;&nbsp;
+          <span
+            className='btnPageChange'
+            onClick={()=> history.push('/signup')}
+          >가입하기</span>
         </div>
       </div>
     );

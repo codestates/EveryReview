@@ -1,13 +1,28 @@
 .loginContainer {
+    font-size: 14px;
     text-align: center;
     display: flex;
     flex-direction: column;
-    margin: 100px auto;
+    margin: auto;
     padding: 50px 30px;
     width: 360px;
     height: 600px;
+    color: rgb(34, 34, 34);
     background: rgb(255, 255, 255);
-    border: 1px solid rgb(34, 34, 34);
+    /* border: 1px solid rgb(34, 34, 34); */
+    border-radius: 10px;
+    box-shadow: 3px 5px 7px rgba(0,0,0,0.5);
+}
+
+.inputField {
+    margin: 50px 0 0 0;
+}
+.inputWrap {
+    display: flex;
+    border-bottom: 1.5px solid #7f0000;
+}
+.memberIcon {
+    margin: 13px 5px 0;
 }
 
 .inputSignin {
@@ -15,7 +30,9 @@
     width: 100%;
     padding: 10px 10px 5px;
     border: none;
-    border-bottom: 1px solid rgb(34, 34, 34);
+}
+.inputSignin:focus {
+    outline: none;
 }
 
 .btnPageChange, .btnSocial {
@@ -24,8 +41,20 @@
 
 
 .btnSubmit {
+    font-weight: 500;
+    font-size: 15px;
     width: 40px;
-    line-height: 40px;
-    border: 1px solid #7f0000;
-    margin: 0px 5px;
+    line-height: 45px;
+    margin: 10px 0px;
+    color: rgb(255, 255, 255);
+    background-color: #c62828;
+    border-radius: 7px;
+}
+
+.signupMove {
+    margin: 100px 0 0 0;
+}
+
+.signupMove > span {
+    color: #c62828;
 }

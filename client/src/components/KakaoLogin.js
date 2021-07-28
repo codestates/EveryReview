@@ -1,13 +1,10 @@
 import axios from 'axios'
-// import { useHistory } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 
 function KakaoLogin ({ setIsLogin }) {
 
     // let history = useHistory()
-
-    const [code, setCode] = useState(null)
 
     // Kakao 로그인 구현
   useEffect(async () => {
@@ -20,7 +17,6 @@ function KakaoLogin ({ setIsLogin }) {
         console.log('카카오에 대한 응답이 어떻게 오지?????', res);
         // let accessToken = res.data.data.accessToken
         // console.log('토큰을 보여줘', accessToken)
-        // localStorage.setItem('token', accessToken)
         // setAccessToken(accessToken)
         setIsLogin(true)
         // history.push('/main/home')
