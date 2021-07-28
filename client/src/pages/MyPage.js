@@ -10,8 +10,11 @@
 >>>>>>> 13b79751d3d51c80c9b1156b7a8e68ff806039b3
 =======
 >>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
+<<<<<<< HEAD
 =======
 >>>>>>> 13b79751d3d51c80c9b1156b7a8e68ff806039b3
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
@@ -26,6 +29,9 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
   const [ newInfo, setNewInfo ] = useState({
 =======
   const [newInfo, setNewInfo] = useState({
@@ -36,9 +42,12 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 =======
   const [ newInfo, setNewInfo ] = useState({
 >>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
+<<<<<<< HEAD
 =======
   const [newInfo, setNewInfo] = useState({
 >>>>>>> 13b79751d3d51c80c9b1156b7a8e68ff806039b3
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
     password: '',
     newPassword: '',
     newPasswordCheck: ''
@@ -48,6 +57,9 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
   const [ message, setMessage ] = useState('')
 =======
   const [message, setMessage] = useState('')
@@ -58,9 +70,12 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 =======
   const [ message, setMessage ] = useState('')
 >>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
+<<<<<<< HEAD
 =======
   const [message, setMessage] = useState('')
 >>>>>>> 13b79751d3d51c80c9b1156b7a8e68ff806039b3
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
 
 
   // 이벤트핸들러 함수
@@ -76,6 +91,9 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
     setNewInfo({...newInfo, [event.target.name]: event.target.value })
 =======
     setNewInfo({ ...newInfo, [event.target.name]: event.target.value })
@@ -86,9 +104,12 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 =======
     setNewInfo({...newInfo, [event.target.name]: event.target.value })
 >>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
+<<<<<<< HEAD
 =======
     setNewInfo({ ...newInfo, [event.target.name]: event.target.value })
 >>>>>>> 13b79751d3d51c80c9b1156b7a8e68ff806039b3
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
   }
 
   //* 입력값 유효성 검사 메세지
@@ -99,6 +120,9 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
 =======
 >>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
       case 'empty' :
@@ -128,8 +152,11 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 >>>>>>> 13b79751d3d51c80c9b1156b7a8e68ff806039b3
 =======
 >>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
+<<<<<<< HEAD
 =======
 >>>>>>> 13b79751d3d51c80c9b1156b7a8e68ff806039b3
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
         setMessage('영어, 숫자, 기호를 포함하여 8자 이상으로 설정해 주세요');
         break
       case 'validPassword':
@@ -139,6 +166,9 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
       
 =======
 
@@ -149,9 +179,12 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 =======
       
 >>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
+<<<<<<< HEAD
 =======
 
 >>>>>>> 13b79751d3d51c80c9b1156b7a8e68ff806039b3
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
       default:
         return '';
     }
@@ -164,6 +197,9 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
     return () => { clearTimeout(timer)}
 =======
     return () => { clearTimeout(timer) }
@@ -174,9 +210,12 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 =======
     return () => { clearTimeout(timer)}
 >>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
+<<<<<<< HEAD
 =======
     return () => { clearTimeout(timer) }
 >>>>>>> 13b79751d3d51c80c9b1156b7a8e68ff806039b3
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
   }
 
   //* 비밀번호 변경취소
@@ -192,6 +231,9 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
     if(newPassword !== newPasswordCheck) {
 =======
     if (newPassword !== newPasswordCheck) {
@@ -202,9 +244,12 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 =======
     if(newPassword !== newPasswordCheck) {
 >>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
+<<<<<<< HEAD
 =======
     if (newPassword !== newPasswordCheck) {
 >>>>>>> 13b79751d3d51c80c9b1156b7a8e68ff806039b3
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
       setMessage('입력하신 새 비밀번호가 일치하지 않습니다')
       let timer = setTimeout(() => {
         setMessage('')
@@ -214,6 +259,9 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
       return () => { clearTimeout(timer)}
     } else if(password === newPassword) {
 =======
@@ -228,10 +276,13 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
       return () => { clearTimeout(timer)}
     } else if(password === newPassword) {
 >>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
+<<<<<<< HEAD
 =======
       return () => { clearTimeout(timer) }
     } else if (password === newPassword) {
 >>>>>>> 13b79751d3d51c80c9b1156b7a8e68ff806039b3
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
       setMessage('기존 비밀번호와 똑같이 변경할 수 없습니다')
       let timer = setTimeout(() => {
         setMessage('')
@@ -241,6 +292,9 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
       return () => { clearTimeout(timer)}
 =======
       return () => { clearTimeout(timer) }
@@ -251,9 +305,12 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 =======
       return () => { clearTimeout(timer)}
 >>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
+<<<<<<< HEAD
 =======
       return () => { clearTimeout(timer) }
 >>>>>>> 13b79751d3d51c80c9b1156b7a8e68ff806039b3
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
     } else {
       axios
         .post(`${process.env.REACT_APP_END_POINT}/mypage`, {
@@ -263,6 +320,9 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
 =======
 >>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
         }, 
@@ -288,8 +348,11 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 >>>>>>> 13b79751d3d51c80c9b1156b7a8e68ff806039b3
 =======
 >>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
+<<<<<<< HEAD
 =======
 >>>>>>> 13b79751d3d51c80c9b1156b7a8e68ff806039b3
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
         })
         .catch((err) => {
           console.log('비밀번호변경 오류가 나면 알려줘!!', err)
@@ -302,6 +365,9 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
 =======
 >>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
           return () => { clearTimeout(timer)}
@@ -338,6 +404,9 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
               <img 
 =======
               <img
@@ -348,9 +417,12 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 =======
               <img 
 >>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
+<<<<<<< HEAD
 =======
               <img
 >>>>>>> 13b79751d3d51c80c9b1156b7a8e68ff806039b3
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
                 className='imgUserProfile'
                 src={userInfo.profile}
                 alt='user profile'
@@ -446,8 +518,11 @@ function MyPage({ handleTitle, userInfo, auth, isLogin }) {
 >>>>>>> 13b79751d3d51c80c9b1156b7a8e68ff806039b3
 =======
 >>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
+<<<<<<< HEAD
 =======
 >>>>>>> 13b79751d3d51c80c9b1156b7a8e68ff806039b3
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
             </div>
             {
               message &&

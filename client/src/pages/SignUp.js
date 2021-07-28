@@ -263,6 +263,7 @@ function SignUp({ setIsLogin }) {
 >>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
 =======
 
+<<<<<<< HEAD
   }
   // 소셜 회원가입 요청
   const socialSignupRequestHandler = () => {
@@ -271,7 +272,77 @@ function SignUp({ setIsLogin }) {
     )
   }
 
+<<<<<<< HEAD
 >>>>>>> 13b79751d3d51c80c9b1156b7a8e68ff806039b3
+=======
+=======
+      const { email, password, passwordCheck, username } = userInput;
+      if(!email || !password || !passwordCheck || !username) {
+        setErrMessage({
+          ...errMessage,
+          otherErr: '모든 항목을 올바르게 작성해주세요'
+        })
+        // 2초 후에 메세지가 사리지도록 코드구현
+        let timer = setTimeout(() => {
+          setErrMessage('')
+        }, 2000)
+      } 
+        axios.post(
+          `${process.env.REACT_APP_END_POINT}/signup`, 
+          {
+            email: email,
+            password: password,
+            username: username
+          },
+          { withCredentials: true }
+        )
+          .then(() => {
+            axios.post(
+              `${process.env.REACT_APP_END_POINT}/signin`, 
+              {
+                email: email,
+                password: password
+              },
+              { withCredentials: true }
+            )
+              .then((res) => {
+                alert(`반갑습니다`)
+                setIsLogin(true);
+              })
+              .catch((err) => console.log(err))
+          })
+          .catch((err) => {
+            console.log(err.response)
+            console.log(err.response.data)
+            if(err.response.data === 'Email already existed') {
+              setErrMessage({
+                ...errMessage,
+                otherErr: '이미 존재하는 이메일입니다'
+              })
+            }
+            if(err.response.data === 'Username already existed') {
+              setErrMessage({
+                ...errMessage,
+                otherErr: '이미 존재하는 사용자이름 입니다'
+              })
+            }
+            if(err.response.data === 'Both already existed') {
+              setErrMessage({
+                ...errMessage,
+                otherErr: '이미 존재하는 이메일과 사용자이름 입니다'
+              })
+            }
+          })
+      
+    }
+    // 소셜 회원가입 요청
+    const socialSignupRequestHandler = () => {
+      window.location.assign( 
+        `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=http://localhost:3000/signup&response_type=code`
+      )
+    }
+>>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
 
   return (
     <div className='signupContainer'>
@@ -341,6 +412,7 @@ function SignUp({ setIsLogin }) {
               event.key === 'Enter'
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 ? signupRequestHandler(event)
                 : null
 =======
@@ -351,6 +423,14 @@ function SignUp({ setIsLogin }) {
                 ? signupRequestHandler(event)
                 : null
 >>>>>>> 13b79751d3d51c80c9b1156b7a8e68ff806039b3
+=======
+                ? signupRequestHandler(event)
+                : null
+=======
+              ? signupRequestHandler(event)
+              :null
+>>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
             )}
           />
         </div>
@@ -395,6 +475,9 @@ function SignUp({ setIsLogin }) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4df144dde18d1deab661ff44c580477f0ad450e8
 =======
 >>>>>>> 4f00ff593ab0e507de45edadd8a58ced9ab55ec0
 export default SignUp;    
