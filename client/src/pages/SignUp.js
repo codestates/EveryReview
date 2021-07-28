@@ -36,12 +36,6 @@ function SignUp({ setIsLogin }) {
   //* input 박스 변경 함수
   const inputHandler = (event) => {
     setUserInput({ ...userInput, [event.target.name]: event.target.value });
-
-    // let timer = setTimeout(() => {
-    //   setErrMessage('')
-    // }, 3000)
-    // // 버그 방지용 
-    // return () => { clearTimeout(timer)}
   }
   //* 입력값 유효성 검사 메세지
   const errMessageHandler = (message) => {
@@ -178,13 +172,12 @@ function SignUp({ setIsLogin }) {
     }
 
   }
-  // 소셜 회원가입 요청
+  // 소셜 회원가입 요청시 페이지 이동
   const socialSignupRequestHandler = () => {
     window.location.assign(
-      `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=http://localhost:3000/login&response_type=code`
+      process.env.REACT_APP_KAKAO_REDIRECT
     )
   }
-
 
   return (
     <div className='signupContainer'>

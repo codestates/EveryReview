@@ -4,7 +4,7 @@ import { Redirect, useHistory } from 'react-router-dom';
 import { passwordCheck, passwordChangeCheck } from '../utils/ValidityCheck';
 import { GrUserAdmin, GrUserSettings, GrUserExpert } from 'react-icons/gr'
 import { HiOutlineMail } from 'react-icons/hi'
-import profile from '../static/defaultProfile.jpeg'
+import profile from '../static/defaultProfile.jpg'
 import './MyPage.css'
 
 function MyPage({ handleTitle, userInfo, auth, isLogin, setUserInfo, setIsLogin }) {
@@ -23,7 +23,7 @@ function MyPage({ handleTitle, userInfo, auth, isLogin, setUserInfo, setIsLogin 
   // 이벤트핸들러 함수
   useEffect(() => {
     // 헤더 타이틀 설정
-    handleTitle("My Page");
+    handleTitle("MyPage");
     auth();
   }, []);
 
@@ -71,7 +71,7 @@ function MyPage({ handleTitle, userInfo, auth, isLogin, setUserInfo, setIsLogin 
 
       setMessage('기존 비밀번호와 똑같이 변경할 수 없습니다')
 
-    } else if (passwordChangeCheck(newPassword)) {
+    } else if(passwordChangeCheck(newPassword)) {
 
       // 에러메세지가 없을때 비밀번호 변경 요청 실행
       axios
@@ -105,7 +105,7 @@ function MyPage({ handleTitle, userInfo, auth, isLogin, setUserInfo, setIsLogin 
           return () => { clearTimeout(timer) }
         })
     } else {
-      setMessage('새로운 비밀번호를 다시 확인해주세요')
+      setMessage('새 비밀번호를 다시 확인해주세요')
     }
   }
 

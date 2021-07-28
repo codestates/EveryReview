@@ -4,9 +4,7 @@ import { useEffect } from 'react';
 
 function KakaoLogin ({ setIsLogin }) {
 
-    // let history = useHistory()
-
-    // Kakao 로그인 구현
+  // Kakao 로그인 구현
   useEffect(async () => {
     const getAccessToken = authorizationCode => {
       axios
@@ -14,16 +12,12 @@ function KakaoLogin ({ setIsLogin }) {
           code: authorizationCode,
         })
         .then(res => {
-        console.log('카카오에 대한 응답이 어떻게 오지?????', res);
-        // let accessToken = res.data.data.accessToken
-        // console.log('토큰을 보여줘', accessToken)
-        // setAccessToken(accessToken)
-        setIsLogin(true)
-        // history.push('/main/home')
+          // console.log('카카오에 대한 응답', res);
+          alert(`반갑습니다`)
+          setIsLogin(true)
         })
         .catch((err)=> {
-          console.log('카카오로그인에러가 나면 에러메세지를 보여줘!!', err)
-          // history.replace('/')
+          // console.log('카카오로그인에러', err)
         })
     }
     const url = new URL(window.location.href)
@@ -31,11 +25,9 @@ function KakaoLogin ({ setIsLogin }) {
     // console.log('인증 코드', authorizationCode);
     if (authorizationCode) {
       getAccessToken(authorizationCode)
-      // history.replace('/')
     }
   },[])
 
-  //console.log('인증 코드?????????', code);
 
     return (
         <></>
