@@ -4,13 +4,15 @@ import { Link, Redirect } from "react-router-dom";
 import Reviews from "../components/Reviews";
 import './Explore.css';
 
-function Explore({ handleTitle, sortByLikes, setSort, getReviewList, reviewList, auth, isLogin }) {
-  const [hashInfo, setHashInfo] = useState([]);
+function Explore({ handleTitle, sortByLikes, setSort, getReviewList, reviewList, auth, isLogin, hashInfo, setHashInfo }) {
   const [hashRank, setRank] = useState([]);
 
   const queryCheck = () => {
     const url = new URL(window.location.href);
-    setHashInfo(url.searchParams.get('hashtag'));
+    const params = url.searchParams.get('hastag');
+    if(params !== null){
+      setHashInfo([params]);
+    }
   }
 
   const getRank = () => {
@@ -32,8 +34,12 @@ function Explore({ handleTitle, sortByLikes, setSort, getReviewList, reviewList,
     handleTitle('#Explore');
     queryCheck();
     getRank();
+    // getReviewList(hashInfo);
+  },[]);
+
+  useEffect(()=>{
     getReviewList(hashInfo);
-  }, []);
+  },[hashInfo])
   
   return (
     <>
@@ -41,22 +47,26 @@ function Explore({ handleTitle, sortByLikes, setSort, getReviewList, reviewList,
         isLogin ?
         <div className="explore">
           {
-            hashInfo === null ?
+            hashInfo.length === 0 ?
             <ul>
               {
-                hashRank.map((el,idx) => {
-                  return <li onClick={queryCheck}>
-                    <Link to ={`/main/explore?hashtag=${el}`}>{idx+1}. {el}</Link>
+                hashRank.map((el, idx) => {
+                  return <li key={el} onClick={()=>setHashInfo([el])}>
+                    <Link to={`/main/explore?hashtag=${el}`}>{idx+1}. {el}</Link>
                   </li>
                 })
               }
             </ul> :
-            <Reviews 
-              sortByLikes={sortByLikes} 
-              setSort={setSort} 
-              getReviewList={getReviewList} 
-              reviewList={reviewList} 
-            />
+            <>
+              <div>{hashInfo}</div>
+              <Reviews 
+                sortByLikes={sortByLikes} 
+                setSort={setSort} 
+                getReviewList={getReviewList} 
+                reviewList={reviewList}
+                setHashInfo={setHashInfo}
+              />
+            </>
           }
             
           

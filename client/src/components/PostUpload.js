@@ -118,6 +118,7 @@ function PostUpload({ onModal, bookInfo, setBookInfo, getReviewList, userInfo })
           maxLength="40" 
           placeholder="text your message"
           onChange={(event) => setMessage(event.target.value)}
+          onKeyUp={(event) => event.key === 'Enter' ? posting() : null}
         />
         <div id="uploadBottom">
           <div>

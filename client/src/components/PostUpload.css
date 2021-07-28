@@ -15,6 +15,10 @@
     overflow: hidden;
 }
 
+#userProfile > img {
+    width: 100%;
+}
+
 #uploadInputWrap {
     flex: 1 1 auto;
     display: flex;

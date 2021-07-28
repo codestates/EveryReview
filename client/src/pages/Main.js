@@ -10,8 +10,10 @@ import axios from "axios";
 function Main({ isLogin, setIsLogin, userInfo, setUserInfo, auth }) {
   const [ pageTitle, setPageTitle ] = useState(''); // Header title 관리
   const [ reviewList, setReviewList ] = useState([]); // 게시글 list 관리
+  const [ hashInfo, setHashInfo ] = useState([]); // 선택된 Hashtag 관리
 
   const getReviewList = (hashInfo) => {
+    console.log(hashInfo);
     axios
     .post(`${process.env.REACT_APP_END_POINT}/postlist`,{
       data: {
@@ -39,6 +41,8 @@ function Main({ isLogin, setIsLogin, userInfo, setUserInfo, auth }) {
               userInfo={userInfo}
               auth={auth}
               isLogin={isLogin}
+              hashInfo={hashInfo}
+              setHashInfo={setHashInfo}
             />
           </Route>
 
@@ -49,6 +53,8 @@ function Main({ isLogin, setIsLogin, userInfo, setUserInfo, auth }) {
               reviewList={reviewList}
               auth={auth}
               isLogin={isLogin}
+              hashInfo={hashInfo}
+              setHashInfo={setHashInfo}
             />
           </Route>
 

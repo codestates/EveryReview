@@ -66,6 +66,7 @@ function App() {
             isLogin={isLogin}
             setIsLogin={setIsLogin}
             auth={isAuthenticated}
+            history={history}
           />
         </Route>
 

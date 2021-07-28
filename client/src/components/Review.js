@@ -2,7 +2,11 @@ import './Review.css';
 import profile from '../static/profile.png'
 import { Link } from 'react-router-dom';
 
-function Review({postinfo}) {
+function Review({ postinfo, setHashInfo }) {
+  const timeConvert = (utc) => {
+    return new Date(utc).toLocaleString({ timeZone: 'UTC' });
+  }
+
   return (
     <div className="review">
       <div className="userImg">
@@ -15,20 +19,20 @@ function Review({postinfo}) {
       <div className="reviewInWrap">
         <div className="reviewTop">
           <div>{postinfo.username}</div>
-          <div>{postinfo.created_at }</div>
+          <div>{ timeConvert(postinfo.created_at) }</div>
         </div>
         <div>
-          <div className = "review-contents">
-            <a href={postinfo.url}>
-              {postinfo.content}
-            </a>
+          <div className = "review-contents" onClick={() => window.open(postinfo.url, '_blank')}>
+            {postinfo.content}
           </div>
         </div>
         <div>
           <div className = "hashtag-wrap">
             {
               postinfo.hashtag_name.map((el) => {
-                return <Link key={el} className = "hashtag" to={`/main/explore?hashtag=${el}`}>{el}</Link>
+                return <div onClick={()=>setHashInfo([el])}>
+                <Link key={el} className="hashtag" to={`/main/explore?hashtag=${el}`}>{el}</Link>
+                </div>
               })  
             }
           </div>
