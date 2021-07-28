@@ -19,7 +19,6 @@ app.use(
 
 // 각종 라우팅 설정하기
 
-// app.post('/signup', controllers.signup);
 app.get('/', (req, res) => {
   res.send("hello world");
 });
