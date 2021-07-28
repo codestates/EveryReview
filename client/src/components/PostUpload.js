@@ -61,7 +61,7 @@ function PostUpload({ onModal, bookInfo, setBookInfo, getReviewList, userInfo })
       })
       .then(() => {
         // 게시글 리스트 갱신 함수
-        getReviewList(null);
+        getReviewList([]);
       })
       .catch(() => {
         alert("ERROR, Please retry");

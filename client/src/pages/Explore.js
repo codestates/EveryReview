@@ -1,16 +1,29 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Reviews from "../components/Reviews";
 import './Explore.css';
 
 function Explore({ handleTitle, sortByLikes, setSort, getReviewList, reviewList, auth, isLogin }) {
-  const [hashInfo, setHashInfo] = useState(null);
-  const [hashRank, setRank] = useState(["해시", "태그", "랭킹"]);
+  const [hashInfo, setHashInfo] = useState([]);
+  const [hashRank, setRank] = useState([]);
 
   const queryCheck = () => {
     const url = new URL(window.location.href);
     setHashInfo(url.searchParams.get('hashtag'));
-    console.log(hashInfo);
+  }
+
+  const getRank = () => {
+    axios
+    .get(`${process.env.REACT_APP_END_POINT}/explore`,{
+      withCredentials:true
+    })
+    .then((res) => {
+      setRank(res.data.data);
+    })
+    .catch((err) => {
+      console.log(err);      
+    })
   }
 
   useEffect(() => {
@@ -18,6 +31,7 @@ function Explore({ handleTitle, sortByLikes, setSort, getReviewList, reviewList,
     auth();
     handleTitle('#Explore');
     queryCheck();
+    getRank();
     getReviewList(hashInfo);
   }, []);
   
