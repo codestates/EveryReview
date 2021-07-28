@@ -16,6 +16,7 @@ function Home({ handleTitle, sortByLikes, setSort, getReviewList, reviewList, au
     // 헤더 타이틀 설정
     handleTitle("Home");
     auth();
+    getReviewList([]);
   }, []);
 
   return (

@@ -24,7 +24,7 @@ const con = mysql.createPool({
 })
 
 con.getConnection((err) => {
-  if(err) throw err;
+  if (err) throw err;
 });
 
 module.exports = con;

@@ -45,7 +45,6 @@ module.exports = {
         })
           .then((result2) => {
             // 카카오에서 전달받은 사용자 정보
-            console.log(result2.data);
             const { nickname, profile_image } = result2.data.properties;
             const { id } = result2.data;
             const { email } = result2.data.kakao_account;
@@ -55,31 +54,33 @@ module.exports = {
                 if (rows.length === 0) {
                   db.promise().query(`INSERT INTO users (email, password, username, profile) VALUES (?, ?, ?, ?)`, [email, id, nickname, profile_image])
                 }
-              });
-            // 등록된 데이터 정보를 가지고 AccessToken, RefreshToken 발급 및 전달
-            db.promise().query(`SELECT * FROM users WHERE email = "${email}"`)
-              .then(([rows, fields]) => {
-                const { id, username, email, profile } = rows[0];
-                const accessToken = generateAccessToken({
-                  id: id,
-                  username: username,
-                  email: email,
-                  profile: profile
-                });
-                // RefreshToken 발급
-                const refreshToken = generateRefreshToken({
-                  id: id,
-                  username: username,
-                  email: email,
-                  profile: profile
-                });
-                // 토큰 전달
-                sendRefreshToken(res, refreshToken);
-                sendAccessToken(res, accessToken);
               })
+              .then((result4) => {
+                db.promise().query(`SELECT * FROM users WHERE email = "${email}"`)
+                  .then(([rows, fields]) => {
+                    const { id, username, email, profile } = rows[0];
+                    const accessToken = generateAccessToken({
+                      id: id,
+                      username: username,
+                      email: email,
+                      profile: profile
+                    });
+                    // RefreshToken 발급
+                    const refreshToken = generateRefreshToken({
+                      id: id,
+                      username: username,
+                      email: email,
+                      profile: profile
+                    });
+                    // 토큰 전달
+                    sendRefreshToken(res, refreshToken);
+                    sendAccessToken(res, accessToken);
+                  })
+              })
+            // 등록된 데이터 정보를 가지고 AccessToken, RefreshToken 발급 및 전달
           })
           .catch((err) => {
-            // console.log(err);
+            console.log(err);
             res.status(500).json({ message: "Sorry" });
           })
       })

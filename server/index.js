@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-const { signup, signin, signout, mypage, auth, oauth, post, postlist, selectbook, like, explore } = require('./controllers');
+const { signup, signin, signout, mypage, auth, oauth, post, postlist, explore } = require('./controllers');
 
 const app = express();
 const port = 80;
@@ -19,7 +19,6 @@ app.use(
 
 // 각종 라우팅 설정하기
 
-// app.post('/signup', controllers.signup);
 app.get('/', (req, res) => {
   res.send("hello world");
 });
@@ -32,7 +31,7 @@ app.get('/auth', auth);
 app.post('/mypage', mypage);
 app.post('/oauth', oauth.post)
 app.post('/post', post);
-app.post('/explore', explore);
+app.get('/explore', explore.get);
 app.post('/postlist', postlist);
 
 
