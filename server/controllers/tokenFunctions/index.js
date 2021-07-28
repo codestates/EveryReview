@@ -27,7 +27,11 @@ module.exports = {
   },
   // AccessToken 만료시 재생성된 토큰 전달, 이 때, 유저 정보를 같이 전송
   resendAccessToken: (res, accessToken, data) => {
-    res.json({ data: { accessToken, userInfo: data }, message: "ok" });
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 1
+    });
+    res.json({ data: data, message: "ok" });
   },
   // AccessToken 검증
   isAuthorized: (req) => {
