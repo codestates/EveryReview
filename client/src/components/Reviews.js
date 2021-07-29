@@ -2,7 +2,7 @@ import Review from "./Review";
 import { useEffect } from "react";
 import './Reviews.css';
 
-function Reviews({ reviewList }) {
+function Reviews({ reviewList, setHashInfo }) {
   return (
     <div id="reviews">
       <div id="reviewWrap">
@@ -13,6 +13,7 @@ function Reviews({ reviewList }) {
             return <Review 
               key = {el.id}
               postinfo = {el}
+              setHashInfo = {setHashInfo}
             />;
           })
         }

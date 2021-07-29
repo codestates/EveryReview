@@ -48,6 +48,7 @@ function BookSearchModal({ onModal, setBookInfo }) {
             type="text" 
             placeholder="제목을 입력해주세요"
             onChange={(event) => handleChangeSearchMsg(event)}
+            onKeyUp={(event)=> event.key === 'Enter' ? searchRequest() : null }
           />
           <button id='btnSearch' onClick={searchRequest}>
             검색

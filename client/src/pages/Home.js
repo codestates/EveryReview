@@ -8,7 +8,7 @@ import { Redirect } from "react-router-dom";
   1) 한번에 몇 개의 게시물을 나타낼지?
   2) 페이지 형식? 무한 스크롤 형식?
 */
-function Home({ handleTitle, sortByLikes, setSort, getReviewList, reviewList, auth, isLogin, userInfo }) {
+function Home({ handleTitle, sortByLikes, setSort, getReviewList, reviewList, auth, isLogin, userInfo, setHashInfo }) {
   const [ onModal, setOnModal ] = useState(false);
   const [ bookInfo, setBookinfo ] = useState(null);
 
@@ -16,6 +16,7 @@ function Home({ handleTitle, sortByLikes, setSort, getReviewList, reviewList, au
     // 헤더 타이틀 설정
     handleTitle("Home");
     auth();
+    setHashInfo([]);
     getReviewList([]);
   }, []);
 
@@ -39,6 +40,7 @@ function Home({ handleTitle, sortByLikes, setSort, getReviewList, reviewList, au
             setSort={setSort} 
             getReviewList={getReviewList} 
             reviewList={reviewList}
+            setHashInfo={setHashInfo}
           />
         </div> :
         <Redirect to="/"/>
