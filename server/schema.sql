@@ -81,8 +81,3 @@ ALTER TABLE posts ADD FOREIGN KEY (book_id) REFERENCES books (id);
 ALTER TABLE post_hashtag ADD FOREIGN KEY (post_id) REFERENCES posts (id);
 
 ALTER TABLE post_hashtag ADD FOREIGN KEY (hashtag_id) REFERENCES hashtags (id);
-
-/* 배포하기 전에 꼭 지울 것 */
-/*  Execute this file from the command line by typing:
- * mysql -u admin --host [RDS 주소] -P [포트번호] < server/schema.sql -p -D[데이터베이스 이름]
- * mysql -u admin --host everyreview-database.cpbc9veoxah1.ap-northeast-2.rds.amazonaws.com -P 13306 < server/schema.sql -p -Dtest */

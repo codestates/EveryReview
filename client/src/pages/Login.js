@@ -67,12 +67,10 @@ function Login({ setIsLogin }) {
 
   //* 카카오 로그인 핸들러
   const socialLoginRequestHandler = () => {
-    
+
     window.location.assign(
       process.env.REACT_APP_KAKAO_REDIRECT
     )
-    // 환경변수로 대체, test가 끝나고 삭제
-    // `https://kauth.kakao.com/oauth/authorize?client_id=750325bb6d6f5b4a028d5064c28496c8&redirect_uri=http://localhost:3000/login&response_type=code`
   }
 
   return (
