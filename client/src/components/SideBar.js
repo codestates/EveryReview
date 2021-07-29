@@ -11,14 +11,17 @@ function SideBar({ setUserInfo, setIsLogin }) {
 
   const handleLogout = () => {
     axios
-    .get(`${process.env.REACT_APP_END_POINT}/signout`,{
-      withCredentials: true
-    })
-    .then((res) => {
-      history.push("/login");
-      setUserInfo({});
-      setIsLogin(false);
-    })
+      .get(`${process.env.REACT_APP_END_POINT}/signout`, {
+        withCredentials: true
+      })
+      .then((res) => {
+        history.push("/login");
+        setUserInfo({});
+        setIsLogin(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
   return (
     <section id="sideBar">
@@ -32,7 +35,7 @@ function SideBar({ setUserInfo, setIsLogin }) {
       <ul id="sideBarMenu">
         <li>
           <Link to='/main/home'>
-            <FiHome className='sidebarIcon'/>HOME
+            <FiHome className='sidebarIcon' />HOME
           </Link>
         </li>
         <li>
@@ -52,7 +55,7 @@ function SideBar({ setUserInfo, setIsLogin }) {
     </section>
   );
 }
-    
-export default SideBar;  
-  
+
+export default SideBar;
+
 // Side bar입니다.
