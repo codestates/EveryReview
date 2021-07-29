@@ -11,7 +11,7 @@
     background: rgb(255, 255, 255);
     /* border: 1px solid rgb(34, 34, 34); */
     border-radius: 10px;
-    box-shadow: 3px 5px 7px rgba(0,0,0,0.5);
+    box-shadow: 3px 5px 7px rgba(0,0,0,0.3);
 }
 
 .inputField {
@@ -19,7 +19,7 @@
 }
 .inputWrap {
     display: flex;
-    border-bottom: 1.5px solid #7f0000;
+    border-bottom: 1.5px solid #0F4C81;
 }
 .memberIcon {
     margin: 13px 5px 0;
@@ -39,7 +39,6 @@
     cursor: pointer;
 }
 
-
 .btnSubmit {
     font-weight: 500;
     font-size: 15px;
@@ -47,7 +46,7 @@
     line-height: 45px;
     margin: 10px 0px;
     color: rgb(255, 255, 255);
-    background-color: #c62828;
+    background-color: #F46F60;
     border-radius: 7px;
 }
 
@@ -57,4 +56,5 @@
 
 .signupMove > span {
     color: #c62828;
+    font-weight: 500;
 }

@@ -14,8 +14,8 @@ function Review({postinfo}) {
       </div>
       <div className="reviewInWrap">
         <div className="reviewTop">
-          <div>{postinfo.username}</div>
-          <div>{postinfo.created_at }</div>
+          <div className='writer'>{postinfo.username}</div>
+          <div className='date'>{postinfo.created_at }</div>
         </div>
         <div>
           <div className = "review-contents">

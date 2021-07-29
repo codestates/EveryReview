@@ -42,31 +42,41 @@ function BookSearchModal({ onModal, setBookInfo }) {
       <div id="modalBack" onClick={()=>onModal(false)}></div>
       <div id="bookSearchModal">
         <div id="modalCloseBtn" onClick={()=>onModal(false)}>X</div>
-        <div id="searchInput">
-          <input 
+        <div id="searchInputWrap">
+          <input
+            id="searchInput"
             type="text" 
             placeholder="제목을 입력해주세요"
             onChange={(event) => handleChangeSearchMsg(event)}
           />
-          <button onClick={searchRequest}>검색</button>
+          <button id='btnSearch' onClick={searchRequest}>
+            검색
+          </button>
         </div>
         <div id="searchResultWrap">
-            <div>검색결과</div>
-            <ul id="searchList">
-            {
-                searchRes.map((res) => {
-                  return <li key={res.isbn} onClick={() => handleResultClick(res)}>
-                      <img src={res.thumbnail} alt="book thumbnail" className="searchThumbnail"/>
-                      {/* 검색결과에 img가 없는 경우가 있음, 대체 이미지 필요 */}
-                      <div>
-                          <div>제목 : {res.title}</div>
-                          <div>저자 : {res.authors.join(',')}</div>
-                          <div>출판사 : {res.publisher}</div>
-                      </div>
-                  </li>
-                })
-            }
+          {/* 검색결과에 따라 보여지는 것 달리함 */}
+          {
+            searchRes.length === 0
+            ? <div className='resultBookSearch'>검색결과가 없습니다</div>
+            :<ul id="searchList">
+              {
+                  searchRes.map((res) => {
+                    return <li key={res.isbn} onClick={() => handleResultClick(res)}>
+                        <img 
+                          src={res.thumbnail} 
+                          alt="book thumbnail" className="searchThumbnail"
+                        />
+                        {/* 검색결과에 img가 없는 경우가 있음, 대체 이미지 필요 */}
+                        <div className='bookInfo'>
+                            <div>제목 : {res.title}</div>
+                            <div>저자 : {res.authors.join(',')}</div>
+                            <div>출판사 : {res.publisher}</div>
+                        </div>
+                    </li>
+                  })
+              }
             </ul>
+          }
         </div>
       </div>
       </div>
