@@ -10,7 +10,9 @@ module.exports = {
   sendRefreshToken: (res, refreshToken) => {
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 30
+      maxAge: 1000 * 60 * 60 * 24 * 30,
+      secure: true,
+      samesite: "none"
     });
   },
   // AccessToken 생성
@@ -21,7 +23,9 @@ module.exports = {
   sendAccessToken: (res, accessToken) => {
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 1
+      maxAge: 1000 * 60 * 60 * 24 * 1,
+      secure: true,
+      samesite: "none"
     });
     res.status(200).json({ message: "AccessToken published" });
   },
@@ -29,7 +33,9 @@ module.exports = {
   resendAccessToken: (res, accessToken, data) => {
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 1
+      maxAge: 1000 * 60 * 60 * 24 * 1,
+      secure: true,
+      samesite: "none"
     });
     res.json({ data: data, message: "ok" });
   },
