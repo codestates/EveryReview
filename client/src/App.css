@@ -4,7 +4,6 @@
   margin: 0; 
   padding: 0; 
   word-break: keep-all;
-  font-family: 'Noto Sans KR', sans-serif;
 }
 
 /* 리스트 블릿기호 초기화 */
@@ -36,6 +35,7 @@ a {
   display: flex;
   flex-direction: column;
   flex: 3;
+  padding-top: 5px;
   /* background-color: red; */
 }
 
@@ -46,4 +46,8 @@ a {
   width: 70%;
   height: 600px;
   flex: 1 0 auto;
+}
+
+#loading {
+  margin-top: 20%;
 }

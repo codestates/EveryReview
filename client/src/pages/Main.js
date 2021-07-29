@@ -11,9 +11,10 @@ function Main({ isLogin, setIsLogin, userInfo, setUserInfo, auth }) {
   const [ pageTitle, setPageTitle ] = useState(''); // Header title 관리
   const [ reviewList, setReviewList ] = useState([]); // 게시글 list 관리
   const [ hashInfo, setHashInfo ] = useState([]); // 선택된 Hashtag 관리
+  const [ isLoading, setIsLoading ] = useState(true);
 
   const getReviewList = (hashInfo) => {
-    console.log(hashInfo);
+    setIsLoading(true);
     axios
     .post(`${process.env.REACT_APP_END_POINT}/postlist`,{
       data: {
@@ -24,6 +25,7 @@ function Main({ isLogin, setIsLogin, userInfo, setUserInfo, auth }) {
     })
     .then((res) => {
       setReviewList(res.data.data);
+      setIsLoading(false);
     })
   }
 
@@ -43,6 +45,8 @@ function Main({ isLogin, setIsLogin, userInfo, setUserInfo, auth }) {
               isLogin={isLogin}
               hashInfo={hashInfo}
               setHashInfo={setHashInfo}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
             />
           </Route>
 
@@ -55,6 +59,8 @@ function Main({ isLogin, setIsLogin, userInfo, setUserInfo, auth }) {
               isLogin={isLogin}
               hashInfo={hashInfo}
               setHashInfo={setHashInfo}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
             />
           </Route>
 
