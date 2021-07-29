@@ -6,7 +6,7 @@ import mypage from '../static/mypage.png'
 function MainHeader({pageTitle}) {
   return (
     <>
-      <div className="deco"></div>
+      {/* <div className="deco"></div> */}
       <header id="mainHeader">
         <div className='pageTitle'>{pageTitle}</div>
         {
@@ -30,7 +30,7 @@ function MainHeader({pageTitle}) {
           />
         </div>
       </header>
-      <div className="deco"></div>
+      {/* <div className="deco"></div> */}
     </>
   )
 }

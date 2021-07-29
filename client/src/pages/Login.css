@@ -47,7 +47,13 @@
     margin: 10px 0px;
     color: rgb(255, 255, 255);
     background-color: #F46F60;
+    border: 2px solid #F46F60;
     border-radius: 7px;
+}
+
+.btnSubmit:hover {
+    background-color: white;
+    color: #F46F60;;
 }
 
 .signupMove {

@@ -5,7 +5,7 @@
     width: 100%;
     flex: 0 0 70px;
     padding: 0px 80px 0 30px;
-    /* box-shadow: 1px 3px 5px rgba(0,0,0,0.3); */
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.3);
     /* border-bottom: 2px solid #0F4C81; */
 }
 
@@ -18,8 +18,7 @@
     margin: auto 0;
     line-height: 70px;
     padding: 5px 20px;
-    border-left: 1px solid #F46F60;
-    border-right: 1px solid #F46F60;
+    /* border-left: 1px solid #F46F60; */
 }
 .headerImgWrap {
     display: flex;  

@@ -7,7 +7,7 @@ import loading from '../static/loading.gif';
 function BookSearchModal({ onModal, setBookInfo }) {
   const [ searchMsg, setSearchMsg ] = useState('');
   const [ searchRes, setSearchRes ] = useState([]);
-  const [ isLoading, setIsLoading ] = useState(true);
+  const [ isLoading, setIsLoading ] = useState(false);
 
   const handleChangeSearchMsg = (event) => {
     setSearchMsg(event.target.value);
@@ -64,7 +64,7 @@ function BookSearchModal({ onModal, setBookInfo }) {
             isLoading ?
             <img src={loading} alt="loading..."/> :
             searchRes.length === 0
-            ? <div className='resultBookSearch'>검색결과가 없습니다</div>
+            ? <div className='resultBookSearch'>나타낼 결과가 없습니다!</div>
             :<ul id="searchList">
               {
                   searchRes.map((res) => {
