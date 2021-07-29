@@ -12,31 +12,6 @@
     display: flex;
     flex-direction: column;
 }
-/* 
-#upperImg {
-    width: 100%;
-    height: 500px;
-    background: url('./static/main_bg.png') no-repeat center center;
-    text-align: center;
-    margin: 20px 0 0 0;
-    position: relative;
-}
-#mainBI {
-    font-family: 'Eulyoo1945-Regular';
-    font-size: 24px;
-    font-weight: 500;
-    letter-spacing: 12px;
-    margin: 180px 0 0 12px;
-}
-.mainCopy {
-    font-family: 'Cafe24Oneprettynight';
-    font-size: 24px;
-    font-weight: 500;
-    letter-spacing: 14px;
-    margin: 105px 0 0 20px;
-} */
-
-
 .landingContainer {
     text-align: center;
     display: flex;
@@ -44,7 +19,6 @@
     margin: 100px auto 0;
     padding: 50px 30px;
     width: 100%;
-    /* background: rgb(255, 255, 255); */
     position: relative;
 }
 
@@ -55,11 +29,11 @@
     line-height: 40px;
     margin: 10px 5px;
     color: rgb(255, 255, 255);
-    background-color: #c62828;
+    background-color: #F46F60;
     border-radius: 7px;
 }
 
 .mainBottomImg {
     width: 100%;
-    margin-bottom: 0px;
+    margin-top: 80px;
 }

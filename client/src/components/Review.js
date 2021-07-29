@@ -18,8 +18,8 @@ function Review({ postinfo, setHashInfo }) {
       </div>
       <div className="reviewInWrap">
         <div className="reviewTop">
-          <div>{postinfo.username}</div>
-          <div>{ timeConvert(postinfo.created_at) }</div>
+          <div className='writer'>{postinfo.username}</div>
+          <div className='date'>{ timeConvert(postinfo.created_at) }</div>
         </div>
         <div>
           <div className = "review-contents" onClick={() => window.open(postinfo.url, '_blank')}>

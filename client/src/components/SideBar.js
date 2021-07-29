@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
-import Logo from './Logo';
+import BI from '../static/BI.png'
 import './SideBar.css';
 import { FaRegCompass } from 'react-icons/fa'
 import { FiHome } from 'react-icons/fi'
@@ -22,8 +22,12 @@ function SideBar({ setUserInfo, setIsLogin }) {
   }
   return (
     <section id="sideBar">
-      <div id="sideBarLogoWrap">
-        <Logo id="sideBarLogo"/>
+      <div>
+        <img
+          className='sidebarLogo'
+          alt='EveryReview BI'
+          src={BI}
+        />
       </div>
       <ul id="sideBarMenu">
         <li>
@@ -36,13 +40,10 @@ function SideBar({ setUserInfo, setIsLogin }) {
         </li>
         <li>
           <CgUserlane className='sidebarIcon' />
-          <Link to='/main/mypage'>My Page</Link>
+          <Link to='/main/mypage' className='sidebarLink'>My Page</Link>
         </li>
       </ul>
-      <div id="logoutBtnWrap">
-        <button id='btnLogout' onClick={handleLogout} >로그아웃</button>
-
-      </div>
+      <button id='btnLogout' onClick={handleLogout} >로그아웃</button>
     </section>
   );
 }

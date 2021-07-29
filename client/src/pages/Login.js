@@ -15,43 +15,16 @@ function Login({ setIsLogin }) {
   const history = useHistory();
 
   // 상태관리
+  //* 로그인 시 사용자가 입력하는 정보
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
   })
+  //* 입력하는 정보에 따른 에러메세지
   const [errMessage, setErrMessage] = useState('');
 
-  // Kakao 로그인 구현
-  // useEffect(async () => {
-  //   const getAccessToken = async authorizationCode => {
-  //   let tokenData = await axios
-  //       .post('http://ec2-3-35-205-114.ap-northeast-2.compute.amazonaws.com/oauth', {
-  //       authorizationCode,
-  //       })
-  //       .then(res => {
-  //       // console.log(res.data);
-  //       let accessToken = res.data.accessToken
-  //       // let refreshToken =  // 아마도 refreshToken도 body에 담겨서 올 예정이므로 수정 필요
-  //       setAccessToken(accessToken)
-  //       setIsLogin(true)
-  //       history.push('/main/home')
-  //       })
-  //       .catch((err)=> {
-  //         console.log('카카오로그인에러', err)
-  //       })
-  //   }
-  //   const url = new URL(window.location.href)
-  //   const authorizationCode = url.searchParams.get('code')
-  //   // setCode(authorizationCode)
-  //   console.log('인증 코드', authorizationCode);
-  //   if (authorizationCode) {
-  //   await getAccessToken(authorizationCode)
-  // },[])
-
-
-
   // 이벤트핸들러 함수
-  //* input 입력
+  //* 입력하는 정보 핸들러
   const loginInfoHandler = (event) => {
     setLoginInfo({ ...loginInfo, [event.target.name]: event.target.value })
   }
@@ -77,7 +50,6 @@ function Login({ setIsLogin }) {
         history.push('/main/home')
       })
       .catch((err) => {
-        // err의 status에 따라서 setErrMessage를 보여줘야하는 것 구현완료
         console.log(err)
         if (err.request.status === 401) {
           // 에러코드가 401로 생기면 이메일과 비밀번호 를 다시 확인하라는 메세지가 뜨고
@@ -87,8 +59,7 @@ function Login({ setIsLogin }) {
           let timer = setTimeout(() => {
             setErrMessage('')
           }, 3000)
-
-          // 버그 방지용 
+          // setTimeout 함수가 끝나기 전에 페이지를 이동할 때 발생할 수 있는 버그 방지용 
           return () => { clearTimeout(timer) }
         }
       })
@@ -96,10 +67,12 @@ function Login({ setIsLogin }) {
 
   //* 카카오 로그인 핸들러
   const socialLoginRequestHandler = () => {
-    // process.env.REACT_APP_KAKAO_REDIRECT
+    
     window.location.assign(
-      `https://kauth.kakao.com/oauth/authorize?client_id=750325bb6d6f5b4a028d5064c28496c8&redirect_uri=http://localhost:3000/login&response_type=code`
+      process.env.REACT_APP_KAKAO_REDIRECT
     )
+    // 환경변수로 대체, test가 끝나고 삭제
+    // `https://kauth.kakao.com/oauth/authorize?client_id=750325bb6d6f5b4a028d5064c28496c8&redirect_uri=http://localhost:3000/login&response_type=code`
   }
 
   return (
@@ -139,7 +112,7 @@ function Login({ setIsLogin }) {
         </form>
       </div>
       <div>
-        {/* 401에러가 발생했을 때 유저에게 보여지는 메세지 */}
+        {/* 401에러가 발생했을 때 유저에게 보여지는 메세지 위치 */}
         {
           errMessage &&
           <p className='errMessage'>{errMessage}</p>
@@ -154,8 +127,7 @@ function Login({ setIsLogin }) {
         </button>
       </div>
 
-      {/* 카카오 로그인하기 구현 중 */}
-      <div className='btnSocial'>
+      <div>
         <img
           className='btnSocial'
           src={kakao}

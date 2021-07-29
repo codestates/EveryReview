@@ -1,12 +1,25 @@
 #mainHeader {
     display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
     /* background-color: blueviolet; */
-    border: 1px solid black;
+    border-bottom: 1px solid black;
     width: 100%;
     flex: 0 0 70px;
-    padding: 10px;
+    padding: 10px 80px 0 30px;
 }
 
 #mainHeader > div {
     font-size: 2em;
+}
+.pageTitle {
+    margin: auto 0;
+}
+.headerImgWrap {
+    display: flex;  
+    margin-bottom: -3px;
+}
+
+.headerImg {
+    width: 70px;
 }
