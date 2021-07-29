@@ -12,7 +12,7 @@ module.exports = {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 30,
       secure: true,
-      samesite: "none"
+      sameSite: "none"
     });
   },
   // AccessToken 생성
@@ -25,7 +25,7 @@ module.exports = {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 1,
       secure: true,
-      samesite: "none"
+      sameSite: "none"
     });
     res.status(200).json({ message: "AccessToken published" });
   },
@@ -35,7 +35,7 @@ module.exports = {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 1,
       secure: true,
-      samesite: "none"
+      sameSite: "none"
     });
     res.json({ data: data, message: "ok" });
   },

@@ -12,8 +12,9 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: true,
-    credentials: true
+    origin: ["https://everyreview.net"],
+    credentials: true,
+    methods: ["GET", "POST", "OPTIONS"]
   })
 );
 
