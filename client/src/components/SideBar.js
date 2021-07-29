@@ -31,16 +31,21 @@ function SideBar({ setUserInfo, setIsLogin }) {
       </div>
       <ul id="sideBarMenu">
         <li>
-          <FiHome className='sidebarIcon'/>
-          <Link to='/main/home'>HOME</Link>
+          <Link to='/main/home'>
+            <FiHome className='sidebarIcon'/>HOME
+          </Link>
         </li>
         <li>
-          <FaRegCompass className='sidebarIcon' />
-          <Link to='/main/explore'>#Explore</Link>
+          <Link to='/main/explore'>
+            <FaRegCompass className='sidebarIcon' />
+            #Explore
+          </Link>
         </li>
         <li>
-          <CgUserlane className='sidebarIcon' />
-          <Link to='/main/mypage' className='sidebarLink'>My Page</Link>
+          <Link to='/main/mypage' className='sidebarLink'>
+            <CgUserlane className='sidebarIcon' />
+            My Page
+          </Link>
         </li>
       </ul>
       <button id='btnLogout' onClick={handleLogout} >로그아웃</button>

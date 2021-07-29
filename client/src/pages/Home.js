@@ -4,11 +4,9 @@ import BookSearchModal from "../components/BookSearchModal";
 import Reviews from "../components/Reviews";
 import './Home.css'
 import { Redirect } from "react-router-dom";
-/*
-  1) 한번에 몇 개의 게시물을 나타낼지?
-  2) 페이지 형식? 무한 스크롤 형식?
-*/
-function Home({ handleTitle, sortByLikes, setSort, getReviewList, reviewList, auth, isLogin, userInfo, setHashInfo }) {
+import loading from '../static/loading.gif';
+
+function Home({ handleTitle, sortByLikes, setSort, getReviewList, reviewList, auth, isLogin, userInfo, setHashInfo, isLoading }) {
   const [ onModal, setOnModal ] = useState(false);
   const [ bookInfo, setBookinfo ] = useState(null);
 
@@ -35,13 +33,17 @@ function Home({ handleTitle, sortByLikes, setSort, getReviewList, reviewList, au
           {
             onModal ? <BookSearchModal onModal={setOnModal} setBookInfo={setBookinfo}/> : null
           }
-          <Reviews
-            sortByLikes={sortByLikes} 
-            setSort={setSort} 
-            getReviewList={getReviewList} 
-            reviewList={reviewList}
-            setHashInfo={setHashInfo}
-          />
+          {
+            isLoading ? 
+            <img id="loading" src={loading} alt="loading..." /> :
+            <Reviews
+              sortByLikes={sortByLikes} 
+              setSort={setSort} 
+              getReviewList={getReviewList} 
+              reviewList={reviewList}
+              setHashInfo={setHashInfo}
+            />
+          }
         </div> :
         <Redirect to="/"/>
       }

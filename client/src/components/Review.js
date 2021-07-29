@@ -31,7 +31,7 @@ function Review({ postinfo, setHashInfo }) {
             {
               postinfo.hashtag_name.map((el) => {
                 return <div onClick={()=>setHashInfo([el])}>
-                <Link key={el} className="hashtag" to={`/main/explore?hashtag=${el}`}>{el}</Link>
+                <Link key={el} className="hashtag" to={`/main/explore?hashtag=${el}`}>#{el}</Link>
                 </div>
               })  
             }

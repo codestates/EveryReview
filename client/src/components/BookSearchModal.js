@@ -1,15 +1,19 @@
 import { useState } from 'react';
 import axios from 'axios';
 import './BookSearchModal.css';
+import thumbnail from '../static/book.png';
+import loading from '../static/loading.gif';
 
 function BookSearchModal({ onModal, setBookInfo }) {
   const [ searchMsg, setSearchMsg ] = useState('');
   const [ searchRes, setSearchRes ] = useState([]);
+  const [ isLoading, setIsLoading ] = useState(false);
 
   const handleChangeSearchMsg = (event) => {
     setSearchMsg(event.target.value);
   }
   const searchRequest = () => {
+    setIsLoading(true);
     if(searchMsg !== ''){
       axios
       .get('https://dapi.kakao.com/v3/search/book', {
@@ -25,6 +29,7 @@ function BookSearchModal({ onModal, setBookInfo }) {
       })
       .then((res)=>{
         setSearchRes(res.data.documents);
+        setIsLoading(false);
       })
       .catch((err)=>{
         console.log(err);
@@ -55,18 +60,23 @@ function BookSearchModal({ onModal, setBookInfo }) {
           </button>
         </div>
         <div id="searchResultWrap">
-          {/* 검색결과에 따라 보여지는 것 달리함 */}
           {
+            isLoading ?
+            <img src={loading} alt="loading..."/> :
             searchRes.length === 0
-            ? <div className='resultBookSearch'>검색결과가 없습니다</div>
+            ? <div className='resultBookSearch'>나타낼 결과가 없습니다!</div>
             :<ul id="searchList">
               {
                   searchRes.map((res) => {
                     return <li key={res.isbn} onClick={() => handleResultClick(res)}>
+                      {
+                        res.thumbnail === "" ?
+                        <img src={thumbnail} alt="alt thumbnail" className="searchThumbnail"/> :
                         <img 
                           src={res.thumbnail} 
-                          alt="book thumbnail" className="searchThumbnail"
+                          alt={res.thumbnail}  className="searchThumbnail"
                         />
+                      }
                         {/* 검색결과에 img가 없는 경우가 있음, 대체 이미지 필요 */}
                         <div className='bookInfo'>
                             <div>제목 : {res.title}</div>

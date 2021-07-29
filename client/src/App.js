@@ -34,7 +34,7 @@ function App() {
   }
 
   useEffect(() => {
-    if (isLogin) history.push("/main/mypage");
+    if (isLogin) history.push("/main/home");
     else history.push("/");
   }, [isLogin])
 

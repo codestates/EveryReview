@@ -102,21 +102,22 @@ function PostUpload({ onModal, bookInfo, setBookInfo, getReviewList, userInfo })
         <div id="hashtagInput">
          <ul>
             {
-              hashtag.map(( el, index ) => <li key={index} onClick={() => deleteHashtag(index)}>{el}</li>)
+              hashtag.map(( el, index ) => <li key={index} onClick={() => deleteHashtag(index)}>#{el}</li>)
             }
           </ul>
           <input 
             type="text" 
             ref={messagInputRef}
-            placeholder="text your hashtag" 
+            placeholder="해시태그 입력" 
             onKeyUp={(event) => event.key === 'Enter' ? addHashtag(event) : null}
           />
         </div>
         <input 
+          id="messageInput"
           type="text" 
           ref={hashtagInputRef}
           maxLength="40" 
-          placeholder="text your message"
+          placeholder="메시지를 입력해주세요."
           onChange={(event) => setMessage(event.target.value)}
           onKeyUp={(event) => event.key === 'Enter' ? posting() : null}
         />
