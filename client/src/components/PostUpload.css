@@ -1,0 +1,120 @@
+#postUpload {
+    display: flex;
+    height: 150px;
+    width: 100%;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 3px 5px 7px rgba(0,0,0,0.3);
+    background-color: #F46F60;
+}
+
+#userProfile {
+    flex: 0 0 100px;
+    height: 100px;
+    background-color: beige;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 3px 5px 7px rgba(0,0,0,0.3);
+    margin-right: 20px;
+}
+
+#userProfile > img {
+    width: 100%;
+}
+
+#uploadInputWrap {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#hashtagInput {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 1px 3px 5px rgba(0,0,0,0.3);
+}
+
+#hashtagInput:focus {
+    border: 2px solid #0F4C81;
+
+}
+
+#hashtagInput > ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#hashtagInput > ul > li {
+    background-color: white;
+    box-shadow: 1px 3px 5px rgba(0,0,0,0.3);
+    padding: 2.5px;
+    margin: 2.5px;
+    border-radius: 10px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+#hashtagInput > input {
+    border: none;
+    flex: 1;
+    padding: 10px 10px 5px;
+    border-radius: 10px;
+}
+
+#hashtagInput > input:focus {
+    outline: none;
+}
+  
+#uploadBottom {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    font-weight: 700;
+    line-height: 40px;
+}
+
+#uploadBtnWrap {
+    display: flex;
+}
+
+#uploadBtnWrap > button {
+    width: 80px;
+    margin-left: 5px;
+    border: 2px solid #0F4C81;
+    background-color: #0F4C81;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 700;
+}
+
+#uploadBtnWrap > button:hover {
+    background-color: white;
+    border: 2px solid #0F4C81;
+    color: #0F4C81;
+}
+
+#uploadBtnWrap > div {
+    color: white;
+    font-weight: 700;
+}
+
+#messageInput {
+    border: none;
+    flex: 1;
+    padding: 10px 10px 5px;
+    margin: 10px 0;
+    border-radius: 10px;
+    box-shadow: 1px 3px 5px rgba(0,0,0,0.3);
+}
+
+#messageInput:focus {
+    outline: none;
+    border: 2px solid #0F4C81;
+}

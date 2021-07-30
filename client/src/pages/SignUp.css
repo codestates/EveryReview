@@ -1,0 +1,45 @@
+.signupContainer {
+    font-size: 14px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 50px 30px;
+    width: 360px;
+    height: 600px;
+    color: rgb(34, 34, 34);
+    background: rgb(255, 255, 255);
+    /* border: 1px solid rgb(34, 34, 34); */
+    border-radius: 10px;
+    box-shadow: 3px 5px 7px rgba(0,0,0,0.3);
+}
+
+.inputSignup {
+    display: block;
+    width: 100%;
+    padding: 10px 10px 5px;
+    border: none;
+}
+.inputSignup:focus {
+    outline: none;
+}
+
+.btnSubmit {
+    width: 100%;
+}
+
+.errMessage {
+    font-size: 12px;
+    text-align: left;
+    color: #c62828;
+    margin: 5px;
+}
+
+.loginMove {
+    margin: 30px 0 0 0;
+}
+
+.loginMove > span {
+    color: #c62828;
+    font-weight: 500;
+}

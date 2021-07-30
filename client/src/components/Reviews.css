@@ -1,0 +1,12 @@
+#reviews{
+    /* background-color: aqua; */
+    width: 100%;
+    padding: 10px 50px;
+    overflow-y: scroll;
+    /* border: 1px solid black; */
+}
+  
+#reviewWrap{
+    display: flex;
+    flex-direction: column;
+}

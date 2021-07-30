@@ -1,0 +1,77 @@
+#sideBar {
+    width: 25%;
+    min-width: 200px;
+    padding: 40px 20px 0;
+    margin: 0 auto;
+    box-shadow: 1px 3px 5px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#sideBarMenu {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 50px;
+}
+
+#sideBarMenu > li {
+    display: flex;
+    width: 100%;
+    margin: 10px auto;
+    font-family: 'Eulyoo1945-Regular';
+}
+
+#sideBarMenu > li > a {
+    width: 100%;
+    padding: 20px 20px 10px;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+#sideBarMenu > li a:hover{
+    background-color: #F46F60;
+    color: white;
+}
+
+#sideBarMenu > li > a {
+    margin: 0 auto;
+}
+
+.sidebarIcon {
+    font-size: 24px;
+    margin: 0 10px 0 0;
+}
+
+#logoutBtnWrap {
+    margin: 0 auto;
+}
+
+#btnLogout {
+    font-weight: 500;
+    font-size: 15px;
+    width: 150px;
+    line-height: 45px;
+    display: block;
+    color: rgb(255, 255, 255);
+    background-color: #F46F60;
+    border: 2px solid #F46F60;
+    border-radius: 7px;
+}
+
+#btnLogout:hover {
+    border: 2px solid #F46F60;
+    background-color: rgb(255, 255, 255);
+    color: #F46F60;
+}
+
+.sidebarLogo {
+    width: 100%;
+    margin-bottom: 50px;
+}
